@@ -4,7 +4,7 @@ on:
     push:
         branches:
             - prod
-
+            - dev
 jobs:
     lint-commit-msg:
         runs-on: ubuntu-latest
