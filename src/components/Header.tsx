@@ -34,17 +34,17 @@ const Header = () => {
                             </Link>
                         </li>
                         <li className={`nav-item ${location.pathname === "/product" ? "active" : ""}`}>
-                            <Link to="/product" className="nav-link">
+                            <Link to="/" className="nav-link">
                                 Tủ điện
                             </Link>
                         </li>
                         <li className={`nav-item ${location.pathname === "/contact" ? "active" : ""}`}>
-                            <Link to="/contact" className="nav-link">
+                            <Link to="/" className="nav-link">
                                 Liên hệ
                             </Link>
                         </li>
                         <li className={`nav-item ${location.pathname === "/about" ? "active" : ""}`}>
-                            <Link to="/about" className="nav-link">
+                            <Link to="/" className="nav-link">
                                 Giới thiệu
                             </Link>
                         </li>
