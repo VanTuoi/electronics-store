@@ -11,59 +11,28 @@ export const Services = () => (
                 <div className="col-md-6">
                     <div className="services services-2 w-100 text-center">
                         <div className="icon d-flex align-items-center justify-content-center">
-                            <span className="flaticon-wedding-car"></span>
+                            <i className="fa fa-archive fa-3x text-light" aria-hidden="true"></i>
                         </div>
                         <div className="text w-100">
-                            <h3 className="heading mb-2">Wedding Ceremony</h3>
-                            <p>
-                                A small river named Duden flows by their place and supplies it with the necessary
-                                regelialia.
-                            </p>
+                            <h3 className="heading mb-2">Kinh doanh sản phẩm tủ điện</h3>
+                            <p>Các sản phẩm tủ điện của chúng tôi đa dạng về chủng loại, chất lượng và giá cả.</p>
                         </div>
                     </div>
                 </div>
                 <div className="col-md-6">
                     <div className="services services-2 w-100 text-center">
                         <div className="icon d-flex align-items-center justify-content-center">
-                            <span className="flaticon-transportation"></span>
+                            <i className="fa fa-cogs fa-3x text-light" aria-hidden="true"></i>
                         </div>
                         <div className="text w-100">
-                            <h3 className="heading mb-2">City Transfer</h3>
+                            <h3 className="heading mb-2">Hỗ trợ thiết kế tủ điện</h3>
                             <p>
-                                A small river named Duden flows by their place and supplies it with the necessary
-                                regelialia.
+                                Chúng tôi hỗ trợ thiết kế tủ điện theo yêu cầu của khách hàng, đảm bảo đáp ứng đầy đủ
+                                các yêu cầu kỹ thuật và an toàn.
                             </p>
                         </div>
                     </div>
                 </div>
-                {/* <div className="col-md-3">
-            <div className="services services-2 w-100 text-center">
-              <div className="icon d-flex align-items-center justify-content-center">
-                <span className="flaticon-car"></span>
-              </div>
-              <div className="text w-100">
-                <h3 className="heading mb-2">Airport Transfer</h3>
-                <p>
-                  A small river named Duden flows by their place and supplies it
-                  with the necessary regelialia.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3">
-            <div className="services services-2 w-100 text-center">
-              <div className="icon d-flex align-items-center justify-content-center">
-                <span className="flaticon-transportation"></span>
-              </div>
-              <div className="text w-100">
-                <h3 className="heading mb-2">Whole City Tour</h3>
-                <p>
-                  A small river named Duden flows by their place and supplies it
-                  with the necessary regelialia.
-                </p>
-              </div>
-            </div>
-          </div> */}
             </div>
         </div>
     </section>
