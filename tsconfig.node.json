@@ -2,7 +2,7 @@
     "compilerOptions": {
         "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
         "target": "ES2022",
-        "lib": ["ES2023","DOM"],
+        "lib": ["ES2023", "DOM"],
         "module": "ESNext",
         "skipLibCheck": true,
         "types": ["vitest/globals", "node"],
@@ -26,5 +26,5 @@
         "noFallthroughCasesInSwitch": true,
         "noUncheckedSideEffectImports": true
     },
-     "include": ["src", "tests", "**/*.d.ts"]
+    "include": ["src", "tests", "**/*.d.ts"]
 }
