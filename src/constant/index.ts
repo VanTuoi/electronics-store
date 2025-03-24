@@ -1,0 +1,1 @@
+export const MINIMUM_WAITING_TIME = 500;

@@ -37,7 +37,7 @@ const Layout = () => {
     return (
         <>
             <Header />
-            <main>
+            <main className="main-layout">
                 <Outlet />
             </main>
             <Toaster />

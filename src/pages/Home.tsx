@@ -1,4 +1,4 @@
-import { About, Introduce, Schedule, Services, TopProducts } from "../components/pages";
+import { About, Introduce, Schedule, Services, TopProducts } from "~/components/pages";
 
 const Home = () => (
     <>
