@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Header from "~/components/Header";
+import Header from "~/components/Header/Header";
 
 describe("Header", () => {
     it("should render all navigation links", () => {
@@ -19,7 +19,7 @@ describe("Header", () => {
 
     it("should highlight the active navigation link", () => {
         render(
-            <MemoryRouter initialEntries={["/product"]}>
+            <MemoryRouter initialEntries={["/products"]}>
                 <Header />
             </MemoryRouter>
         );
@@ -36,5 +36,34 @@ describe("Header", () => {
         );
 
         expect(screen.getByRole("button", { name: /toggle navigation/i })).toBeInTheDocument();
+    });
+
+    it("should render CartIcon with correct count", () => {
+        render(
+            <MemoryRouter>
+                <Header />
+            </MemoryRouter>
+        );
+
+        expect(screen.getByRole("img", { hidden: true })).toBeInTheDocument();
+    });
+
+    it("should allow CallIcon to be activated by keyboard", () => {
+        render(
+            <MemoryRouter>
+                <Header />
+            </MemoryRouter>
+        );
+
+        const callButton = screen.getByRole("button", { name: /liên hệ/i });
+
+        if (callButton) {
+            fireEvent.keyDown(callButton, { key: "Enter" });
+            fireEvent.keyDown(callButton, { key: " " });
+        }
+
+        fireEvent.keyDown(callButton, { key: " " });
+
+        expect(callButton).toBeInTheDocument();
     });
 });

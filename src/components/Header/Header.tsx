@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import CallIcon from "./Call";
+import CartIcon from "./Cart";
 
 const Header = () => {
     const location = useLocation();
@@ -10,7 +12,7 @@ const Header = () => {
     }, [location.pathname]);
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light gap-2">
             <div className="container">
                 <Link className="navbar-brand" to="/">
                     Electronics<span> Store</span>
@@ -33,8 +35,8 @@ const Header = () => {
                                 Trang chủ
                             </Link>
                         </li>
-                        <li className={`nav-item ${location.pathname === "/product" ? "active" : ""}`}>
-                            <Link to="/" className="nav-link">
+                        <li className={`nav-item ${location.pathname === "/products" ? "active" : ""}`}>
+                            <Link to="/products" className="nav-link">
                                 Tủ điện
                             </Link>
                         </li>
@@ -49,6 +51,10 @@ const Header = () => {
                             </Link>
                         </li>
                     </ul>
+                    <CartIcon count={2} />
+                    <div className="profile ml-1">
+                        <CallIcon />
+                    </div>
                 </div>
             </div>
         </nav>

@@ -1,1 +1,2 @@
 export const MINIMUM_WAITING_TIME = 500;
+export const PHONE_NUMBER = "0369369369";
