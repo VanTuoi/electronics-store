@@ -1,36 +1,34 @@
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Product } from "~/types";
 
-export const useSearch = () => {
-    const [loading, setLoading] = useState<boolean>(false);
-    const [products, setProducts] = useState<Product[]>([]);
+const fakeProducts: Product[] = Array.from({ length: 0 }, (_, index) => ({
+    id: `TD-${index + 1}`,
+    nameProduct: `Tủ điện số ${index + 1}`,
+    price: (index + 1) * 1000000,
+    category: index % 2 === 0 ? "Tủ điều khiển" : "Tủ phân phối",
+    imageUrl: `./imgs/product.png`
+}));
 
-    const searchHandler = async (searchTerm: string) => {
-        try {
-            if (!searchTerm) return;
+const fetchSearchResults = async (searchTerm: string): Promise<Product[]> =>
+    new Promise(resolve => {
+        setTimeout(() => {
+            console.log("searchTerm", searchTerm);
+            resolve(fakeProducts);
+        }, 2000);
+    });
 
-            setLoading(true);
-            setTimeout(() => {
-                setProducts([
-                    {
-                        id: "1",
-                        nameProduct: "Tủ A",
-                        price: 2000
-                    }
-                ]);
-                setLoading(false);
-            }, 5000);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+export const useSearch = (searchTerm: string) => {
+    const enabled = searchTerm.trim() !== "";
 
-    // const handleSearch = useCallback(debounce(searchHandler, 500), []);
-    const handleSearch = searchHandler;
+    const { data, isLoading } = useQuery({
+        queryKey: ["search", searchTerm],
+        queryFn: () => fetchSearchResults(searchTerm),
+        enabled,
+        staleTime: 1000 * 60 * 5
+    });
 
     return {
-        loading,
-        products,
-        handleSearch
+        loading: isLoading,
+        products: data ?? []
     };
 };

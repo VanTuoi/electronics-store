@@ -1,31 +1,30 @@
-import { useEffect, useState } from "react";
-import { useSearch } from "~/hooks/products/useSearch";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { LoadingBox } from "~/components/common";
+import { useProduct, useSearch } from "~/hooks";
 import ProductListWithPagination from "./ProductListWithPagination";
 
 export const Search = () => {
-    const { loading, products, handleSearch } = useSearch();
     const [searchTerm, setSearchTerm] = useState("");
+
+    const { loading: loadingSearch, products: searchedProducts } = useSearch(searchTerm);
+    const { data: allProducts, isLoading: loadingProducts } = useProduct();
+
     const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
     const filterOptions = ["Tủ điện công nghiệp", "Tủ điện dân dụng", "Tủ điện hạ thế"];
-
     const filterRangeOptions = ["Dưới 5 triệu", "5 - 10 triệu", "Trên 10 triệu"];
-
-    useEffect(() => {
-        console.log("products", products);
-    }, [products]);
+    const sortOptions = ["Giá tăng dần", "Giá giảm dần", "Mới nhất", "Cũ nhất"];
 
     const toggleFilter = (filter: string) => {
-        setSelectedFilters(prevFilters =>
-            prevFilters.includes(filter) ? prevFilters.filter(item => item !== filter) : [...prevFilters, filter]
-        );
+        setSelectedFilters(prev => (prev.includes(filter) ? prev.filter(f => f !== filter) : [...prev, filter]));
     };
 
     const removeFilter = (filter: string) => {
         if (filter === "all") {
             setSelectedFilters([]);
         } else {
-            setSelectedFilters(selectedFilters.filter(item => item !== filter));
+            setSelectedFilters(selectedFilters.filter(f => f !== filter));
         }
     };
 
@@ -34,12 +33,12 @@ export const Search = () => {
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-12 heading-section text-center mb-2 mt-5">
-                        <span className="subheading"></span>
-                        <h2 className="">Tìm kiếm tủ điện phù hợp với nhu cầu của bạn</h2>
+                        <h3 className="">Tìm kiếm tủ điện phù hợp với nhu cầu của bạn</h3>
                     </div>
                 </div>
+
                 <div className="row justify-content-left mt-3">
-                    <div className="col-md-8 text-left d-flex ">
+                    <div className="col-md-8 text-left d-flex">
                         <div className="dropdown">
                             <button
                                 className="btn btn-secondary dropdown-toggle"
@@ -52,9 +51,7 @@ export const Search = () => {
                                 {filterOptions.map((filter, index) => (
                                     <li key={index}>
                                         <button
-                                            className={`btn dropdown-item ${
-                                                selectedFilters.includes(filter) ? "active" : ""
-                                            }`}
+                                            className={`btn dropdown-item ${selectedFilters.includes(filter) ? "active" : ""}`}
                                             onClick={() => toggleFilter(filter)}
                                         >
                                             {filter}
@@ -63,6 +60,7 @@ export const Search = () => {
                                 ))}
                             </ul>
                         </div>
+
                         <div className="dropdown ml-1">
                             <button
                                 className="btn btn-secondary dropdown-toggle"
@@ -75,9 +73,29 @@ export const Search = () => {
                                 {filterRangeOptions.map((filter, index) => (
                                     <li key={index}>
                                         <button
-                                            className={`btn dropdown-item ${
-                                                selectedFilters.includes(filter) ? "active" : ""
-                                            }`}
+                                            className={`btn dropdown-item ${selectedFilters.includes(filter) ? "active" : ""}`}
+                                            onClick={() => toggleFilter(filter)}
+                                        >
+                                            {filter}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div className="dropdown ml-1">
+                            <button
+                                className="btn btn-secondary dropdown-toggle"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                            >
+                                Sắp xếp theo
+                            </button>
+                            <ul className="dropdown-menu">
+                                {sortOptions.map((filter, index) => (
+                                    <li key={index}>
+                                        <button
+                                            className={`btn dropdown-item ${selectedFilters.includes(filter) ? "active" : ""}`}
                                             onClick={() => toggleFilter(filter)}
                                         >
                                             {filter}
@@ -93,7 +111,7 @@ export const Search = () => {
                     <div className="col-md-12 text-left">
                         {selectedFilters.length > 0 && (
                             <>
-                                <div> Lọc theo:</div>
+                                <div>Lọc theo:</div>
                                 <div className="d-flex flex-wrap gap-2">
                                     {selectedFilters.map((filter, index) => (
                                         <span
@@ -109,7 +127,7 @@ export const Search = () => {
                                             </button>
                                         </span>
                                     ))}
-                                    <button className="btn" onClick={() => removeFilter("all")}>
+                                    <button className="btn text-secondary" onClick={() => removeFilter("all")}>
                                         Xóa tất cả
                                     </button>
                                 </div>
@@ -127,23 +145,35 @@ export const Search = () => {
                                 placeholder="Tìm tủ điện phù hợp..."
                                 value={searchTerm}
                                 onChange={e => setSearchTerm(e.target.value)}
-                                onKeyDown={e => e.key === "Enter" && handleSearch(searchTerm)}
+                                onKeyDown={e => e.key === "Enter" && setSearchTerm(searchTerm)}
                             />
                             <button
                                 className="btn btn-secondary custom-button"
-                                onClick={() => handleSearch(searchTerm)}
+                                onClick={() => setSearchTerm(searchTerm)}
                             >
-                                {!loading ? "Tìm kiếm" : "Đang tìm..."}
+                                {!loadingSearch ? "Tìm kiếm" : "Đang tìm..."}
                             </button>
                         </div>
                     </div>
                 </div>
 
-                <div className="row justify-content-left mt-5">
-                    <div className="col-md-12 text-left d-flex ">
-                        <ProductListWithPagination />
-                    </div>
-                    {/* <div className="col-md-8 text-left d-flex ">abc</div> */}
+                <div className="row justify-content-center mt-3">
+                    {loadingProducts || loadingSearch ? (
+                        <LoadingBox height="150px" width="100%" className="mb-3" />
+                    ) : !searchedProducts || (searchedProducts.length === 0 && searchTerm !== "") ? (
+                        <div className="col-md-12 text-center text-secondary mt-3 d-flex flex-direction-column align-items-center justify-content-center">
+                            Không tìm thấy sản phẩm mong muốn. &nbsp;
+                            <Link className="link" to={"/"}>
+                                Bạn cần thiết kế riêng ?
+                            </Link>
+                        </div>
+                    ) : (
+                        <ProductListWithPagination
+                            products={
+                                searchedProducts.length !== 0 && searchTerm !== "" ? searchedProducts : allProducts
+                            }
+                        />
+                    )}
                 </div>
             </div>
         </section>
