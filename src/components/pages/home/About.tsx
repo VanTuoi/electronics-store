@@ -1,5 +1,5 @@
 export const About = () => (
-    <section className="ftco-section ftco-about">
+    <section className="ftco-section ftco-about bg-light">
         <div className="container">
             <div className="row no-gutters">
                 <div

@@ -1,5 +1,5 @@
 export const Services = () => (
-    <section className="ftco-section">
+    <section className="ftco-section bg-light">
         <div className="container">
             <div className="row justify-content-center mb-5">
                 <div className="col-md-7 text-center heading-section ">
