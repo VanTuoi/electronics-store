@@ -40,8 +40,8 @@ const Layout = () => {
             <main className="main-layout">
                 <Outlet />
             </main>
-            <Toaster />
             <Footer />
+            <Toaster />
         </>
     );
 };
