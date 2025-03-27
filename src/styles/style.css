@@ -13079,7 +13079,7 @@ textarea.form-control {
 
 /* Layout */
 .main-layout {
-    background-color: #191712;
+    background-color: #fff;
 }
 
 /* Header */
@@ -13221,7 +13221,7 @@ textarea.form-control {
 .product-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; 
+    justify-content: center;
 }
 
 .product-card {
@@ -13258,4 +13258,26 @@ h5 {
 .product-title span {
     font-weight: 600;
     font-size: 1.2rem;
+}
+
+/* Cart */
+.quantity-input {
+    height: 40px !important;
+    width: 130px !important;
+}
+
+.quantity-input-button {
+    height: 40px !important;
+}
+
+.quantity-input-input {
+    height: 40px !important;
+}
+
+.quantity-input input::-webkit-inner-spin-button,
+.quantity-input input::-webkit-outer-spin-button {
+                        -webkit-appearance: none;
+                        margin: 0;}
+.quantity-input input[type=number] {
+                        -moz-appearance: textfield;
 }

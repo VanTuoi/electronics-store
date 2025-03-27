@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router-dom";
 const App = lazy(() => import("./App.tsx"));
 const ErrorPage = lazy(() => import("./pages/ErrorPage.tsx"));
 const HomePage = lazy(() => import("./pages/Home.tsx"));
+const CartPage = lazy(() => import("./pages/Cart.tsx"));
 const AboutPage = lazy(() => import("./pages/About.tsx"));
 const ContactPage = lazy(() => import("./pages/Contact.tsx"));
 const DetailPage = lazy(() => import("./pages/Detail.tsx"));
@@ -21,6 +22,7 @@ const routers = createBrowserRouter([
             { index: true, element: <HomePage /> },
             { path: "about", element: <AboutPage /> },
             { path: "contact", element: <ContactPage /> },
+            { path: "cart", element: <CartPage /> },
             { path: "products", element: <Product /> },
             { path: "product/:id", element: <DetailPage /> },
             {
