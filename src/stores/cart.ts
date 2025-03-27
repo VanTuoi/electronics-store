@@ -27,7 +27,7 @@ const cartAtomBase = atom<CartItem[]>(loadCartFromStorage());
 
 export const cartAtom = atom(
     get => get(cartAtomBase),
-    (get, set, newCart: CartItem[]) => {
+    (_, set, newCart: CartItem[]) => {
         set(cartAtomBase, newCart);
         if (typeof window !== "undefined") {
             localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(newCart));
