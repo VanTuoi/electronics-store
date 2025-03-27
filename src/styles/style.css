@@ -13221,7 +13221,7 @@ textarea.form-control {
 .product-grid {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; 
+    justify-content: center;
 }
 
 .product-card {
