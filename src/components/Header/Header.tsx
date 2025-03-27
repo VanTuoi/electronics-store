@@ -51,7 +51,7 @@ const Header = () => {
                             </Link>
                         </li>
                     </ul>
-                    <CartIcon count={2} />
+                    <CartIcon />
                     <div className="profile ml-1">
                         <CallIcon />
                     </div>
