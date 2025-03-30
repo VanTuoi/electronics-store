@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { Link } from "react-router-dom";
 import { cartAtom } from "~/stores/cart";
-import { formatCurrency } from "~/utils/formatCurrency";
+import { formatCurrency, getMainImage } from "~/utils/priceUtils";
 
 export const Cart = () => {
     const [cart, setCart] = useAtom(cartAtom);
@@ -20,7 +20,7 @@ export const Cart = () => {
         setCart(updatedCart);
     };
 
-    const calculateTotal = () => cart.reduce((total, item) => total + item.product.price * item.quantity, 0);
+    const calculateTotal = () => cart.reduce((total, item) => total + (item.product.price || 0) * item.quantity, 0);
 
     if (cart.length === 0) {
         return (
@@ -42,9 +42,9 @@ export const Cart = () => {
                             <div className="row g-0">
                                 <div className="col-md-3">
                                     <img
-                                        src={item.product.imageUrl}
+                                        src={getMainImage(item.product.images)}
                                         className="img-fluid rounded-start mx-3"
-                                        alt={item.product.nameProduct}
+                                        alt={item.product.name}
                                     />
                                 </div>
                                 <div className="col-md-9">
@@ -53,10 +53,10 @@ export const Cart = () => {
                                             to={`/product/${item.product.id}`}
                                             className="card-title h5 text-decoration-none"
                                         >
-                                            {item.product.nameProduct}
+                                            {item.product.name}
                                         </Link>
                                         <p className="card-text text-danger fw-bold">
-                                            {formatCurrency(item.product.price)}
+                                            {formatCurrency(item.product.price || 0)}
                                         </p>
                                         <div className="d-flex align-items-center gap-3">
                                             <div className="input-group quantity-input">

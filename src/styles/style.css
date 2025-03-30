@@ -13026,6 +13026,38 @@ textarea.form-control {
         stroke-dashoffset: -136px;
     }
 }
+/* Add */
+.text-decoration-line-through {
+    text-decoration: line-through;
+}
+
+/* Margin Start Utilities (Bootstrap 5 Style) */
+
+.ms-0 {
+    margin-left: 0 !important;
+  }
+  
+  .ms-1 {
+    margin-left: 0.25rem !important;
+  }
+  
+  .ms-2 {
+    margin-left: 0.5rem !important;
+  }
+  
+  .ms-3 {
+    margin-left: 1rem !important;
+  }
+  
+  .ms-4 {
+    margin-left: 1.5rem !important;
+  }
+  
+  .ms-5 {
+    margin-left: 3rem !important;
+  }
+
+  
 /* FS Utilities - Custom */
 
 .fs-1 {
@@ -13258,6 +13290,34 @@ h5 {
 .product-title span {
     font-weight: 600;
     font-size: 1.2rem;
+}
+
+.text-truncate-hover {
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: help; 
+    position: relative;
+  }
+  
+
+/* Detail Product */
+.product-image {
+    max-height: 400px;
+    object-fit: cover;
+}
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+.thumbnail:hover, .thumbnail.active {
+    opacity: 1;
 }
 
 /* Cart */

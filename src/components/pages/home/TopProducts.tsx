@@ -2,7 +2,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { formatCurrency } from "../../../utils/formatCurrency";
+import { formatCurrency } from "~/utils/priceUtils";
 
 const products = [
     {
