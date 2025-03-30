@@ -3,16 +3,16 @@ import { Provider, createStore } from "jotai";
 import { MemoryRouter } from "react-router-dom";
 import { Cart } from "~/components/pages/cart/cart";
 import { cartAtom } from "~/stores/cart";
-import { formatCurrency } from "~/utils/formatCurrency";
+import { Product } from "~/types";
+import { formatCurrency } from "~/utils/priceUtils";
 
-const mockProduct = {
+const mockProduct: Product = {
     id: "1",
-    nameProduct: "Test Product",
+    name: "Test Product",
     price: 2000000,
-    imageUrl: "test-image.jpg",
+    images: [{ url: "test-image.jpg", isMain: true }],
     description: "Test description",
-    category: "Test category",
-    stock: 10
+    category: "Test category"
 };
 
 const mockCartItem = {
@@ -41,7 +41,7 @@ describe("Cart Component", () => {
 
     it("should render cart items correctly", () => {
         renderCart();
-        expect(screen.getByText(mockProduct.nameProduct)).toBeInTheDocument();
+        expect(screen.getByText(mockProduct.name)).toBeInTheDocument();
         expect(screen.getByDisplayValue("1")).toBeInTheDocument();
     });
 
@@ -77,7 +77,7 @@ describe("Cart Component", () => {
         renderCart();
         const deleteButton = screen.getByRole("button", { name: /xóa/i });
         fireEvent.click(deleteButton);
-        expect(screen.queryByText(mockProduct.nameProduct)).not.toBeInTheDocument();
+        expect(screen.queryByText(mockProduct.name)).not.toBeInTheDocument();
     });
 
     it("should calculate total correctly", () => {
@@ -96,7 +96,7 @@ describe("Cart Component", () => {
 
     it("should link to product detail page when clicking product name", () => {
         renderCart();
-        const productLink = screen.getByRole("link", { name: mockProduct.nameProduct });
+        const productLink = screen.getByRole("link", { name: mockProduct.name });
         expect(productLink).toHaveAttribute("href", `/product/${mockProduct.id}`);
     });
 });

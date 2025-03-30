@@ -33,7 +33,9 @@
         "react-router-dom": "^7.1.5",
         "react-turnstile": "^1.1.4",
         "sass": "^1.85.0",
+        "slide": "^1.1.6",
         "swiper": "^11.2.4",
+        "yet-another-react-lightbox": "^3.21.8",
         "zod": "^3.24.2"
     },
     "devDependencies": {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Product } from "~/types";
 import { ProductGrid } from "./ProductGrid";
 
-const ITEMS_PER_PAGE = 8;
+const ITEMS_PER_PAGE = 9;
 
 type ProductListWithPaginationProps = {
     products: Product[] | undefined;
@@ -25,7 +25,7 @@ const ProductListWithPagination: React.FC<ProductListWithPaginationProps> = ({ p
 
     return (
         <div className="container">
-            <ProductGrid products={paginatedProducts} itemsPerRow={4} maxRows={2} />
+            <ProductGrid products={paginatedProducts} itemsPerRow={3} maxRows={3} />
             <nav className="mt-4 d-flex justify-content-center">
                 <ul className="pagination">
                     {Array.from({ length: totalPages }, (_, index) => (

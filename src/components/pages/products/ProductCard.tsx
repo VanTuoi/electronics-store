@@ -2,16 +2,18 @@ import { useAtom } from "jotai";
 import { useNavigate } from "react-router-dom";
 import { cartAtom } from "~/stores/cart";
 import { Product } from "~/types";
-import { formatCurrency } from "~/utils/formatCurrency";
+import { formatCurrency, getDisplayPrice, getMainImage } from "~/utils/priceUtils";
 
-export const ProductCard = ({ id, nameProduct, price, category, imageUrl }: Product) => {
+export const ProductCard = (product: Product) => {
     const navigate = useNavigate();
     const [cart, setCart] = useAtom(cartAtom);
-    const goToDetail = () => navigate(`/products/${id}`);
-    const goToCart = () => navigate("/checkout");
+    const { display, isDiscounted, original } = getDisplayPrice(product);
+
+    const goToDetail = () => navigate(`/product/${product.id}`);
+    const goToCart = () => navigate(`/checkout`);
 
     const handleAdd = () => {
-        setCart([...cart, { product: { id, nameProduct, price, category, imageUrl }, quantity: 1 }]);
+        setCart([...cart, { product, quantity: 1 }]);
     };
 
     const handleDelete = (productId: string) => {
@@ -29,16 +31,39 @@ export const ProductCard = ({ id, nameProduct, price, category, imageUrl }: Prod
             tabIndex={0}
             style={{ cursor: "pointer" }}
         >
-            <img src={imageUrl} alt={nameProduct} className="card-img-top" />
+            <img src={getMainImage(product.images)} alt={product.name} className="card-img-top" />
             <div className="card-body d-flex flex-column justify-content-between">
                 <div className="product-title">
-                    <h5 className="card-title fw-bold">{nameProduct}</h5>
-                    <p className="card-text text-muted mb-1">Mã sản phẩm: {id}</p>
-                    <p className="card-text text-muted mb-1">Loại: {category}</p>
+                    <h5 className="card-title fw-bold fs-6 text-truncate-hover" title={product.name}>
+                        {product.name.length > 30 ? product.name.slice(0, 30) + "..." : product.name}
+                    </h5>
+                    {product.code && <p className="card-text text-muted mb-1">Mã: {product.code}</p>}
+                    <p className="card-text text-muted mb-1">Loại: {product.category}</p>
+                    {product.inputVoltage && (
+                        <p className="card-text text-muted mb-2">Điện áp vào: {product.inputVoltage}</p>
+                    )}
+                    {product.dimensions && (
+                        <p className="card-text text-muted mb-2">
+                            Kích thước: {product.dimensions.width}x{product.dimensions.height}x
+                            {product.dimensions.depth}
+                            {product.dimensions.unit && ` (${product.dimensions.unit})`}
+                        </p>
+                    )}
                 </div>
+
                 <div className="mt-auto product-title">
-                    <span className="badge text-primary fs-5">{formatCurrency(price)}</span>
+                    {isDiscounted ? (
+                        <div>
+                            <span className="badge text-primary fs-5 me-2">{display}</span>
+                            <span className="text-decoration-line-through text-danger fs-6">
+                                {formatCurrency(original!)}
+                            </span>
+                        </div>
+                    ) : (
+                        <span className="badge text-primary fs-5">{display}</span>
+                    )}
                 </div>
+
                 <div className="d-flex align-items-center gap-2 mt-2">
                     <button
                         className="btn btn-primary flex-grow-1"
@@ -50,11 +75,11 @@ export const ProductCard = ({ id, nameProduct, price, category, imageUrl }: Prod
                         <i className="bi bi-bag me-2"></i> Mua ngay
                     </button>
                     <button
-                        className={`btn ${cart.some(item => item.product.id === id) ? "btn-primary" : "btn-outline-primary"}`}
+                        className={`btn ${cart.some(item => item.product.id === product.id) ? "btn-primary" : "btn-outline-primary"}`}
                         onClick={e => {
                             e.stopPropagation();
-                            if (cart.some(item => item.product.id === id)) {
-                                handleDelete(id);
+                            if (cart.some(item => item.product.id === product.id)) {
+                                handleDelete(product.id);
                             } else {
                                 handleAdd();
                             }

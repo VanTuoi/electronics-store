@@ -5,4 +5,5 @@ export * from "./home/ScheduleForm";
 export * from "./home/Services";
 export * from "./home/TopProducts";
 
+export * from "./detail-product/Detail";
 export * from "./products/Search";
