@@ -1,7 +1,7 @@
 import React from "react";
 import { PHONE_NUMBER } from "~/constant";
 
-const CallIcon: React.FC = () => {
+export const CallIcon: React.FC = () => {
     const handleClick = () => window.open(`tel:${PHONE_NUMBER}`);
 
     return (
@@ -19,5 +19,3 @@ const CallIcon: React.FC = () => {
         </div>
     );
 };
-
-export default CallIcon;

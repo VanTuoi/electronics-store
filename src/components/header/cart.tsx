@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { cartAtom } from "~/stores/cart";
 
-const CartIcon: React.FC = () => {
+export const CartIcon: React.FC = () => {
     const [cart] = useAtom(cartAtom);
 
     const numberItems = cart.reduce((acc, item) => acc + item.quantity, 0);
@@ -25,5 +25,3 @@ const CartIcon: React.FC = () => {
         </div>
     );
 };
-
-export default CartIcon;
