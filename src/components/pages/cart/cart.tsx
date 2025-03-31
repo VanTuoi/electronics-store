@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { Link } from "react-router-dom";
 import { cartAtom } from "~/stores/cart";
-import { formatCurrency, getMainImage } from "~/utils/priceUtils";
+import { formatCurrency, getMainImage } from "~/utils/price-utils";
 
 export const Cart = () => {
     const [cart, setCart] = useAtom(cartAtom);
@@ -25,8 +25,8 @@ export const Cart = () => {
     if (cart.length === 0) {
         return (
             <div className="text-center py-5">
-                <h3 className="mb-3">Giỏ hàng trống</h3>
-                <Link to="/" className="btn btn-primary">
+                <h3 className="py-5">Giỏ hàng trống</h3>
+                <Link to="/" className="btn btn-primary py-2">
                     Tiếp tục mua sắm
                 </Link>
             </div>

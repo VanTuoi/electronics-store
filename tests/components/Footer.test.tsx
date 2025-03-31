@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Footer from "~/components/Footer";
+import Footer from "~/components/footer";
 import { CONTACT_INFO } from "~/constant/index";
 
 const mockOpen = vi.fn();

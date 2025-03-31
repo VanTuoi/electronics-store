@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import ScheduleForm from "~/components/pages/home/ScheduleForm";
+import ScheduleForm from "~/components/pages/home/schedule-form";
 
 describe("ScheduleForm", () => {
     test("renders form correctly", () => {

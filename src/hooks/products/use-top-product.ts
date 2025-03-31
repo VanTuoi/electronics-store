@@ -1,17 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { Product } from "~/types";
-import { fakeProducts } from "./fakeData";
+import { fakeProducts } from "./fake-data";
 
 const getProducts = async (): Promise<Product[]> =>
     new Promise(resolve => {
         setTimeout(() => {
-            resolve(fakeProducts);
+            resolve(fakeProducts.slice(0, 5));
         }, 200);
     });
 
-export const useProduct = () =>
+export const useTopProduct = () =>
     useQuery<Product[]>({
-        queryKey: ["products"],
+        queryKey: ["top-products"],
         queryFn: getProducts,
         staleTime: 1000 * 60 * 5
     });

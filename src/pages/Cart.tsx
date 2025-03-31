@@ -1,4 +1,4 @@
-import { Breadcrumbs } from "~/components/Breadcrumbs";
+import { Breadcrumbs } from "~/components/breadcrumbs";
 import { Cart } from "~/components/pages/cart/cart";
 
 const CartPage = () => (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Product } from "~/types";
-import { ProductGrid } from "./ProductGrid";
+import { ProductGrid } from "./product-grid";
 
 const ITEMS_PER_PAGE = 9;
 

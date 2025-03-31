@@ -1,4 +1,4 @@
-import { Breadcrumbs } from "~/components/Breadcrumbs";
+import { Breadcrumbs } from "~/components/breadcrumbs";
 import { ProductDetails } from "~/components/pages";
 
 const Detail = () => (

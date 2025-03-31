@@ -1,2 +1,2 @@
-export * from "./LoadingBox";
-export * from "./SkeletonBox";
+export * from "./loading-box";
+export * from "./skeleton-box";

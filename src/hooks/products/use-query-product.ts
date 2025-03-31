@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Product } from "~/types";
-import { fakeProducts } from "./fakeData";
+import { fakeProducts } from "./fake-data";
+
 const getProductById = async (id: string): Promise<Product | undefined> =>
     new Promise(resolve => {
         setTimeout(() => {

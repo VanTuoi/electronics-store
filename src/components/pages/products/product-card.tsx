@@ -2,9 +2,13 @@ import { useAtom } from "jotai";
 import { useNavigate } from "react-router-dom";
 import { cartAtom } from "~/stores/cart";
 import { Product } from "~/types";
-import { formatCurrency, getDisplayPrice, getMainImage } from "~/utils/priceUtils";
+import { formatCurrency, getDisplayPrice, getMainImage } from "~/utils/price-utils";
 
-export const ProductCard = (product: Product) => {
+interface ProductCardProps {
+    product: Product;
+}
+
+export const ProductCard = ({ product }: ProductCardProps) => {
     const navigate = useNavigate();
     const [cart, setCart] = useAtom(cartAtom);
     const { display, isDiscounted, original } = getDisplayPrice(product);

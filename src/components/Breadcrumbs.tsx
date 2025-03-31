@@ -9,7 +9,7 @@ interface IntroduceProps {
 export const Breadcrumbs = ({ breadcrumbs, title }: IntroduceProps) => {
     useEffect(() => {
         window.scrollTo({
-            top: 275,
+            top: 265,
             behavior: "smooth"
         });
     }, []);

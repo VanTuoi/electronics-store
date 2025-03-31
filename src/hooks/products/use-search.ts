@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { Product } from "~/types";
-import { fakeProducts } from "./fakeData";
+import { fakeProducts } from "./fake-data";
 
 const fetchSearchResults = async (searchTerm: string): Promise<Product[]> =>
     new Promise(resolve => {
         setTimeout(() => {
             console.log("searchTerm", searchTerm);
             resolve(fakeProducts);
-        }, 2000);
+        }, 200);
     });
 
 export const useSearch = (searchTerm: string) => {

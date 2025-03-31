@@ -13,8 +13,8 @@ export const Introduce = () => (
                             Bán &amp; Hỗ trợ thiết kế tủ điện theo yêu cầu
                         </h1>
                         <p style={{ fontSize: "18px" }} className=" wow fadeInUp" data-wow-delay="0.1s">
-                            &quot; Chúng tôi cung cấp và thiết kế tủ điện theo yêu cầu, đảm bảo an toàn, tối ưu và phù
-                            hợp với mọi nhu cầu công nghiệp, dân dụng, và tự động hóa
+                            &quot;Chúng tôi cung cấp và thiết kế tủ điện theo yêu cầu, đảm bảo an toàn, tối ưu và phù
+                            hợp với mọi nhu cầu công nghiệp, dân dụng, và tự động hóa&quot;
                         </p>
                         <a
                             href="#"

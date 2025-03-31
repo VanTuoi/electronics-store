@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { LoadingBox } from "~/components/common";
 import { useProduct, useSearch } from "~/hooks";
-import ProductListWithPagination from "./ProductListWithPagination";
+import ProductListWithPagination from "./product-list-with-pagination";
 
 export const Search = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -138,7 +138,7 @@ export const Search = () => {
 
                 <div className="row justify-content-center mt-3">
                     <div className="col-md-8">
-                        <div className="input-group custom-input-group">
+                        <div className="custom-input-group">
                             <input
                                 type="text"
                                 className="form-control custom-input"
@@ -147,10 +147,7 @@ export const Search = () => {
                                 onChange={e => setSearchTerm(e.target.value)}
                                 onKeyDown={e => e.key === "Enter" && setSearchTerm(searchTerm)}
                             />
-                            <button
-                                className="btn btn-secondary custom-button"
-                                onClick={() => setSearchTerm(searchTerm)}
-                            >
+                            <button className="custom-button" type="button" onClick={() => setSearchTerm(searchTerm)}>
                                 {!loadingSearch ? "Tìm kiếm" : "Đang tìm..."}
                             </button>
                         </div>

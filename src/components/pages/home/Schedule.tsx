@@ -1,4 +1,4 @@
-import ScheduleForm from "./ScheduleForm";
+import ScheduleForm from "./schedule-form";
 
 export const Schedule = () => (
     <section className="ftco-section ftco-no-pt bg-light">

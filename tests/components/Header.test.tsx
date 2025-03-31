@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Header from "~/components/Header/Header";
+import Header from "~/components/header";
 
 describe("Header", () => {
     it("should render all navigation links", () => {
@@ -13,7 +13,6 @@ describe("Header", () => {
         expect(screen.getByRole("link", { name: /electronics store/i })).toBeInTheDocument();
         expect(screen.getByRole("link", { name: /trang chủ/i })).toBeInTheDocument();
         expect(screen.getByRole("link", { name: /tủ điện/i })).toBeInTheDocument();
-        expect(screen.getByRole("link", { name: /liên hệ/i })).toBeInTheDocument();
         expect(screen.getByRole("link", { name: /giới thiệu/i })).toBeInTheDocument();
     });
 

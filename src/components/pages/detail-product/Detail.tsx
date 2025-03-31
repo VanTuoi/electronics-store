@@ -6,7 +6,7 @@ import "yet-another-react-lightbox/styles.css";
 import { LoadingBox } from "~/components/common";
 import { useProductById } from "~/hooks";
 import { cartAtom } from "~/stores/cart";
-import { formatCurrency, getDisplayPrice, getMainImage } from "~/utils/priceUtils";
+import { formatCurrency, getDisplayPrice, getMainImage } from "~/utils/price-utils";
 
 export const ProductDetails = () => {
     const [cart, setCart] = useAtom(cartAtom);
@@ -215,7 +215,7 @@ export const ProductDetails = () => {
                         </div>
 
                         <div className="mb-4">
-                            <h5 className="badge fs-4">Thông số kỹ thuật:</h5>
+                            <h5 className="fs-4">Thông số kỹ thuật:</h5>
                             <ul>
                                 <li>
                                     <strong>Kích thước:</strong> H{product.dimensions?.height} × W
@@ -244,7 +244,7 @@ export const ProductDetails = () => {
 
                         {product.features?.length && product.features.length > 0 && (
                             <div className="mb-4">
-                                <h5 className="badge fs-4">Tính năng:</h5>
+                                <h5 className="fs-4">Tính năng:</h5>
                                 <ul>
                                     {product.features.map((f, idx) => (
                                         <li key={idx}>{f}</li>

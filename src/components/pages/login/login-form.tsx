@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import Turnstile from "react-turnstile";
-import { useLogin } from "~/hooks/auth/useLogin";
-import { loginSchema, type LoginFormData } from "../../../utils/validationSchemas/formLoginSchema";
+import { useLogin } from "~/hooks/auth/use-login";
+import { loginSchema, type LoginFormData } from "~/utils/validation-schemas/form-login-schema";
 
 const LoginForm = () => {
     const { login, loading, error } = useLogin();

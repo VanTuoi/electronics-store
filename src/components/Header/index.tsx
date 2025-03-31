@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import CallIcon from "./Call";
-import CartIcon from "./Cart";
+import CallIcon from "./call";
+import CartIcon from "./cart";
 
 const Header = () => {
     const location = useLocation();
@@ -38,11 +38,6 @@ const Header = () => {
                         <li className={`nav-item ${location.pathname === "/products" ? "active" : ""}`}>
                             <Link to="/products" className="nav-link">
                                 Tủ điện
-                            </Link>
-                        </li>
-                        <li className={`nav-item ${location.pathname === "/contact" ? "active" : ""}`}>
-                            <Link to="/" className="nav-link">
-                                Liên hệ
                             </Link>
                         </li>
                         <li className={`nav-item ${location.pathname === "/about" ? "active" : ""}`}>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Product } from "~/types";
-import { ProductCard } from "./ProductCard";
+import { ProductCard } from "./product-card";
 type ProductGridProps = {
     products: Product[];
     maxRows?: number;
@@ -20,7 +20,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, maxRows = 3,
                 <div className="row justify-content-center" key={rowIndex}>
                     {row.map(product => (
                         <div key={product.id} className="col-12 col-sm-6 col-md-4">
-                            <ProductCard {...product} />
+                            <ProductCard product={product} />
                         </div>
                     ))}
                 </div>

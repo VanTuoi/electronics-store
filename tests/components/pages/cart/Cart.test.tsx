@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { Cart } from "~/components/pages/cart/cart";
 import { cartAtom } from "~/stores/cart";
 import { Product } from "~/types";
-import { formatCurrency } from "~/utils/priceUtils";
+import { formatCurrency } from "~/utils/price-utils";
 
 const mockProduct: Product = {
     id: "1",

@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { ScheduleFormData, scheduleSchema } from "~/utils/validationSchemas/scheduleSchema";
+import { ScheduleFormData, scheduleSchema } from "~/utils/validation-schemas/schedule-schema";
 
 const ScheduleForm = () => {
     const {

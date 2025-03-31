@@ -1,3 +1,4 @@
-export * from "./products/useProduct";
-export * from "./products/useQueryProduct";
-export * from "./products/useSearch";
+export * from "./products/use-product";
+export * from "./products/use-query-product";
+export * from "./products/use-search";
+export * from "./products/use-top-product";

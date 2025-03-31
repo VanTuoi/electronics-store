@@ -5,7 +5,7 @@ export const fakeProducts: Product[] = Array.from({ length: 23 }, (_, index) => 
     const name = `Tủ điện phân phối chiếu sáng ngoài trời 3P 60A LS ${index + 1}`;
     const isEven = index % 2 === 0;
     const category = !isEven ? "Tủ điều khiển" : "Tủ phân phối";
-    const baseImage = `/imgs/product_.png`;
+    const baseImage = `/imgs/product_1.png`;
     const price = (index + 1) * 1_000_000;
 
     const isPriceText = index % (3 + (index % 2)) === 0;
@@ -24,7 +24,7 @@ export const fakeProducts: Product[] = Array.from({ length: 23 }, (_, index) => 
         priceText: isPriceText ? `Giá liên hệ` : ``,
         discountPercent,
         discountPrice,
-        images: [{ url: baseImage, isMain: true }, { url: baseImage }],
+        images: [{ url: baseImage, isMain: true }, { url: "/imgs/product_2.png" }, { url: "/imgs/product_3.png" }],
         specs: [
             { key: "Chất liệu", value: "Thép sơn tĩnh điện" },
             { key: "Cấp bảo vệ", value: isEven ? "IP55" : "IP65" },

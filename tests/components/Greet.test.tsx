@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Greet from "~/components/common/Greet";
+import Greet from "~/components/common/greet";
 
 describe("Greet", () => {
     it("should render Hello with the name when name is provided", () => {

@@ -1,23 +1,23 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
-const App = lazy(() => import("./App.tsx"));
-const ErrorPage = lazy(() => import("./pages/ErrorPage.tsx"));
-const HomePage = lazy(() => import("./pages/Home.tsx"));
-const CartPage = lazy(() => import("./pages/Cart.tsx"));
-const AboutPage = lazy(() => import("./pages/About.tsx"));
-const DetailPage = lazy(() => import("./pages/Detail.tsx"));
-const PrivacyPage = lazy(() => import("./pages/Privacy.tsx"));
-const TermsPage = lazy(() => import("./pages/Terms.tsx"));
-const ProductPage = lazy(() => import("./pages/Product.tsx"));
-const PaymentPage = lazy(() => import("./pages/Payment.tsx"));
-const FAQPage = lazy(() => import("./pages/FAQ.tsx"));
-const LoginPage = lazy(() => import("./pages/Login.tsx"));
-const MinLayout = lazy(() => import("./layouts/MinLayout.tsx"));
-const Layout = lazy(() => import("./layouts/Layout.tsx"));
+const App = lazy(() => import("./app.tsx"));
+const ErrorPage = lazy(() => import("./pages/error.tsx"));
+const HomePage = lazy(() => import("./pages/home.tsx"));
+const CartPage = lazy(() => import("./pages/cart.tsx"));
+const AboutPage = lazy(() => import("./pages/about.tsx"));
+const DetailPage = lazy(() => import("./pages/detail.tsx"));
+const PrivacyPage = lazy(() => import("./pages/privacy.tsx"));
+const TermsPage = lazy(() => import("./pages/terms.tsx"));
+const ProductPage = lazy(() => import("./pages/product.tsx"));
+const PaymentPage = lazy(() => import("./pages/payment.tsx"));
+const FAQPage = lazy(() => import("./pages/faq.tsx"));
+const LoginPage = lazy(() => import("./pages/login.tsx"));
+const MinLayout = lazy(() => import("./layouts/min-layout.tsx"));
+const Layout = lazy(() => import("./layouts/layout.tsx"));
 
-const AdminLayout = lazy(() => import("./layouts/AdminLayout.tsx"));
-const AdminHomePage = lazy(() => import("./pages/AdminPage.tsx"));
+const AdminLayout = lazy(() => import("./layouts/admin-layout.tsx"));
+const AdminHomePage = lazy(() => import("./pages/admin.tsx"));
 
 const routers = createBrowserRouter([
     {
