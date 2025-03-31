@@ -16,6 +16,12 @@ const MinLayout = () => {
             case "/register":
                 title = "Đăng ký";
                 break;
+            case "/terms":
+                title = "Điều Khoản và Điều Kiện";
+                break;
+            case "/privacy":
+                title = "Chính Sách Bảo Mật";
+                break;
             default:
                 title = "Electronics Store";
         }

@@ -8,8 +8,8 @@ export const STORE_DESCRIPTION =
 export const CONTACT_INFO = {
     address: "123 Đường Hùng Vương",
     city: "Quận 1, TP.HCM",
-    phone: "(0369) 369 369",
-    email: "ElectronicsStore@dientu.com"
+    phone: "(+84) 369 369 369",
+    email: "electronics@dientu.com"
 };
 
 export const SOCIAL_LINKS = {

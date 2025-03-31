@@ -13035,29 +13035,28 @@ textarea.form-control {
 
 .ms-0 {
     margin-left: 0 !important;
-  }
-  
-  .ms-1 {
-    margin-left: 0.25rem !important;
-  }
-  
-  .ms-2 {
-    margin-left: 0.5rem !important;
-  }
-  
-  .ms-3 {
-    margin-left: 1rem !important;
-  }
-  
-  .ms-4 {
-    margin-left: 1.5rem !important;
-  }
-  
-  .ms-5 {
-    margin-left: 3rem !important;
-  }
+}
 
-  
+.ms-1 {
+    margin-left: 0.25rem !important;
+}
+
+.ms-2 {
+    margin-left: 0.5rem !important;
+}
+
+.ms-3 {
+    margin-left: 1rem !important;
+}
+
+.ms-4 {
+    margin-left: 1.5rem !important;
+}
+
+.ms-5 {
+    margin-left: 3rem !important;
+}
+
 /* FS Utilities - Custom */
 
 .fs-1 {
@@ -13298,10 +13297,9 @@ h5 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    cursor: help; 
+    cursor: help;
     position: relative;
-  }
-  
+}
 
 /* Detail Product */
 .product-image {
@@ -13316,7 +13314,8 @@ h5 {
     opacity: 0.6;
     transition: opacity 0.3s ease;
 }
-.thumbnail:hover, .thumbnail.active {
+.thumbnail:hover,
+.thumbnail.active {
     opacity: 1;
 }
 

@@ -6,9 +6,12 @@ const ErrorPage = lazy(() => import("./pages/ErrorPage.tsx"));
 const HomePage = lazy(() => import("./pages/Home.tsx"));
 const CartPage = lazy(() => import("./pages/Cart.tsx"));
 const AboutPage = lazy(() => import("./pages/About.tsx"));
-const ContactPage = lazy(() => import("./pages/Contact.tsx"));
 const DetailPage = lazy(() => import("./pages/Detail.tsx"));
-const Product = lazy(() => import("./pages/Product.tsx"));
+const PrivacyPage = lazy(() => import("./pages/Privacy.tsx"));
+const TermsPage = lazy(() => import("./pages/Terms.tsx"));
+const ProductPage = lazy(() => import("./pages/Product.tsx"));
+const PaymentPage = lazy(() => import("./pages/Payment.tsx"));
+const FAQPage = lazy(() => import("./pages/FAQ.tsx"));
 const LoginPage = lazy(() => import("./pages/Login.tsx"));
 const MinLayout = lazy(() => import("./layouts/MinLayout.tsx"));
 const Layout = lazy(() => import("./layouts/Layout.tsx"));
@@ -28,7 +31,11 @@ const routers = createBrowserRouter([
                     {
                         path: "auth",
                         children: [{ path: "login", element: <LoginPage /> }]
-                    }
+                    },
+                    { path: "privacy", element: <PrivacyPage /> },
+                    { path: "terms", element: <TermsPage /> },
+                    { path: "faq", element: <FAQPage /> },
+                    { path: "payment", element: <PaymentPage /> }
                 ]
             },
             {
@@ -37,9 +44,8 @@ const routers = createBrowserRouter([
                 children: [
                     { index: true, element: <HomePage /> },
                     { path: "about", element: <AboutPage /> },
-                    { path: "contact", element: <ContactPage /> },
                     { path: "cart", element: <CartPage /> },
-                    { path: "products", element: <Product /> },
+                    { path: "products", element: <ProductPage /> },
                     { path: "product/:id", element: <DetailPage /> },
                     {
                         path: "admin",
