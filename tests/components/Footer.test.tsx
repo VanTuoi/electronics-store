@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import Footer from "~/components/Footer";
+import { CONTACT_INFO } from "~/constant/index";
 
 const mockOpen = vi.fn();
 Object.defineProperty(window, "open", {
@@ -13,28 +14,27 @@ describe("Footer", () => {
         mockOpen.mockClear();
     });
 
-    it("should render store information correctly", () => {
+    it("should render store name correctly", () => {
         render(
             <MemoryRouter>
                 <Footer />
             </MemoryRouter>
         );
 
-        expect(screen.getByText(/electronics store/i)).toBeInTheDocument();
-        expect(screen.getByText(/địa chỉ tin cậy cho mọi nhu cầu điện tử/i)).toBeInTheDocument();
+        expect(screen.getByText(/electronicsstore/i)).toBeInTheDocument();
     });
 
-    it("should render all quick links", () => {
+    it("should render all quick links correctly", () => {
         render(
             <MemoryRouter>
                 <Footer />
             </MemoryRouter>
         );
 
-        expect(screen.getByRole("link", { name: /trang chủ/i })).toBeInTheDocument();
         expect(screen.getByRole("link", { name: /sản phẩm/i })).toBeInTheDocument();
         expect(screen.getByRole("link", { name: /về chúng tôi/i })).toBeInTheDocument();
-        expect(screen.getByRole("link", { name: /liên hệ/i })).toBeInTheDocument();
+        expect(screen.getByRole("link", { name: /điều khoản và điều kiện/i })).toBeInTheDocument();
+        expect(screen.getByRole("link", { name: /chính sách bảo mật/i })).toBeInTheDocument();
     });
 
     it("should render contact information correctly", () => {
@@ -44,63 +44,39 @@ describe("Footer", () => {
             </MemoryRouter>
         );
 
-        expect(screen.getByText(/123 đường hùng vương/i)).toBeInTheDocument();
-        expect(screen.getByText(/quận 1, tp.hcm/i)).toBeInTheDocument();
-        expect(screen.getByText(/\(0369\) 369 369/i)).toBeInTheDocument();
-        expect(screen.getByText(/electronicsstore@dientu.com/i)).toBeInTheDocument();
+        const phoneButton = screen.getByRole("button", { name: CONTACT_INFO.phone });
+        const emailButton = screen.getByRole("button", { name: CONTACT_INFO.email });
+
+        expect(phoneButton).toBeInTheDocument();
+        expect(emailButton).toBeInTheDocument();
+        expect(screen.getByText(CONTACT_INFO.address)).toBeInTheDocument();
     });
 
-    it("should render newsletter section correctly", () => {
+    it("should handle phone number click correctly", () => {
         render(
             <MemoryRouter>
                 <Footer />
             </MemoryRouter>
         );
 
-        expect(screen.getByText(/bản tin/i)).toBeInTheDocument();
-        expect(screen.getByText(/đăng ký nhận tin để cập nhật những ưu đãi mới nhất/i)).toBeInTheDocument();
-        expect(screen.getByPlaceholderText(/nhập email của bạn/i)).toBeInTheDocument();
-        expect(screen.getByRole("button", { name: /đăng ký/i })).toBeInTheDocument();
-    });
-
-    it("should render social media links", () => {
-        render(
-            <MemoryRouter>
-                <Footer />
-            </MemoryRouter>
-        );
-
-        expect(screen.getByRole("link", { name: /facebook/i })).toBeInTheDocument();
-        expect(screen.getByRole("link", { name: /twitter/i })).toBeInTheDocument();
-        expect(screen.getByRole("link", { name: /instagram/i })).toBeInTheDocument();
-        expect(screen.getByRole("link", { name: /linkedin/i })).toBeInTheDocument();
-    });
-
-    it("should handle phone number click", () => {
-        render(
-            <MemoryRouter>
-                <Footer />
-            </MemoryRouter>
-        );
-
-        const phoneButton = screen.getByRole("button", { name: /gọi điện thoại/i });
+        const phoneButton = screen.getByRole("button", { name: CONTACT_INFO.phone });
         fireEvent.click(phoneButton);
-        expect(mockOpen).toHaveBeenCalledWith("tel:0369369369");
+        expect(mockOpen).toHaveBeenCalledWith(`tel:${CONTACT_INFO.phone.replace(/[^0-9]/g, "")}`);
     });
 
-    it("should handle email click", () => {
+    it("should handle email click correctly", () => {
         render(
             <MemoryRouter>
                 <Footer />
             </MemoryRouter>
         );
 
-        const emailButton = screen.getByRole("button", { name: /gửi email đến/i });
+        const emailButton = screen.getByRole("button", { name: CONTACT_INFO.email });
         fireEvent.click(emailButton);
-        expect(mockOpen).toHaveBeenCalledWith("mailto:ElectronicsStore@dientu.com");
+        expect(mockOpen).toHaveBeenCalledWith(`mailto:${CONTACT_INFO.email}`);
     });
 
-    it("should render copyright information", () => {
+    it("should render copyright information correctly", () => {
         render(
             <MemoryRouter>
                 <Footer />

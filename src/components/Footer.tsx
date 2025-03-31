@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { CONTACT_INFO, NEWSLETTER, QUICK_LINKS, SOCIAL_LINKS, STORE_DESCRIPTION, STORE_NAME } from "../constant";
+import { CONTACT_INFO, SOCIAL_LINKS, STORE_NAME } from "../constant";
 
 const Footer = () => {
     const handleEmailClick = () => {
@@ -11,103 +11,125 @@ const Footer = () => {
     };
 
     return (
-        <footer className="bg-dark py-5">
+        <footer className="ftco-footer ftco-bg-dark ftco-section">
             <div className="container">
-                <div className="row g-4 ">
-                    <div className="col-lg-3 col-md-6 d-flex flex-column justify-content-center">
-                        <Link className="navbar-brand pt-0 mb-2" to="/">
-                            {STORE_NAME.split(" ")[0]}
-                            <span> {STORE_NAME.split(" ")[1]}</span>
-                        </Link>
-                        <p className="mb-4 text-light">{STORE_DESCRIPTION}</p>
-                        <div className="social-links d-flex gap-4">
-                            <a href={SOCIAL_LINKS.facebook} className="text-light" aria-label="Facebook">
-                                <i className="bi bi-facebook fs-3"></i>
-                            </a>
-                            <a href={SOCIAL_LINKS.twitter} className="text-light" aria-label="Twitter">
-                                <i className="bi bi-twitter fs-3"></i>
-                            </a>
-                            <a href={SOCIAL_LINKS.instagram} className="text-light" aria-label="Instagram">
-                                <i className="bi bi-instagram fs-3"></i>
-                            </a>
-                            <a href={SOCIAL_LINKS.linkedin} className="text-light" aria-label="LinkedIn">
-                                <i className="bi bi-linkedin fs-3"></i>
-                            </a>
+                <div className="row mb-5 text-light">
+                    <div className="col-md-3 col-sm-6">
+                        <div className="ftco-footer-widget mb-4">
+                            <h2 className="ftco-heading-2">
+                                <Link to="/" className="logo">
+                                    {STORE_NAME.split(" ")[0]}
+                                    <span>{STORE_NAME.split(" ")[1]}</span>
+                                </Link>
+                            </h2>
+                            <p>
+                                Chúng tôi cung cấp và thiết kế tủ điện theo yêu cầu, đảm bảo an toàn, tối ưu và phù hợp
+                                với mọi nhu cầu công nghiệp, dân dụng, và tự động hóa.
+                            </p>
+                            <ul className="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                                <li className="ftco-animate">
+                                    <a href={SOCIAL_LINKS.twitter}>
+                                        <i className="bi bi-twitter"></i>
+                                    </a>
+                                </li>
+                                <li className="ftco-animate">
+                                    <a href={SOCIAL_LINKS.facebook}>
+                                        <i className="bi bi-facebook"></i>
+                                    </a>
+                                </li>
+                                <li className="ftco-animate">
+                                    <a href={SOCIAL_LINKS.instagram}>
+                                        <i className="bi bi-instagram"></i>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
 
-                    <div className="col-lg-2 col-md-6">
-                        <h5 className="mb-3 text-light">Liên Kết Nhanh</h5>
-                        <ul className="list-unstyled">
-                            {QUICK_LINKS.map(link => (
-                                <li key={link.path} className="mb-2">
-                                    <Link to={link.path} className="text-light text-decoration-none">
-                                        {link.name}
+                    <div className="col-md-3 col-sm-6">
+                        <div className="ftco-footer-widget mb-4 ml-md-5">
+                            <h2 className="ftco-heading-2">Thông Tin</h2>
+                            <ul className="list-unstyled">
+                                <li>
+                                    <Link to="/about" className="py-2 d-block">
+                                        Về Chúng Tôi
                                     </Link>
                                 </li>
-                            ))}
-                        </ul>
+                                <li>
+                                    <Link to="/products" className="py-2 d-block">
+                                        Sản Phẩm
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/terms" target="_blank" className="py-2 d-block">
+                                        Điều Khoản và Điều Kiện
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/privacy" target="_blank" className="py-2 d-block">
+                                        Chính Sách Bảo Mật
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <div className="col-lg-3 col-md-6">
-                        <h5 className="mb-3 text-light">Thông Tin Liên Hệ</h5>
-                        <ul className="list-unstyled">
-                            <li className="mb-2 text-light">
-                                <i className="bi bi-geo-alt me-2 mr-1"></i>
-                                {CONTACT_INFO.address}
-                            </li>
-                            <li className="mb-2 text-light">
-                                <i className="bi bi-building me-2 mr-1"></i>
-                                {CONTACT_INFO.city}
-                            </li>
-                            <li className="mb-2 text-light">
-                                <i className="bi bi-telephone me-2 mr-1"></i>
-                                <button
-                                    onClick={handlePhoneClick}
-                                    className="btn btn-link text-light text-decoration-none p-0 border-0"
-                                    aria-label={`Gọi điện thoại ${CONTACT_INFO.phone}`}
-                                >
-                                    {CONTACT_INFO.phone}
-                                </button>
-                            </li>
-                            <li className="mb-2 text-light">
-                                <i className="bi bi-envelope me-2 mr-1"></i>
-                                <button
-                                    onClick={handleEmailClick}
-                                    className="btn btn-link text-light text-decoration-none p-0 border-0"
-                                    aria-label={`Gửi email đến ${CONTACT_INFO.email}`}
-                                >
-                                    {CONTACT_INFO.email}
-                                </button>
-                            </li>
-                        </ul>
+                    <div className="col-md-3 col-sm-6">
+                        <div className="ftco-footer-widget mb-4">
+                            <h2 className="ftco-heading-2">Hỗ Trợ Khách Hàng</h2>
+                            <ul className="list-unstyled">
+                                <li>
+                                    <Link to="/faq" target="_blank" className="py-2 d-block">
+                                        FAQ
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to="/payment" target="_blank" className="py-2 d-block">
+                                        Phương Thức Thanh Toán
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <div className="col-lg-4 col-md-6">
-                        <h5 className="mb-3 text-light">{NEWSLETTER.title}</h5>
-                        <p className="mb-3 text-light">{NEWSLETTER.description}</p>
-                        <div className="input-group">
-                            <input type="email" className="form-control" placeholder={NEWSLETTER.placeholder} />
-                            <button className="btn btn-primary">
-                                <i className="bi bi-send me-2 mr-1"></i>
-                                {NEWSLETTER.buttonText}
-                            </button>
+                    <div className="col-md-3 col-sm-6">
+                        <div className="ftco-footer-widget mb-4">
+                            <h2 className="ftco-heading-2">Thông Tin Liên Hệ</h2>
+                            <div className="block-23 mb-3">
+                                <ul className="list-unstyled">
+                                    <li>
+                                        <i className="bi bi-geo-alt mr-3"></i>
+                                        <span className="text-light">{CONTACT_INFO.address}</span>
+                                    </li>
+                                    <li>
+                                        <i className="bi bi-telephone mr-2"></i>
+                                        <button
+                                            name="số điện thoại"
+                                            onClick={handlePhoneClick}
+                                            className="border-0 bg-transparent text-light"
+                                        >
+                                            {CONTACT_INFO.phone}
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <i className="bi bi-envelope mr-2"></i>
+                                        <button
+                                            name="email"
+                                            onClick={handleEmailClick}
+                                            className="border-0 bg-transparent text-light"
+                                        >
+                                            {CONTACT_INFO.email}
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="row mt-4">
-                    <div className="col-12">
-                        <hr className="bg-light" />
-                        <div className="text-center">
-                            <p className="mb-0">
-                                &copy; {new Date().getFullYear()}{" "}
-                                <Link to="/" className="text-primary text-decoration-none">
-                                    {STORE_NAME}
-                                </Link>
-                                . Bản quyền được bảo vệ.
-                            </p>
-                        </div>
+                <div className="row">
+                    <div className="col-md-12 text-center">
+                        <p>&copy; {new Date().getFullYear()} ElectronicsStore. Bản quyền được bảo vệ</p>
                     </div>
                 </div>
             </div>
