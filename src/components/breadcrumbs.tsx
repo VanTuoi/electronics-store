@@ -16,14 +16,14 @@ export const Breadcrumbs = ({ breadcrumbs, title }: IntroduceProps) => {
 
     return (
         <section
-            className="hero-wrap hero-wrap-2 js-fullheight"
+            className="hero-wrap hero-wrap-2"
             style={{ backgroundImage: "url('/imgs/bg/bg.jpg')" }}
-            data-stellar-background-ratio="0.5"
+            data-stellar-background-ratio="0.7"
         >
             <div className="overlay"></div>
             <div className="container">
-                <div className="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
-                    <div className="col-md-9 pb-5">
+                <div className="row no-gutters slider-text breadcrumb-container d-flex flex-column-reverse align-items-end justify-content-start">
+                    <div className="col-md-10 pb-5">
                         <p className="breadcrumbs">
                             <span className="mr-2">
                                 <Link to="/">
@@ -38,7 +38,7 @@ export const Breadcrumbs = ({ breadcrumbs, title }: IntroduceProps) => {
                                 </span>
                             ))}
                         </p>
-                        <h1 className="mb-3 bread">{title}</h1>
+                        <h1 className="mb-3 bread breadcrumbs-content">{title}</h1>
                     </div>
                 </div>
             </div>

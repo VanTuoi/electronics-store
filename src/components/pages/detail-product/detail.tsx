@@ -57,7 +57,7 @@ export const ProductDetails = () => {
     const { display, isDiscounted, original } = getDisplayPrice(product);
 
     return (
-        <div className="container mt-5">
+        <div className="container">
             <div className="container mt-5">
                 <div className="row">
                     <div className="col-md-6 mb-4">

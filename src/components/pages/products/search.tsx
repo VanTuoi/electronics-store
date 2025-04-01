@@ -33,13 +33,13 @@ export const Search = () => {
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-12 heading-section text-center mb-2 mt-5">
-                        <h3 className="">Tìm kiếm tủ điện phù hợp với nhu cầu của bạn</h3>
+                        <h3>Tìm kiếm tủ điện phù hợp với nhu cầu của bạn</h3>
                     </div>
                 </div>
 
                 <div className="row justify-content-left mt-3">
                     <div className="col-md-8 text-left d-flex">
-                        <div className="dropdown">
+                        <div className="dropdown me-1">
                             <button
                                 className="btn btn-secondary dropdown-toggle"
                                 type="button"
@@ -61,7 +61,7 @@ export const Search = () => {
                             </ul>
                         </div>
 
-                        <div className="dropdown ml-1">
+                        <div className="dropdown me-1">
                             <button
                                 className="btn btn-secondary dropdown-toggle"
                                 type="button"
@@ -83,7 +83,7 @@ export const Search = () => {
                             </ul>
                         </div>
 
-                        <div className="dropdown ml-1">
+                        <div className="dropdown me-1">
                             <button
                                 className="btn btn-secondary dropdown-toggle"
                                 type="button"
@@ -147,7 +147,11 @@ export const Search = () => {
                                 onChange={e => setSearchTerm(e.target.value)}
                                 onKeyDown={e => e.key === "Enter" && setSearchTerm(searchTerm)}
                             />
-                            <button className="custom-button" type="button" onClick={() => setSearchTerm(searchTerm)}>
+                            <button
+                                className="custom-button bg-secondary"
+                                type="button"
+                                onClick={() => setSearchTerm(searchTerm)}
+                            >
                                 {!loadingSearch ? "Tìm kiếm" : "Đang tìm..."}
                             </button>
                         </div>

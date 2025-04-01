@@ -44,7 +44,7 @@ describe("Header", () => {
             </MemoryRouter>
         );
 
-        expect(screen.getByRole("img", { hidden: true })).toBeInTheDocument();
+        expect(screen.getByRole("img", { name: "cart" })).toBeInTheDocument();
     });
 
     it("should allow CallIcon to be activated by keyboard", () => {
