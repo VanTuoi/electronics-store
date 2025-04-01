@@ -10,7 +10,7 @@ export const Schedule = () => (
                             <ScheduleForm />
                         </div>
                         <div className="col-md-8 d-flex align-items-center">
-                            <div className="services-wrap rounded-right w-100">
+                            <div className="services-wrap rounded-3 w-100">
                                 <h3 className="heading-section mb-4">Làm cho đồ án của bạn trở nên dễ dàng hơn</h3>
                                 <div className="row d-flex mb-4">
                                     <div className="col-md-4 d-flex align-self-stretch">

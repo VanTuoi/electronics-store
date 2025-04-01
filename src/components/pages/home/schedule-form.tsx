@@ -19,7 +19,7 @@ const ScheduleForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="request-form bg-primary wow fadeInUp" data-wow-delay="0.1s">
+        <form onSubmit={handleSubmit(onSubmit)} className="request-form bg-primary py-5">
             <h2>Đặt lịch hẹn tư vấn hỗ trợ</h2>
             <div className="form-group">
                 <label htmlFor="fullname" className="label">
@@ -32,7 +32,7 @@ const ScheduleForm = () => {
                     placeholder="Nguyễn Trần Thủy Tiên"
                     {...register("fullname")}
                 />
-                {errors.fullname && <p className="text-warning">{errors.fullname.message}</p>}
+                {errors.fullname && <p className="text-warning text-small">{errors.fullname.message}</p>}
             </div>
             <div className="form-group">
                 <label htmlFor="phone" className="label">
@@ -45,7 +45,7 @@ const ScheduleForm = () => {
                     placeholder="0369369369"
                     {...register("phone")}
                 />
-                {errors.phone && <p className="text-warning">{errors.phone.message}</p>}
+                {errors.phone && <p className="text-warning text-small">{errors.phone.message}</p>}
             </div>
             <div className="form-group">
                 <label htmlFor="note" className="label">
@@ -58,9 +58,9 @@ const ScheduleForm = () => {
                     placeholder="Loại đồ án,..."
                     {...register("note")}
                 />
-                {errors.note && <p className="text-warning">{errors.note.message}</p>}
+                {errors.note && <p className="text-warning text-small">{errors.note.message}</p>}
             </div>
-            <div className="form-group">
+            <div className="form-group mt-4">
                 <input type="submit" value="Đặt lịch hẹn" className="btn btn-secondary py-3 px-3" />
             </div>
         </form>
