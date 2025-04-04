@@ -10,10 +10,9 @@ export const fakeCheckoutApi = async (checkoutData: {
             const isSuccess = Math.random() > 0.5;
 
             if (isSuccess) {
-                console.log("✅ Checkout thành công:", checkoutData);
                 resolve({ status: "success" });
             } else {
-                console.log("❌ Checkout thất bại:", checkoutData);
+                console.error("❌ Checkout thất bại:", checkoutData);
                 reject(new Error("Thanh toán thất bại do kết nối đến máy chủ 👻"));
             }
         }, 1500);

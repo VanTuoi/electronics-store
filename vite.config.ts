@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-undef */
 import react from "@vitejs/plugin-react";
 import path from "node:path";
@@ -16,6 +17,15 @@ export default defineConfig({
     resolve: {
         alias: {
             "~": path.resolve(__dirname, "./src")
+        }
+    },
+    build: {
+        minify: "terser",
+        terserOptions: {
+            compress: {
+                drop_console: true,
+                unsafe: true
+            }
         }
     }
 });

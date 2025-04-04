@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Lightbox from "yet-another-react-lightbox";
+import { Lightbox } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { LoadingBox } from "~/components/common";
 import { PHONE_NUMBER } from "~/constant";

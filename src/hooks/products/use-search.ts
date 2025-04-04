@@ -5,7 +5,7 @@ import { fakeProducts } from "./fake-data";
 const fetchSearchResults = async (searchTerm: string): Promise<Product[]> =>
     new Promise(resolve => {
         setTimeout(() => {
-            console.log("searchTerm", searchTerm);
+            console.warn("searchTerm", searchTerm);
             resolve(fakeProducts);
         }, 200);
     });

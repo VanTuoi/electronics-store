@@ -11,7 +11,7 @@ import tseslint from "typescript-eslint";
 
 export default [
     {
-        ignores: ["dist", "node_modules", "public"]
+        ignores: ["dist", "node_modules", "public", ".vercel"]
     },
     js.configs.recommended,
     ...tseslint.configs.recommended,
@@ -57,7 +57,7 @@ export default [
             semi: ["error", "always"],
             "no-multiple-empty-lines": ["error", { max: 1 }],
             "no-trailing-spaces": ["error"],
-            "no-console": "warn",
+            "no-console": ["error", { allow: ["warn", "error"] }],
             quotes: ["error", "double"],
             "no-shadow": "error",
             eqeqeq: ["error", "always"],
