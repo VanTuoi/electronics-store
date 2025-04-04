@@ -7,6 +7,7 @@ const HomePage = lazy(() => import("./pages/home.tsx"));
 const CartPage = lazy(() => import("./pages/cart.tsx"));
 const AboutPage = lazy(() => import("./pages/about.tsx"));
 const DetailPage = lazy(() => import("./pages/detail.tsx"));
+const CheckoutPage = lazy(() => import("./pages/checkout.tsx"));
 const PrivacyPage = lazy(() => import("./pages/privacy.tsx"));
 const TermsPage = lazy(() => import("./pages/terms.tsx"));
 const ProductPage = lazy(() => import("./pages/product.tsx"));
@@ -47,6 +48,7 @@ const routers = createBrowserRouter([
                     { path: "cart", element: <CartPage /> },
                     { path: "products", element: <ProductPage /> },
                     { path: "product/:id", element: <DetailPage /> },
+                    { path: "check-out", element: <CheckoutPage /> },
                     {
                         path: "admin",
                         element: <AdminLayout />,

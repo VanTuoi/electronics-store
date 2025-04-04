@@ -14,6 +14,7 @@ export const getMainImage = (images: ProductImage[], fallbackUrl = "/imgs/no-ima
 
 type DisplayPriceResult = {
     display: string;
+    rawDisplay: number;
     isDiscounted?: boolean;
     original?: number;
     discounted?: number;
@@ -21,12 +22,13 @@ type DisplayPriceResult = {
 
 export const getDisplayPrice = (product: Product): DisplayPriceResult => {
     if (product.priceText?.trim()) {
-        return { display: product.priceText };
+        return { display: product.priceText, rawDisplay: NaN };
     }
 
     if (product.discountPrice && product.discountPrice < product.price!) {
         return {
             display: formatCurrency(product.discountPrice),
+            rawDisplay: product.discountPrice,
             isDiscounted: true,
             original: product.price,
             discounted: product.discountPrice
@@ -35,9 +37,10 @@ export const getDisplayPrice = (product: Product): DisplayPriceResult => {
 
     if (product.price) {
         return {
-            display: formatCurrency(product.price)
+            display: formatCurrency(product.price),
+            rawDisplay: product.price
         };
     }
 
-    return { display: "Liên hệ" };
+    return { display: "Liên hệ", rawDisplay: NaN };
 };

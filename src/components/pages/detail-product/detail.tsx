@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { LoadingBox } from "~/components/common";
+import { PHONE_NUMBER } from "~/constant";
 import { useProductById } from "~/hooks";
 import { cartAtom } from "~/stores/cart";
 import { formatCurrency, getDisplayPrice, getMainImage } from "~/utils/price-utils";
@@ -25,7 +26,26 @@ export const ProductDetails = () => {
         }
     }, [product]);
 
-    const goToCart = () => navigate("/checkout");
+    if (product === undefined || isLoading) {
+        return <LoadingBox height={"50vh"} />;
+    }
+
+    if (isError) {
+        return <p>Lỗi khi tải sản phẩm</p>;
+    }
+
+    const goToCheckOut = () => {
+        if (product.priceText !== "") {
+            window.open(`tel:${PHONE_NUMBER}`);
+        } else {
+            navigate("/check-out", {
+                state: {
+                    cart: [{ product, quantity }],
+                    totalPrice: getDisplayPrice(product).rawDisplay
+                }
+            });
+        }
+    };
 
     const handleThumbnailClick = (src: string) => {
         setMainImage(src);
@@ -45,14 +65,6 @@ export const ProductDetails = () => {
     const handleDelete = (productId: string) => {
         setCart(cart.filter(item => item.product.id !== productId));
     };
-
-    if (product === undefined || isLoading) {
-        return <LoadingBox height={"50vh"} />;
-    }
-
-    if (isError) {
-        return <p>Lỗi khi tải sản phẩm</p>;
-    }
 
     const { display, isDiscounted, original } = getDisplayPrice(product);
 
@@ -197,7 +209,7 @@ export const ProductDetails = () => {
                         </div>
 
                         <div className="mb-4 d-flex gap-2">
-                            <button className="btn btn-primary flex-grow-1 py-3" onClick={goToCart}>
+                            <button className="btn btn-primary flex-grow-1 py-3" onClick={goToCheckOut}>
                                 <i className="bi bi-bag me-2"></i> Mua ngay
                             </button>
                             <button

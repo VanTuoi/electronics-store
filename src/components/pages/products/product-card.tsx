@@ -1,5 +1,6 @@
 import { useAtom } from "jotai";
 import { useNavigate } from "react-router-dom";
+import { PHONE_NUMBER } from "~/constant";
 import { cartAtom } from "~/stores/cart";
 import { Product } from "~/types";
 import { formatCurrency, getDisplayPrice, getMainImage } from "~/utils/price-utils";
@@ -14,7 +15,19 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     const { display, isDiscounted, original } = getDisplayPrice(product);
 
     const goToDetail = () => navigate(`/product/${product.id}`);
-    const goToCart = () => navigate(`/checkout`);
+
+    const goToCheckOut = () => {
+        if (product.priceText !== "") {
+            window.open(`tel:${PHONE_NUMBER}`);
+        } else {
+            navigate("/check-out", {
+                state: {
+                    cart: [{ product, quantity: 1 }],
+                    totalPrice: getDisplayPrice(product).rawDisplay
+                }
+            });
+        }
+    };
 
     const handleAdd = () => {
         setCart([...cart, { product, quantity: 1 }]);
@@ -73,7 +86,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                         className="btn btn-primary flex-grow-1"
                         onClick={e => {
                             e.stopPropagation();
-                            goToCart();
+                            goToCheckOut();
                         }}
                     >
                         <i className="bi bi-bag me-2"></i> Mua ngay

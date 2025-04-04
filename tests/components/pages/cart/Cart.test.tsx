@@ -10,6 +10,7 @@ const mockProduct: Product = {
     id: "1",
     name: "Test Product",
     price: 2000000,
+    priceText: "",
     images: [{ url: "test-image.jpg", isMain: true }],
     description: "Test description",
     category: "Test category"

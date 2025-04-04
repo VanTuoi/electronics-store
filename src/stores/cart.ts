@@ -1,10 +1,5 @@
 import { atom } from "jotai";
-import { Product } from "~/types";
-
-export type CartItem = {
-    product: Product;
-    quantity: number;
-};
+import { CartItem } from "~/types";
 
 const CART_STORAGE_KEY = "cart-items";
 

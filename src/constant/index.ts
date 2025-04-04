@@ -32,3 +32,10 @@ export const NEWSLETTER = {
     placeholder: "Nhập email của bạn",
     buttonText: "Đăng Ký"
 };
+
+export const SHIPPINGS: Record<string, number> = {
+    "1-2": 100000,
+    "3-4": 200000,
+    "5-9": 500000,
+    "10+": 1000000
+};

@@ -1,13 +1,11 @@
 export * from "./cart/cart";
+export * from "./checkout/checkout";
 export * from "./detail-product/detail";
-
 export * from "./home/about";
 export * from "./home/introduce";
 export * from "./home/schedule";
 export * from "./home/schedule-form";
 export * from "./home/services";
 export * from "./home/top-products";
-
 export * from "./login/login-form";
-
 export * from "./products/search";
