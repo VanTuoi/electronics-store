@@ -1,5 +1,5 @@
 import { Breadcrumbs } from "~/components/breadcrumbs";
-import { Cart } from "~/components/pages/cart/cart";
+import { Cart } from "~/components/pages";
 
 const CartPage = () => (
     <>
