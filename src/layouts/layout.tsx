@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { Outlet, useLocation } from "react-router-dom";
 import Footer from "~/components/footer";
 import Header from "~/components/header/header";
-import { loadSCSS, unloadScopedStyles } from "~/utils/stylesheet-manager";
+import "~/styles/style.scss";
 
 const Layout = () => {
     const location = useLocation();
@@ -36,13 +36,6 @@ const Layout = () => {
         }
 
         document.title = title;
-
-        const unloadLayoutStyles = loadSCSS("/src/styles/style.scss");
-
-        return () => {
-            unloadLayoutStyles();
-            unloadScopedStyles();
-        };
     }, [location]);
 
     return (

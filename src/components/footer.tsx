@@ -89,7 +89,7 @@ const Footer = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/admin" className="py-2 d-block">
+                                    <Link to="/admin" target="_blank" className="py-2 d-block">
                                         Quản trị
                                     </Link>
                                 </li>

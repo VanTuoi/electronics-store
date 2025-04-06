@@ -4,7 +4,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { Outlet, useLocation } from "react-router-dom";
-import { loadSCSS, unloadScopedStyles } from "~/utils/stylesheet-manager";
+import "~/styles/style.scss";
 
 const MinLayout = () => {
     const location = useLocation();
@@ -31,13 +31,6 @@ const MinLayout = () => {
         }
 
         document.title = title;
-
-        const unloadLayoutStyles = loadSCSS("/src/styles/style.scss");
-
-        return () => {
-            unloadLayoutStyles();
-            unloadScopedStyles();
-        };
     }, [location]);
 
     return (
