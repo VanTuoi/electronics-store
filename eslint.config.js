@@ -6,6 +6,7 @@ import prettier from "eslint-plugin-prettier";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
+import unicorn from "eslint-plugin-unicorn";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
@@ -27,7 +28,8 @@ export default [
             "react-refresh": reactRefresh,
             import: importPlugin,
             "jsx-a11y": jsxA11y,
-            prettier
+            prettier,
+            unicorn
         },
         settings: {
             react: {
@@ -40,6 +42,8 @@ export default [
             ...jsxA11y.configs.recommended.rules,
             ...importPlugin.configs.recommended.rules,
             ...prettier.configs.recommended.rules,
+
+            "unicorn/filename-case": ["error", { case: "snakeCase" }],
             indent: ["error", 4],
             "comma-dangle": ["error", "never"],
             "react/react-in-jsx-scope": "off",
@@ -94,6 +98,33 @@ export default [
         files: ["tests/components/**/*.{ts,tsx,js,jsx}"],
         rules: {
             "no-undef": "off"
+        }
+    },
+    {
+        files: ["src/**/*.{ts,tsx}", "tests/**/*.{ts,tsx}"],
+        rules: {
+            "unicorn/filename-case": [
+                "error",
+                {
+                    case: "kebabCase"
+                }
+            ],
+            "@typescript-eslint/naming-convention": [
+                "error",
+                {
+                    selector: "variable",
+                    format: ["camelCase", "PascalCase", "UPPER_CASE"],
+                    leadingUnderscore: "allow"
+                },
+                {
+                    selector: "function",
+                    format: ["camelCase", "PascalCase"]
+                },
+                {
+                    selector: "typeLike",
+                    format: ["PascalCase"]
+                }
+            ]
         }
     },
     eslintConfigPrettier
