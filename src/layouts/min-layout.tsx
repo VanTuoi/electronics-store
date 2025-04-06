@@ -1,6 +1,10 @@
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { Outlet, useLocation } from "react-router-dom";
+import "~/styles/style.scss";
 
 const MinLayout = () => {
     const location = useLocation();
@@ -30,12 +34,12 @@ const MinLayout = () => {
     }, [location]);
 
     return (
-        <>
+        <div className="layout-scope">
             <main>
                 <Outlet />
             </main>
             <Toaster />
-        </>
+        </div>
     );
 };
 
