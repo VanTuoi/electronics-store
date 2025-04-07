@@ -43,10 +43,32 @@ export type Product = {
 export interface User {
     id: string;
     email: string;
-    name: string;
+    role: "admin" | "user";
+    accessToken: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export type CartItem = {
     product: Product;
     quantity: number;
 };
+
+export interface ApiError {
+    field?: string;
+    message: string;
+    code?: string;
+}
+
+export interface ResponseData<T> {
+    success: boolean;
+    message: string;
+    data: T | null;
+    statusCode: number;
+    errors?: ApiError[];
+}
+
+export interface LoginData {
+    token: string;
+    user: User;
+}

@@ -1,14 +1,16 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Turnstile from "react-turnstile";
 import { useLogin } from "~/hooks/auth/use-login";
 import { loginSchema, type LoginFormData } from "~/utils/validation-schemas/form-login-schema";
 
 const LoginForm = () => {
-    const { login, loading, error } = useLogin();
+    const navigate = useNavigate();
+    const { login, loading, errorMessage } = useLogin(() => navigate("/admin"));
     const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+    const [showPassword, setShowPassword] = useState(false);
     const {
         register,
         handleSubmit,
@@ -27,7 +29,16 @@ const LoginForm = () => {
     return (
         <div className="card shadow-lg" style={{ maxWidth: "400px", width: "100%" }}>
             <div className="card-body p-5">
-                <h2 className="text-center mb-4">Đăng nhập</h2>
+                <div className="row">
+                    <div className="d-flex justify-content-center align-items-center">
+                        <Link className="navbar-brand fs-4 fw-bold" to="/">
+                            Electronics<span> Store</span>
+                        </Link>
+                        <img src="/logo.png" alt="Logo" width="40" height="40" />
+                    </div>
+                </div>
+
+                <h4 className="text-center mb-4">Đăng nhập</h4>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="mb-3">
                         <label htmlFor="email" className="form-label">
@@ -39,19 +50,28 @@ const LoginForm = () => {
                             id="email"
                             {...register("email")}
                         />
-                        {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">
                             Mật khẩu
                         </label>
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             className={`form-control ${errors.password ? "is-invalid" : ""}`}
                             id="password"
                             {...register("password")}
                         />
-                        {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
+                        <div className="form-check mt-2">
+                            <input
+                                type="checkbox"
+                                className="form-check-input"
+                                id="showPassword"
+                                onChange={e => setShowPassword(e.target.checked)}
+                            />
+                            <label className="form-check-label" htmlFor="showPassword">
+                                Hiện mật khẩu
+                            </label>
+                        </div>
                     </div>
                     <div className="mb-3 d-flex justify-content-center">
                         <Turnstile
@@ -60,11 +80,10 @@ const LoginForm = () => {
                             onError={() => setTurnstileToken(null)}
                         />
                     </div>
-                    {error && <div className="alert alert-danger">{error.message}</div>}
+                    {errorMessage && <div className="text-danger pb-4">{errorMessage}</div>}
                     <button
                         type="submit"
-                        className="btn w-100 py-2 text-white"
-                        style={{ backgroundColor: "#00FF7F" }}
+                        className={`btn w-100 py-2 text-white bg-primary ${loading || !turnstileToken ? "disabled" : ""}`}
                         disabled={loading || !turnstileToken}
                     >
                         {loading ? "Đang đăng nhập..." : "Đăng nhập"}
@@ -72,7 +91,7 @@ const LoginForm = () => {
                 </form>
                 <div className="text-center mt-3">
                     <small>
-                        Chưa có tài khoản? <Link to="/register">Đăng ký ngay</Link>
+                        Quên mật khẩu? <Link to="/forgot-password">Lấy lại mật khẩu</Link>
                     </small>
                 </div>
             </div>
