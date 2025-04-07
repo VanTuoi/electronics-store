@@ -50,6 +50,7 @@ const LoginForm = () => {
                             id="email"
                             {...register("email")}
                         />
+                        {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
                     </div>
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label">
@@ -61,6 +62,7 @@ const LoginForm = () => {
                             id="password"
                             {...register("password")}
                         />
+                        {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
                         <div className="form-check mt-2">
                             <input
                                 type="checkbox"
