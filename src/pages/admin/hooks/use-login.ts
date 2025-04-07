@@ -1,7 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import { useSetAtom } from "jotai";
-import toast from "react-hot-toast";
 import { userAtom } from "~/pages/admin/stores/auth";
 import { authApi } from "~/services/auth";
 import { LoginData } from "~/types";
@@ -11,15 +9,15 @@ interface LoginCredentials {
     password: string;
 }
 
-export const useLogin = (onSuccessCallback?: () => void) => {
+export const useLogin = () => {
     const setUser = useSetAtom(userAtom);
 
     const {
         mutate: login,
         isPending: loading,
         error
-    } = useMutation<LoginData | null, AxiosError<{ message: string }>, LoginCredentials>({
-        mutationFn: async credentials => {
+    } = useMutation({
+        mutationFn: async (credentials: LoginCredentials): Promise<LoginData | null> => {
             const res = await authApi("public").login(credentials);
             return res.data.data;
         },
@@ -27,20 +25,15 @@ export const useLogin = (onSuccessCallback?: () => void) => {
             if (!data) return;
             const { user, token } = data;
 
-            localStorage.setItem("token", JSON.stringify({ token }));
+            localStorage.setItem("user-auth", JSON.stringify({ user, token }));
+
             setUser({ user });
-
-            toast.success("Đăng nhập thành công");
-
-            if (onSuccessCallback) {
-                onSuccessCallback();
-            }
         }
     });
 
     return {
         login,
         loading,
-        errorMessage: error?.response?.data?.message ?? error?.message ?? null
+        error: error as Error | null
     };
 };
