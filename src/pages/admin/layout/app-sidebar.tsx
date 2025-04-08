@@ -1,15 +1,15 @@
 import React, { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router";
 
-// Assume these icons are imported from an icon library
 import { useSidebar } from "../hooks/use-sidebar";
 
 import {
     BoxCubeIcon,
+    CategoryIcon,
     ChevronDownIcon,
-    GridIcon,
     HorizontaLDots,
     ListIcon,
+    OverviewIcon,
     PageIcon,
     PieChartIcon,
     TableIcon
@@ -24,9 +24,14 @@ type NavItem = {
 
 const navItems: NavItem[] = [
     {
-        icon: <GridIcon />,
+        icon: <OverviewIcon />,
         name: "Quản lý chung",
         subItems: [{ name: "Electronics Store", path: "", pro: false }]
+    },
+    {
+        name: "Danh mục",
+        icon: <CategoryIcon />,
+        subItems: [{ name: "Danh mục tủ điện", path: "categories", pro: false }]
     },
     {
         name: "Đơn hàng",

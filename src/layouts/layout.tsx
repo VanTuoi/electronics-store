@@ -2,7 +2,6 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { useEffect } from "react";
-import { Toaster } from "react-hot-toast";
 import { Outlet, useLocation } from "react-router-dom";
 import Footer from "~/components/footer";
 import Header from "~/components/header/header";
@@ -45,7 +44,6 @@ const Layout = () => {
                 <Outlet />
             </main>
             <Footer />
-            <Toaster />
         </div>
     );
 };

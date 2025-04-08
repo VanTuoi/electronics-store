@@ -20,8 +20,10 @@ const publicApi = axios.create({
 
 privateApi.interceptors.request.use(
     config => {
-        const token = localStorage.getItem("token");
-        if (token) {
+        const storedData = localStorage.getItem("token");
+        if (storedData) {
+            const parsedData = JSON.parse(storedData);
+            const token = parsedData.token;
             config.headers["Authorization"] = `Bearer ${token}`;
         }
         return config;

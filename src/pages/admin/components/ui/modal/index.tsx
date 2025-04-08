@@ -5,43 +5,44 @@ interface ModalProps {
     onClose: () => void;
     className?: string;
     children: React.ReactNode;
-    showCloseButton?: boolean; // New prop to control close button visibility
-    isFullscreen?: boolean; // Default to false for backwards compatibility
+    showCloseButton?: boolean;
+    isFullscreen?: boolean;
+    size?: "sm" | "md" | "lg" | "xl" | "full";
 }
+
+const sizeClassMap = {
+    sm: "w-full max-w-sm",
+    md: "w-full max-w-md",
+    lg: "w-full max-w-lg",
+    xl: "w-full max-w-3xl",
+    full: "w-full h-full"
+};
 
 export const Modal: React.FC<ModalProps> = ({
     isOpen,
     onClose,
     children,
     className,
-    showCloseButton = true, // Default to true for backwards compatibility
-    isFullscreen = false
+    showCloseButton = true,
+    isFullscreen = false,
+    size = "md"
 }) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleEscape = (event: KeyboardEvent) => {
-            if (event.key === "Escape") {
-                onClose();
-            }
+            if (event.key === "Escape") onClose();
         };
 
         if (isOpen) {
             document.addEventListener("keydown", handleEscape);
         }
 
-        return () => {
-            document.removeEventListener("keydown", handleEscape);
-        };
+        return () => document.removeEventListener("keydown", handleEscape);
     }, [isOpen, onClose]);
 
     useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "unset";
-        }
-
+        document.body.style.overflow = isOpen ? "hidden" : "unset";
         return () => {
             document.body.style.overflow = "unset";
         };
@@ -49,27 +50,24 @@ export const Modal: React.FC<ModalProps> = ({
 
     if (!isOpen) return null;
 
-    const contentClasses = isFullscreen ? "w-full h-full" : "relative w-full rounded-3xl bg-white  dark:bg-gray-900";
+    const sizeClass = isFullscreen ? "w-full h-full" : sizeClassMap[size];
+    const contentClasses = `relative bg-white dark:bg-gray-900 ${sizeClass} ${className || ""}`;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center overflow-y-auto modal z-99999">
-            {!isFullscreen && (
-                <div
-                    className="fixed inset-0 h-full w-full bg-gray-400/50 backdrop-blur-[32px]"
-                    role="button"
-                    tabIndex={0}
-                    onClick={onClose}
-                    onKeyDown={e => {
-                        if (e.key === "Enter" || e.key === " ") {
-                            onClose();
-                        }
-                    }}
-                ></div>
-            )}
+        <div className="fixed inset-0 z-99999 flex items-center justify-center">
+            <div
+                className="fixed inset-0 bg-black/30 transition-opacity"
+                role="button"
+                tabIndex={0}
+                onClick={onClose}
+                onKeyDown={e => {
+                    if (e.key === "Enter" || e.key === " ") onClose();
+                }}
+            />
             <div
                 ref={modalRef}
                 role="presentation"
-                className={`${contentClasses} ${className}`}
+                className={`z-10 ${contentClasses} ${size !== "full" && "rounded-xl"}`}
                 onClick={e => e.stopPropagation()}
             >
                 {showCloseButton && (
@@ -77,7 +75,7 @@ export const Modal: React.FC<ModalProps> = ({
                         onClick={onClose}
                         className="absolute right-3 top-3 z-999 flex h-9.5 w-9.5 items-center justify-center rounded-full bg-gray-100 text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:right-6 sm:top-6 sm:h-11 sm:w-11"
                     >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path
                                 fillRule="evenodd"
                                 clipRule="evenodd"
@@ -87,7 +85,7 @@ export const Modal: React.FC<ModalProps> = ({
                         </svg>
                     </button>
                 )}
-                <div>{children}</div>
+                <div className="p-6 max-h-[90vh] overflow-y-auto">{children}</div>
             </div>
         </div>
     );
