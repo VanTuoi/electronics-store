@@ -72,3 +72,11 @@ export interface LoginData {
     token: string;
     user: User;
 }
+
+export interface Category {
+    id: string;
+    name: string;
+    description?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+}

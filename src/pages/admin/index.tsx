@@ -1,5 +1,6 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import "./index.css";
 import AppLayout from "./layout/app-layout";
@@ -55,7 +56,12 @@ const AdminHomePage = () => {
         );
     }
 
-    return <AppLayout />;
+    return (
+        <>
+            <AppLayout />
+            <Toaster />
+        </>
+    );
 };
 
 export default AdminHomePage;
