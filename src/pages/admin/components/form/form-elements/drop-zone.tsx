@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import ComponentCard from "../../common/component-card";
-// import Dropzone from "react-dropzone";
 
-const DropzoneComponent: React.FC = () => {
+interface DropzoneProps {
+    label?: string;
+    value?: File[];
+    onChange?: (files: File[]) => void;
+    error?: string;
+    maxFiles?: number;
+}
+
+const DropzoneComponent: React.FC<DropzoneProps> = ({ label, value = [], onChange, error, maxFiles = 5 }) => {
+    const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+
+    useEffect(() => {
+        const newUrls = value.map(file => URL.createObjectURL(file));
+        setPreviewUrls(newUrls);
+
+        return () => {
+            // Dọn rác khi unmount hoặc value thay đổi
+            newUrls.forEach(url => URL.revokeObjectURL(url));
+        };
+    }, [value]);
+
     const onDrop = (acceptedFiles: File[]) => {
-        console.warn("Files dropped:", acceptedFiles);
-        // Handle file uploads here
+        const newFiles = [...value, ...acceptedFiles].slice(0, maxFiles);
+        if (onChange) onChange(newFiles);
+    };
+
+    const removeImage = (index: number) => {
+        const newFiles = value.filter((_, i) => i !== index);
+        if (onChange) onChange(newFiles);
     };
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -16,36 +39,59 @@ const DropzoneComponent: React.FC = () => {
             "image/jpeg": [],
             "image/webp": [],
             "image/svg+xml": []
-        }
+        },
+        maxFiles,
+        multiple: true
     });
+
     return (
-        <ComponentCard title="Dropzone">
+        <div className="space-y-2">
+            {label && <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-white">{label}</label>}
+
+            {previewUrls.length > 0 && (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                    {previewUrls.map((img, index) => (
+                        <div key={index} className="relative group">
+                            <img
+                                src={img}
+                                alt={`Preview ${index + 1}`}
+                                className="w-full h-32 object-cover rounded-lg"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => removeImage(index)}
+                                className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                            >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M6 18L18 6M6 6l12 12"
+                                    />
+                                </svg>
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            )}
+
             <div className="transition border border-gray-300 border-dashed cursor-pointer dark:hover:border-brand-500 dark:border-gray-700 rounded-xl hover:border-brand-500">
-                <form
+                <div
                     {...getRootProps()}
-                    className={`dropzone rounded-xl   border-dashed border-gray-300 p-7 lg:p-10
-        ${
-            isDragActive
-                ? "border-brand-500 bg-gray-100 dark:bg-gray-800"
-                : "border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-900"
-        }
-      `}
-                    id="demo-upload"
+                    className={`dropzone rounded-xl border-dashed border-gray-300 p-7 lg:p-10
+                    ${
+                        isDragActive
+                            ? "border-brand-500 bg-gray-100 dark:bg-gray-800"
+                            : "border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-900"
+                    }`}
                 >
-                    {/* Hidden Input */}
                     <input {...getInputProps()} />
 
-                    <div className="dz-message flex flex-col items-center m-0!">
-                        {/* Icon Container */}
+                    <div className="dz-message flex flex-col items-center m-0">
                         <div className="mb-[22px] flex justify-center">
-                            <div className="flex h-[68px] w-[68px]  items-center justify-center rounded-full bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-400">
-                                <svg
-                                    className="fill-current"
-                                    width="29"
-                                    height="28"
-                                    viewBox="0 0 29 28"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
+                            <div className="flex h-[68px] w-[68px] items-center justify-center rounded-full bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-400">
+                                <svg className="fill-current" width="29" height="28" viewBox="0 0 29 28">
                                     <path
                                         fillRule="evenodd"
                                         clipRule="evenodd"
@@ -55,20 +101,21 @@ const DropzoneComponent: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Text Content */}
                         <h4 className="mb-3 font-semibold text-gray-800 text-theme-xl dark:text-white/90">
-                            {isDragActive ? "Drop Files Here" : "Drag & Drop Files Here"}
+                            {isDragActive ? "Thả ảnh vào đây" : "Kéo & thả ảnh vào đây"}
                         </h4>
 
-                        <span className=" text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">
-                            Drag and drop your PNG, JPG, WebP, SVG images here or browse
+                        <span className="text-center mb-5 block w-full max-w-[290px] text-sm text-gray-700 dark:text-gray-400">
+                            {`Kéo thả hoặc click để chọn ảnh (tối đa ${maxFiles} ảnh)`}
                         </span>
 
-                        <span className="font-medium underline text-theme-sm text-brand-500">Browse File</span>
+                        <span className="font-medium underline text-theme-sm text-brand-500">Chọn ảnh</span>
                     </div>
-                </form>
+                </div>
             </div>
-        </ComponentCard>
+
+            {error && <p className="mt-1.5 text-xs text-error-500">{error}</p>}
+        </div>
     );
 };
 

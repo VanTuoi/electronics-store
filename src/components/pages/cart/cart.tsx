@@ -80,7 +80,7 @@ export const Cart = () => {
                                         <div className="row g-0">
                                             <div className="col-md-3">
                                                 <img
-                                                    src={getMainImage(item.product.images)}
+                                                    src={getMainImage(item?.product?.images ?? [])}
                                                     className="img-fluid rounded-start mx-3"
                                                     alt={item.product.name}
                                                 />
@@ -154,7 +154,7 @@ export const Cart = () => {
                                         <div className="row g-0">
                                             <div className="col-md-3">
                                                 <img
-                                                    src={getMainImage(item.product.images)}
+                                                    src={getMainImage(item?.product?.images ?? [])}
                                                     className="img-fluid rounded-start mx-3"
                                                     alt={item.product.name}
                                                 />
