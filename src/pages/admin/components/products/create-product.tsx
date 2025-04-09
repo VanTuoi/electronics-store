@@ -23,7 +23,7 @@ type ProductFormProps = {
 
 export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, onDelete }: ProductFormProps) => {
     const { createProducts } = useCreateProducts();
-    const { data: categories, getCategories } = useGetCategories();
+    const { data: categories } = useGetCategories();
     const { updateProduct } = useUpdateProduct();
     const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
     // const [currentImages, setCurrentImages] = useState<ProductImageInput[] | null>(null);
@@ -48,10 +48,6 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
             }
         }
     });
-
-    useEffect(() => {
-        getCategories();
-    }, [getCategories]);
 
     useEffect(() => {
         if (defaultValues) {
