@@ -1,37 +1,30 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { categoriesApi } from "~/services/categories";
 import { Category } from "~/types";
 
 export const useGetCategories = () => {
-    const queryClient = useQueryClient();
-
     const {
-        mutate: getCategories,
-        isPending,
+        data,
+        isPending: loading,
         error
-    } = useMutation({
-        mutationFn: async (): Promise<Category[] | null> => {
+    } = useQuery<Category[]>({
+        queryKey: ["categories"],
+        queryFn: async (): Promise<Category[]> => {
             const res = await categoriesApi("private").getCategories();
-            return res.data.data;
+            return res.data.data ?? [];
         },
-        onSuccess: data => {
-            if (data) {
-                queryClient.setQueryData(["categories"], data);
-            }
-        },
-        onError: err => {
-            console.error("Error fetching categories:", err);
-            toast.error(`Lỗi khi lấy tất cả danh mục`);
-        }
+        staleTime: 5 * 60 * 1000
     });
 
-    const data = queryClient.getQueryData<Category[]>(["categories"]);
+    if (error) {
+        console.error("Error fetching categories:", error);
+        toast.error("Lỗi khi lấy tất cả danh mục");
+    }
 
     return {
         data,
-        getCategories,
-        loading: isPending,
+        loading,
         error: error as Error | null
     };
 };

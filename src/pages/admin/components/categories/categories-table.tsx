@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Category } from "~/types";
 import {
     useCreateCategories,
@@ -12,7 +12,7 @@ import { Table, TableBody, TableCell, TableHeader, TableRow } from "../ui/table"
 import { TooltipText } from "../ui/tooltip-text/tooltip-text";
 
 export default function CategoriesTable() {
-    const { getCategories, data: dataCategories } = useGetCategories();
+    const { data: dataCategories } = useGetCategories();
     const { createCategories } = useCreateCategories();
     const { updateCategory } = useUpdateCategory();
     const { deleteCategory } = useDeleteCategories();
@@ -20,10 +20,6 @@ export default function CategoriesTable() {
 
     const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
     const [editedCategory, setEditedCategory] = useState<Category | null>(null);
-
-    useEffect(() => {
-        getCategories();
-    }, [getCategories]);
 
     const openCreateModal = () => {
         setEditedCategory({ id: "", name: "", description: "" });
