@@ -5,7 +5,6 @@ import DefaultInputs from "../../components/form/form-elements/default-inputs";
 import DropzoneComponent from "../../components/form/form-elements/drop-zone";
 import FileInputExample from "../../components/form/form-elements/file-input-example";
 import InputGroup from "../../components/form/form-elements/input-group";
-import InputStates from "../../components/form/form-elements/input-states";
 import RadioButtons from "../../components/form/form-elements/radio-buttons";
 import SelectInputs from "../../components/form/form-elements/select-inputs";
 import TextAreaInput from "../../components/form/form-elements/text-area-input";
@@ -24,7 +23,7 @@ export default function FormElements() {
                     <DefaultInputs />
                     <SelectInputs />
                     <TextAreaInput />
-                    <InputStates />
+                    {/* <InputStates /> */}
                 </div>
                 <div className="space-y-6">
                     <InputGroup />

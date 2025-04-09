@@ -82,7 +82,7 @@ export const ProductDetails = () => {
                             />
                         </button>
                         <div className="d-flex justify-content-flex-start gap-2 mt-2">
-                            {product.images.map((img, index) => {
+                            {product?.images?.map((img, index) => {
                                 const src = img.url;
                                 const isActive = mainImage === src;
                                 return (
@@ -105,8 +105,8 @@ export const ProductDetails = () => {
                         <Lightbox
                             open={lightboxOpen}
                             close={() => setLightboxOpen(false)}
-                            slides={product.images.map(i => ({ src: i.url }))}
-                            index={product.images.findIndex(img => img.url === mainImage)}
+                            slides={product?.images?.map(i => ({ src: i.url }))}
+                            index={product?.images?.findIndex(img => img.url === mainImage)}
                         />
                         <div className="mt-5 text-dark">
                             <ul className="nav nav-tabs" role="tablist">

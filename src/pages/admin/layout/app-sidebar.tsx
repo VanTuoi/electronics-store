@@ -34,12 +34,9 @@ const navItems: NavItem[] = [
         subItems: [{ name: "Danh mục tủ điện", path: "categories", pro: false }]
     },
     {
-        name: "Đơn hàng",
+        name: "Tủ điện",
         icon: <ListIcon />,
-        subItems: [
-            { name: "Đơn hàng cần xử lý", path: "form-elements", pro: false },
-            { name: "Tất cả đơn hàng", path: "form-elements", pro: false }
-        ]
+        subItems: [{ name: "Tủ điện", path: "products", pro: false }]
     },
     {
         name: "Yêu cầu tư vấn hỗ trợ",

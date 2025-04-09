@@ -48,7 +48,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             tabIndex={0}
             style={{ cursor: "pointer" }}
         >
-            <img src={getMainImage(product.images)} alt={product.name} className="card-img-top" />
+            <img src={getMainImage(product?.images ?? [])} alt={product.name} className="card-img-top" />
             <div className="card-body d-flex flex-column justify-content-between">
                 <div className="product-title">
                     <h5 className="card-title fw-bold fs-6 text-truncate-hover" title={product.name}>

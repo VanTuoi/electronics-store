@@ -22,6 +22,7 @@ const PrivacyPage = lazy(() => import("./pages/privacy.tsx"));
 const AdminLayout = lazy(() => import("./pages/admin/index.tsx"));
 const AdminHomePage = lazy(() => import("./pages/admin/pages/dashboard/home.tsx"));
 const FormElementsPage = lazy(() => import("./pages/admin/pages/forms/form-elements.tsx"));
+const ProductsPage = lazy(() => import("./pages/admin/pages/products/index.tsx"));
 const BasicTablesPage = lazy(() => import("./pages/admin/pages/tables/basic-tables.tsx"));
 const CategoriesPage = lazy(() => import("./pages/admin/pages/categories/index.tsx"));
 const LineChartPage = lazy(() => import("./pages/admin/pages/charts/line-chart.tsx"));
@@ -66,6 +67,7 @@ const routers = createBrowserRouter([
                 children: [
                     { index: true, element: <AdminHomePage /> },
                     { path: "categories", element: <CategoriesPage /> },
+                    { path: "products", element: <ProductsPage /> },
                     { path: "form-elements", element: <FormElementsPage /> },
                     { path: "basic-tables", element: <BasicTablesPage /> },
                     { path: "line-chart", element: <LineChartPage /> },
