@@ -4,7 +4,7 @@ import { productsApi } from "~/services/products";
 import { Product, ProductInput } from "~/types";
 import { formDataToObject } from "~/utils/form-data-format";
 
-export const useGetProducts = () => {
+export const useGetProducts = (params?: { search?: string; categoryId?: string }) => {
     const {
         data,
         isFetching: loading,
@@ -13,10 +13,10 @@ export const useGetProducts = () => {
     } = useQuery({
         queryKey: ["products"],
         queryFn: async (): Promise<Product[] | null> => {
-            const res = await productsApi("private").getProducts();
+            const res = await productsApi("private").getProducts(params);
             return res.data.data;
         },
-        staleTime: 1
+        staleTime: 1000
     });
 
     return {

@@ -7,12 +7,12 @@ import {
     BoxCubeIcon,
     CategoryIcon,
     ChevronDownIcon,
+    DollarLineIcon,
     HorizontaLDots,
     ListIcon,
     OverviewIcon,
-    PageIcon,
     PieChartIcon,
-    TableIcon
+    UserCircleIcon
 } from "../icons";
 
 type NavItem = {
@@ -35,12 +35,17 @@ const navItems: NavItem[] = [
     },
     {
         name: "Tủ điện",
-        icon: <ListIcon />,
+        icon: <BoxCubeIcon />,
         subItems: [{ name: "Tủ điện", path: "products", pro: false }]
     },
     {
+        name: "Khuyến mãi",
+        icon: <DollarLineIcon />,
+        subItems: [{ name: "Khuyến mãi", path: "", pro: false }]
+    },
+    {
         name: "Yêu cầu tư vấn hỗ trợ",
-        icon: <TableIcon />,
+        icon: <ListIcon />,
         subItems: [
             { name: "Yêu cầu cần xử lý", path: "basic-tables", pro: false },
             { name: "Tất cả yêu cầu", path: "form-elements", pro: false }
@@ -48,7 +53,7 @@ const navItems: NavItem[] = [
     },
     {
         name: "Danh sách khách hàng",
-        icon: <PageIcon />,
+        icon: <UserCircleIcon />,
         subItems: [{ name: "Danh sách khách hàng", path: "", pro: false }]
     }
 ];
@@ -56,23 +61,11 @@ const navItems: NavItem[] = [
 const othersItems: NavItem[] = [
     {
         icon: <PieChartIcon />,
-        name: "Biểu đồ",
+        name: "Thống kê",
         subItems: [
             { name: "Doanh thu", path: "line-chart", pro: false },
             { name: "Đơn hàng", path: "bar-chart", pro: false },
             { name: "Yêu cầu tư vấn hỗ trợ", path: "bar-chart", pro: false }
-        ]
-    },
-    {
-        icon: <BoxCubeIcon />,
-        name: "Thành phần khác",
-        subItems: [
-            { name: "Alerts", path: "alerts", pro: false },
-            { name: "Avatar", path: "avatars", pro: false },
-            { name: "Badge", path: "badge", pro: false },
-            { name: "Buttons", path: "buttons", pro: false },
-            { name: "Images", path: "images", pro: false },
-            { name: "Videos", path: "videos", pro: false }
         ]
     }
 ];

@@ -1,15 +1,23 @@
 import { format } from "date-fns";
 import { useState } from "react";
-import { Product } from "~/types";
+import { Option, Product } from "~/types";
 import { formatCurrency } from "~/utils/price-utils";
+import { useGetCategories } from "../../hooks/use-categories";
 import { useDeleteProducts, useGetProducts } from "../../hooks/use-products";
+import Input from "../form/input/input-field";
+import Select from "../form/select";
 import { Modal } from "../ui/modal";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "../ui/table";
 import { TooltipText } from "../ui/tooltip-text/tooltip-text";
 import { ProductForm } from "./create-product";
 
 export default function ProductsTable() {
-    const { data: dataProducts } = useGetProducts();
+    const [filters, setFilters] = useState({
+        categoryId: "",
+        search: ""
+    });
+    const { data: dataProducts, refetch } = useGetProducts(filters);
+    const { data: categories } = useGetCategories();
     const { deleteProduct } = useDeleteProducts();
     const [isCreateMode, setIsCreateMode] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -39,6 +47,20 @@ export default function ProductsTable() {
         setIsCreateMode(false);
     };
 
+    const categoryOptions: Option[] =
+        categories?.map(category => ({
+            value: category.id,
+            label: category.name
+        })) || [];
+
+    const handleFilterChange = (newFilters: Partial<typeof filters>) => {
+        setFilters(prev => ({ ...prev, ...newFilters }));
+    };
+
+    const handleSearch = () => {
+        refetch();
+    };
+
     return (
         <>
             <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
@@ -49,6 +71,26 @@ export default function ProductsTable() {
                         onClick={openCreateModal}
                     >
                         Thêm tủ điện
+                    </button>
+                </div>
+                <div className="flex justify-start items-end p-4 gap-2">
+                    <Select
+                        options={categoryOptions}
+                        placeholder="Chọn danh mục"
+                        onValueChange={categoryId => handleFilterChange({ categoryId })}
+                        value={filters.categoryId}
+                        label="Danh mục sản phẩm"
+                    />
+                    <Input
+                        label="Tên sản phẩm"
+                        value={filters.search}
+                        onChange={e => handleFilterChange({ search: e.target.value })}
+                    ></Input>
+                    <button
+                        className="px-4 py-3 text-sm text-white bg-blue-500 rounded hover:bg-blue-600"
+                        onClick={() => handleSearch()}
+                    >
+                        Tìm kiếm
                     </button>
                 </div>
                 <div className="max-w-full overflow-x-auto">
