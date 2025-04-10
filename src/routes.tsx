@@ -29,6 +29,7 @@ const LineChartPage = lazy(() => import("./pages/admin/pages/charts/line-chart.t
 const BarChartPage = lazy(() => import("./pages/admin/pages/charts/bar-chart.tsx"));
 
 const NotFoundPage = lazy(() => import("./pages/not-found.tsx"));
+const HelloPage = lazy(() => import("./pages/hello.tsx"));
 
 const routers = createBrowserRouter([
     {
@@ -46,7 +47,8 @@ const routers = createBrowserRouter([
                     { path: "privacy", element: <PrivacyPage /> },
                     { path: "terms", element: <TermsPage /> },
                     { path: "faq", element: <FAQPage /> },
-                    { path: "payment", element: <PaymentPage /> }
+                    { path: "payment", element: <PaymentPage /> },
+                    { path: "hello", element: <HelloPage /> }
                 ]
             },
             {
