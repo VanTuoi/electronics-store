@@ -159,3 +159,8 @@ export interface Category {
     createdAt?: Date;
     updatedAt?: Date;
 }
+
+export type Option = {
+    value: string;
+    label: string;
+};
