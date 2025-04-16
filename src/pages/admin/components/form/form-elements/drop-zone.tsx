@@ -1,35 +1,87 @@
 import React, { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { ProductImageInput } from "~/types";
 
 interface DropzoneProps {
     label?: string;
-    value?: File[];
-    onChange?: (files: File[]) => void;
+    value?: ProductImageInput[];
+    onChange?: (files: ProductImageInput[]) => void;
     error?: string;
     maxFiles?: number;
 }
 
-const DropzoneComponent: React.FC<DropzoneProps> = ({ label, value = [], onChange, error, maxFiles = 5 }) => {
-    const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+const DropzoneComponent: React.FC<DropzoneProps> = ({ label, value = [], onChange, error, maxFiles = 10 }) => {
+    const [activePreviews, setActivePreviews] = useState<(ProductImageInput & { preview: string; index: number })[]>(
+        []
+    );
 
     useEffect(() => {
-        const newUrls = value.map(file => URL.createObjectURL(file));
-        setPreviewUrls(newUrls);
+        const previews = value
+            .map((item, index) => ({
+                ...item,
+                preview: item.url ? item.url : item.file ? URL.createObjectURL(item.file) : "",
+                index
+            }))
+            .filter(item => !item.isDelete);
+
+        setActivePreviews(previews);
 
         return () => {
-            // Dọn rác khi unmount hoặc value thay đổi
-            newUrls.forEach(url => URL.revokeObjectURL(url));
+            previews.forEach(item => {
+                if (item.preview.startsWith("blob:")) URL.revokeObjectURL(item.preview);
+            });
         };
     }, [value]);
 
+    useEffect(() => {
+        if (value.length > 0 && !value.some(img => img.isMain && !img.isDelete)) {
+            const firstAvailableIndex = value.findIndex(img => !img.isDelete);
+            if (firstAvailableIndex >= 0) {
+                const updated = [...value];
+                updated[firstAvailableIndex].isMain = true;
+                onChange?.(updated);
+            }
+        }
+    }, [value, onChange]);
+
     const onDrop = (acceptedFiles: File[]) => {
-        const newFiles = [...value, ...acceptedFiles].slice(0, maxFiles);
-        if (onChange) onChange(newFiles);
+        const newFiles: ProductImageInput[] = acceptedFiles.map(file => ({ file }));
+        const activeImages = value.filter(img => !img.isDelete);
+        const combined = [...activeImages, ...newFiles].slice(0, maxFiles);
+
+        if (combined.length > 0 && !combined.some(img => img.isMain)) {
+            combined[0].isMain = true;
+        }
+
+        onChange?.(combined);
     };
 
     const removeImage = (index: number) => {
-        const newFiles = value.filter((_, i) => i !== index);
-        if (onChange) onChange(newFiles);
+        const updated = [...value];
+        const isRemovingMain = updated[index]?.isMain;
+
+        if (updated[index].url) {
+            updated[index] = { ...updated[index], isDelete: true };
+        } else {
+            updated.splice(index, 1);
+        }
+
+        if (isRemovingMain && updated.some(img => !img.isDelete)) {
+            const firstAvailableIndex = updated.findIndex(img => !img.isDelete);
+            if (firstAvailableIndex >= 0) {
+                updated[firstAvailableIndex].isMain = true;
+            }
+        }
+
+        onChange?.(updated);
+    };
+
+    const setAsMain = (index: number) => {
+        const updated = value.map((img, i) => ({
+            ...img,
+            isMain: i === index
+        }));
+        onChange?.(updated);
     };
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -48,15 +100,32 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({ label, value = [], onChang
         <div className="space-y-2">
             {label && <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-white">{label}</label>}
 
-            {previewUrls.length > 0 && (
+            {activePreviews.length > 0 && (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                    {previewUrls.map((img, index) => (
+                    {activePreviews.map(({ preview, index, isMain }) => (
                         <div key={index} className="relative group">
                             <img
-                                src={img}
+                                src={preview}
                                 alt={`Preview ${index + 1}`}
                                 className="w-full h-32 object-cover rounded-lg"
                             />
+                            <button
+                                type="button"
+                                onClick={() => setAsMain(index)}
+                                className={`absolute top-2 left-2 p-1 rounded-full text-white ${
+                                    isMain ? "bg-green-500" : "bg-gray-400 opacity-0 group-hover:opacity-100"
+                                } transition-opacity`}
+                                title="Đặt làm ảnh chính"
+                            >
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M5 13l4 4L19 7"
+                                    />
+                                </svg>
+                            </button>
                             <button
                                 type="button"
                                 onClick={() => removeImage(index)}
@@ -71,6 +140,11 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({ label, value = [], onChang
                                     />
                                 </svg>
                             </button>
+                            {isMain && (
+                                <div className="absolute bottom-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
+                                    Ảnh chính
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
@@ -87,7 +161,6 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({ label, value = [], onChang
                     }`}
                 >
                     <input {...getInputProps()} />
-
                     <div className="dz-message flex flex-col items-center m-0">
                         <div className="mb-[22px] flex justify-center">
                             <div className="flex h-[68px] w-[68px] items-center justify-center rounded-full bg-gray-200 text-gray-700 dark:bg-gray-800 dark:text-gray-400">

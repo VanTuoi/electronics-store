@@ -6,12 +6,14 @@ import { useEffect, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
-import { Category, Product, ProductInputSchema, ProductSchema } from "~/types";
+import { Category, Product, ProductImageInput, ProductInputSchema, ProductSchema } from "~/types";
 import { useGetCategories } from "../../hooks/use-categories";
 import { useCreateProducts, useUpdateProduct } from "../../hooks/use-products";
+import DropzoneComponent from "../form/form-elements/drop-zone";
 import Input from "../form/input/input-field";
 import Select from "../form/select";
 import Button from "../ui/button/button";
+import ConfirmDeleteButton from "../ui/button/delete-button";
 
 type ProductFormProps = {
     defaultValues?: Product;
@@ -22,11 +24,12 @@ type ProductFormProps = {
 };
 
 export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, onDelete }: ProductFormProps) => {
-    const { createProducts } = useCreateProducts();
     const { data: categories } = useGetCategories();
-    const { updateProduct } = useUpdateProduct();
+    const { createProducts, loading: isCreating } = useCreateProducts(onCancel);
+    const { updateProduct, loading: isUpdating } = useUpdateProduct(onCancel);
+
     const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
-    // const [currentImages, setCurrentImages] = useState<ProductImageInput[] | null>(null);
+    const [currentImages, setCurrentImages] = useState<ProductImageInput[] | null>(null);
 
     const {
         register,
@@ -55,11 +58,11 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
         }
     }, [defaultValues, reset]);
 
-    // useEffect(() => {
-    //     if (defaultValues?.images) {
-    //         setCurrentImages(defaultValues.images);
-    //     }
-    // }, [defaultValues]);
+    useEffect(() => {
+        if (defaultValues?.images) {
+            setCurrentImages(defaultValues.images);
+        }
+    }, [defaultValues]);
 
     useEffect(() => {
         if (categories) {
@@ -98,29 +101,34 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
 
             submitFormData.append("category", currentCategory.id);
 
-            // if (currentImages) {
-            //     currentImages.forEach(image => {
-            //         if (image.file) {
-            //             submitFormData.append("files", image.file);
-            //         }
-            //     });
+            if (currentImages) {
+                currentImages.forEach(image => {
+                    if (image.file) {
+                        submitFormData.append("files", image.file);
+                    }
+                });
 
-            //     const deleteImages = currentImages.filter(img => img.isDelete).map(img => img.url);
-            //     if (deleteImages.length > 0) {
-            //         submitFormData.append("deleteImages", JSON.stringify(deleteImages));
-            //     }
-            // }
+                const mainImageIndex = currentImages.findIndex(img => img.isMain);
+
+                if (mainImageIndex !== -1) {
+                    submitFormData.append("mainImageIndex", String(mainImageIndex));
+                }
+
+                const deleteImages = currentImages.filter(img => img.isDelete && img.url).map(img => img.url);
+
+                if (deleteImages.length > 0) {
+                    submitFormData.append("deleteImages", JSON.stringify(deleteImages));
+                }
+            }
 
             if (isCreateMode) {
-                createProducts(submitFormData);
+                await createProducts(submitFormData);
             } else if (defaultValues?.id) {
-                updateProduct({
+                await updateProduct({
                     id: defaultValues.id,
                     formData: submitFormData
                 });
             }
-
-            onCancel();
         } catch (error) {
             console.error("Error in form submission:", error);
             toast.error("Có lỗi xảy ra khi lưu sản phẩm");
@@ -295,27 +303,26 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
                     error={errors.priceText?.message}
                 />
             </div>
-            {/*
+
             <div className="grid grid-cols-1 gap-4">
-                 <DropzoneComponent
+                <DropzoneComponent
                     label="Ảnh sản phẩm"
-                    value={currentImages?.map(img => img.file).filter((file): file is File => !!file)}
-                    onChange={files =>
+                    value={currentImages || []}
+                    onChange={images =>
                         setCurrentImages(
-                            files.map((file, index) => ({
-                                file,
-                                isMain: index === 0
+                            images.map(img => ({
+                                ...img
                             }))
                         )
                     }
-                /> 
+                />
 
                 {defaultValues?.images && defaultValues.images.length > 0 && (
                     <div className="text-sm text-gray-500">
                         * Ảnh hiện tại sẽ được giữ nguyên nếu bạn không tải lên ảnh mới
                     </div>
                 )}
-            </div>*/}
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Input label="Vật liệu" {...register("material")} error={errors.material?.message} />
                 <Input label="Thể tích" {...register("capacity")} error={errors.capacity?.message} />
@@ -371,16 +378,15 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
             )}
 
             <div className="flex justify-end items-center gap-4 pt-4 border-t">
-                <Button onClick={onCancel} variant="outline" type="button">
-                    Hủy
-                </Button>
-                <Button disabled={Object.keys(errors).length > 0} type="submit">
+                <Button
+                    disabled={Object.keys(errors).length > 0 || isCreating || isUpdating}
+                    type="submit"
+                    loading={isCreating || isUpdating}
+                >
                     {isCreateMode ? "Tạo mới" : "Cập nhật"}
                 </Button>
                 {!isCreateMode && onDelete && (
-                    <Button onClick={onDelete} type="button" className="!bg-red-500 hover:!bg-red-600">
-                        Xóa sản phẩm
-                    </Button>
+                    <ConfirmDeleteButton onConfirm={onDelete} title={`Bạn muốn xóa sản phẩm này không?`} />
                 )}
             </div>
         </form>

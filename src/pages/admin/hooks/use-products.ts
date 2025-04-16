@@ -27,7 +27,7 @@ export const useGetProducts = (params?: { search?: string; categoryId?: string }
     };
 };
 
-export const useCreateProducts = () => {
+export const useCreateProducts = (onClose: () => void) => {
     const queryClient = useQueryClient();
 
     const {
@@ -54,6 +54,7 @@ export const useCreateProducts = () => {
         },
         onSuccess: newProduct => {
             if (newProduct) {
+                onClose();
                 toast.success(`Đã tạo sản phẩm ${newProduct?.name}`);
                 queryClient.setQueryData<Product[]>(["products"], oldData =>
                     oldData ? [...oldData, newProduct] : [newProduct]
@@ -76,7 +77,7 @@ export const useCreateProducts = () => {
         error: error as Error | null
     };
 };
-export const useUpdateProduct = () => {
+export const useUpdateProduct = (onClose?: () => void) => {
     const queryClient = useQueryClient();
 
     const {
@@ -103,6 +104,7 @@ export const useUpdateProduct = () => {
         },
         onSuccess: (_data, { formData }) => {
             const name = formData.get("name");
+            onClose?.();
             toast.success(`Đã cập nhật sản phẩm ${name}`);
             queryClient.invalidateQueries({ queryKey: ["products"] });
         },
