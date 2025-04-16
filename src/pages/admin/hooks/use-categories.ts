@@ -29,7 +29,7 @@ export const useGetCategories = () => {
     };
 };
 
-export const useCreateCategories = () => {
+export const useCreateCategories = (onClose?: () => void) => {
     const queryClient = useQueryClient();
 
     const {
@@ -47,6 +47,7 @@ export const useCreateCategories = () => {
                     oldData ? [...oldData, newCategory] : [newCategory]
                 );
             }
+            onClose?.();
             toast.success(`Đã tạo danh mục ${newCategory?.name}`);
         },
         onError: err => {
@@ -65,7 +66,7 @@ export const useCreateCategories = () => {
     };
 };
 
-export const useDeleteCategories = () => {
+export const useDeleteCategories = (onClose?: () => void) => {
     const queryClient = useQueryClient();
 
     const {
@@ -80,6 +81,7 @@ export const useDeleteCategories = () => {
             queryClient.setQueryData<Category[]>(["categories"], oldData =>
                 oldData?.filter(item => item.id !== category.id)
             );
+            onClose?.();
             toast.success(`Đã xóa danh mục ${category?.name}`);
         },
         onError: err => {
@@ -95,7 +97,7 @@ export const useDeleteCategories = () => {
     };
 };
 
-export const useUpdateCategory = () => {
+export const useUpdateCategory = (onClose?: () => void) => {
     const queryClient = useQueryClient();
 
     const {
@@ -110,6 +112,7 @@ export const useUpdateCategory = () => {
             queryClient.setQueryData<Category[]>(["categories"], oldData =>
                 oldData?.map(item => (item.id === updatedCategory.id ? updatedCategory : item))
             );
+            onClose?.();
             toast.success(`Đã cập nhật danh mục ${updatedCategory?.name}`);
         },
         onError: err => {

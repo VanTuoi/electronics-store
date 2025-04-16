@@ -7,55 +7,70 @@ import {
     useGetCategories,
     useUpdateCategory
 } from "../../hooks/use-categories";
+import Button from "../ui/button/button";
+import ConfirmDeleteButton from "../ui/button/delete-button";
 import { Modal } from "../ui/modal";
 import { Table, TableBody, TableCell, TableHeader, TableRow } from "../ui/table";
 import { TooltipText } from "../ui/tooltip-text/tooltip-text";
 
 export default function CategoriesTable() {
-    const { data: dataCategories } = useGetCategories();
-    const { createCategories } = useCreateCategories();
-    const { updateCategory } = useUpdateCategory();
-    const { deleteCategory } = useDeleteCategories();
+    const { data: categories } = useGetCategories();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { deleteCategory } = useDeleteCategories(() => setIsModalOpen(false));
+    const { createCategories, loading: isCreating } = useCreateCategories(() => setIsModalOpen(false));
+    const { updateCategory, loading: isUpdating } = useUpdateCategory(() => setIsModalOpen(false));
+
+    const [editingCategory, setEditingCategory] = useState<Category | null>(null);
     const [isCreateMode, setIsCreateMode] = useState(false);
 
-    const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
-    const [editedCategory, setEditedCategory] = useState<Category | null>(null);
+    const [errors, setErrors] = useState({ name: "" });
+
+    const validateForm = () => {
+        let valid = true;
+        const newErrors = { name: "" };
+
+        if (!editingCategory?.name?.trim()) {
+            newErrors.name = "Tên danh mục không được để trống";
+            valid = false;
+        }
+
+        setErrors(newErrors);
+        return valid;
+    };
 
     const openCreateModal = () => {
-        setEditedCategory({ id: "", name: "", description: "" });
+        setEditingCategory({ id: "", name: "", description: "" });
         setIsCreateMode(true);
-        setSelectedCategory(null);
+        setIsModalOpen(true);
+        setErrors({ name: "" });
     };
 
     const handleRowClick = (category: Category) => {
-        setEditedCategory({ ...category });
-        setSelectedCategory(category);
+        setEditingCategory({ ...category });
         setIsCreateMode(false);
+        setIsModalOpen(true);
+        setErrors({ name: "" });
     };
 
     const handleSave = () => {
-        if (!editedCategory) return;
-        if (isCreateMode) {
-            createCategories(editedCategory);
-        } else {
-            updateCategory(editedCategory);
-        }
+        if (!editingCategory || !validateForm()) return;
 
-        setEditedCategory(null);
-        setSelectedCategory(null);
-        setIsCreateMode(false);
+        if (isCreateMode) {
+            createCategories(editingCategory);
+        } else {
+            updateCategory(editingCategory);
+        }
     };
 
     const handleDelete = () => {
-        if (!selectedCategory) return;
-        deleteCategory(selectedCategory);
-        handleCloseModal();
+        if (!editingCategory) return;
+        deleteCategory(editingCategory);
     };
 
     const handleCloseModal = () => {
-        setEditedCategory(null);
-        setSelectedCategory(null);
-        setIsCreateMode(false);
+        setEditingCategory(null);
+        setIsModalOpen(false);
+        setErrors({ name: "" });
     };
 
     return (
@@ -90,7 +105,7 @@ export default function CategoriesTable() {
                         </TableHeader>
 
                         <TableBody className="divide-y divide-gray-100 dark:divide-white/[0.05]">
-                            {dataCategories?.map(category => (
+                            {categories?.map(category => (
                                 <TableRow
                                     key={category.id}
                                     onClick={() => handleRowClick(category)}
@@ -119,7 +134,7 @@ export default function CategoriesTable() {
                 </div>
             </div>
 
-            <Modal size="lg" isOpen={!!editedCategory} onClose={handleCloseModal}>
+            <Modal size="lg" isOpen={isModalOpen} onClose={handleCloseModal}>
                 <div className="space-y-4">
                     <h2 className="text-xl font-semibold">{isCreateMode ? "Thêm danh mục" : "Chỉnh sửa danh mục"}</h2>
 
@@ -131,8 +146,7 @@ export default function CategoriesTable() {
                             <input
                                 id="category-id"
                                 className="rounded border px-3 py-2 dark:bg-gray-800 dark:text-white"
-                                value={editedCategory?.id || ""}
-                                onChange={e => setEditedCategory(prev => prev && { ...prev, id: e.target.value })}
+                                value={editingCategory?.id || ""}
                                 disabled
                             />
                         </div>
@@ -140,14 +154,17 @@ export default function CategoriesTable() {
 
                     <div className="flex flex-col gap-2">
                         <label htmlFor="category-name" className="text-sm font-medium">
-                            Tên danh mục
+                            Tên danh mục *
                         </label>
                         <input
                             id="category-name"
-                            className="rounded border px-3 py-2 dark:bg-gray-800 dark:text-white"
-                            value={editedCategory?.name || ""}
-                            onChange={e => setEditedCategory(prev => prev && { ...prev, name: e.target.value })}
+                            className={`rounded border px-3 py-2 dark:bg-gray-800 dark:text-white ${
+                                errors.name ? "border-red-500" : ""
+                            }`}
+                            value={editingCategory?.name || ""}
+                            onChange={e => setEditingCategory(prev => prev && { ...prev, name: e.target.value })}
                         />
+                        {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
                     </div>
 
                     <div className="flex flex-col gap-2">
@@ -157,27 +174,27 @@ export default function CategoriesTable() {
                         <textarea
                             id="category-description"
                             className="rounded border px-3 py-2 dark:bg-gray-800 dark:text-white"
-                            value={editedCategory?.description || ""}
-                            onChange={e => setEditedCategory(prev => prev && { ...prev, description: e.target.value })}
+                            value={editingCategory?.description || ""}
+                            onChange={e => setEditingCategory(prev => prev && { ...prev, description: e.target.value })}
                         />
                     </div>
 
                     <div className="flex justify-end gap-3 pt-4">
-                        {!isCreateMode && (
-                            <button
-                                onClick={handleDelete}
-                                className="px-4 py-2 text-sm text-red-500 border border-red-500 rounded hover:bg-red-500 hover:text-white transition"
-                            >
-                                Xóa danh mục
-                            </button>
-                        )}
-
-                        <button
+                        <Button
+                            loading={isCreating || isUpdating}
+                            disabled={isCreating || isUpdating}
                             onClick={handleSave}
                             className="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700"
                         >
                             {isCreateMode ? "Tạo mới" : "Cập nhật"}
-                        </button>
+                        </Button>
+                        {!isCreateMode && (
+                            <ConfirmDeleteButton
+                                title="Bạn chắc chắn muốn xóa danh mục này không?"
+                                name="Xóa danh mục"
+                                onConfirm={handleDelete}
+                            />
+                        )}
                     </div>
                 </div>
             </Modal>
