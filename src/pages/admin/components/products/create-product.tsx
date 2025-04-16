@@ -386,7 +386,11 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
                     {isCreateMode ? "Tạo mới" : "Cập nhật"}
                 </Button>
                 {!isCreateMode && onDelete && (
-                    <ConfirmDeleteButton onConfirm={onDelete} title={`Bạn muốn xóa sản phẩm này không?`} />
+                    <ConfirmDeleteButton
+                        name="Xóa sản phẩm"
+                        onConfirm={onDelete}
+                        title={`Bạn muốn xóa sản phẩm này không?`}
+                    />
                 )}
             </div>
         </form>
