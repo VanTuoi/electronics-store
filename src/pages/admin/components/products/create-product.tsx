@@ -41,6 +41,7 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
     } = useForm<z.infer<typeof ProductInputSchema>>({
         resolver: zodResolver(ProductInputSchema),
         defaultValues: defaultValues || {
+            quantity: 0,
             features: [],
             specs: [],
             dimensions: {
@@ -161,9 +162,16 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
         <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6" id="product-form">
             <h2 className="text-xl font-semibold">{formTitle}</h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Input label="Tên sản phẩm" {...register("name")} error={errors.name?.message} />
                 <Input label="Mã sản phẩm" {...register("code")} error={errors.code?.message} />
+                <Input
+                    label="Số lượng sản phẩm"
+                    type="number"
+                    min={0}
+                    {...register("quantity", { valueAsNumber: true })}
+                    error={errors.quantity?.message}
+                />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

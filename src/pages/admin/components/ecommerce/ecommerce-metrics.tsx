@@ -12,6 +12,7 @@ export default function EcommerceMetrics() {
     const { data: dataProducts } = useGetProducts();
 
     const pendingSchedules = dataSchedules?.filter(item => item.status === "pending");
+    const outOfStockProducts = dataProducts?.filter(item => item?.quantity && item.quantity <= 3);
 
     return (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
@@ -85,8 +86,8 @@ export default function EcommerceMetrics() {
                             {dataProducts && dataProducts?.length ? dataProducts?.length : 0}
                         </h4>
                     </div>
-                    {dataProducts && dataProducts?.length ? (
-                        <Badge color="error">2 hết hàng</Badge>
+                    {outOfStockProducts && outOfStockProducts.length > 0 ? (
+                        <Badge color="error">{outOfStockProducts.length} sắp hoặc hết hết hàng</Badge>
                     ) : (
                         <Badge color="warning">Không có dữ liệu</Badge>
                     )}

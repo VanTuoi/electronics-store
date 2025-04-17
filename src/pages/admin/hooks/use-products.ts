@@ -11,7 +11,7 @@ export const useGetProducts = (params?: { search?: string; categoryId?: string }
         error,
         refetch
     } = useQuery({
-        queryKey: ["products"],
+        queryKey: ["products", params],
         queryFn: async (): Promise<Product[] | null> => {
             const res = await productsApi("private").getProducts(params);
             return res.data.data;

@@ -51,7 +51,7 @@ export default function ScheduleTable() {
         reset();
     });
 
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const status = searchParams.get("status");
 
     useEffect(() => {
@@ -59,16 +59,6 @@ export default function ScheduleTable() {
             setFilters(prev => ({ ...prev, status: status || "" }));
         }
     }, [status, refetch]);
-
-    useEffect(() => {
-        if (filters.status || filters.status === "") {
-            searchParams.set("status", filters.status);
-        }
-        if (filters.search) {
-            searchParams.set("search", filters.search);
-        }
-        setSearchParams(searchParams);
-    }, [filters, searchParams, setSearchParams]);
 
     const {
         register,
@@ -192,37 +182,37 @@ export default function ScheduleTable() {
                             <TableRow className="bg-gray-50 dark:bg-gray-700">
                                 <TableCell
                                     isHeader
-                                    className="px-5 py-3 font-medium text-start text-gray-900 dark:text-white"
+                                    className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white"
                                 >
                                     Họ và tên
                                 </TableCell>
                                 <TableCell
                                     isHeader
-                                    className="px-5 py-3 font-medium text-start text-gray-900 dark:text-white"
+                                    className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white"
                                 >
                                     Số điện thoại
                                 </TableCell>
                                 <TableCell
                                     isHeader
-                                    className="px-5 py-3 font-medium text-start text-gray-900 dark:text-white"
+                                    className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white"
                                 >
                                     Trạng thái
                                 </TableCell>
                                 <TableCell
                                     isHeader
-                                    className="px-5 py-3 font-medium text-start text-gray-900 dark:text-white"
+                                    className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white"
                                 >
                                     Ghi chú
                                 </TableCell>
                                 <TableCell
                                     isHeader
-                                    className="px-5 py-3 font-medium text-start text-gray-900 dark:text-white"
+                                    className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white"
                                 >
                                     Ngày tạo
                                 </TableCell>
                                 <TableCell
                                     isHeader
-                                    className="px-5 py-3 font-medium text-start text-gray-900 dark:text-white"
+                                    className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white"
                                 >
                                     Ngày cập nhật
                                 </TableCell>
@@ -243,10 +233,10 @@ export default function ScheduleTable() {
                                         onClick={() => handleRowClick(schedule)}
                                         className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700"
                                     >
-                                        <TableCell className="px-5 py-4 text-start text-gray-900 dark:text-white">
+                                        <TableCell className="px-5 py-4 text-start text-theme-sm">
                                             <TooltipText maxWidth="max-w-[200px]">{schedule.name || "—"}</TooltipText>
                                         </TableCell>
-                                        <TableCell className="px-5 py-4 text-start text-gray-900 dark:text-white">
+                                        <TableCell className="px-5 py-4 text-start text-theme-sm">
                                             {schedule.phone || "—"}
                                         </TableCell>
                                         <TableCell className="px-5 py-4 text-start min-w-[130px]">
@@ -269,15 +259,15 @@ export default function ScheduleTable() {
                                                 </span>
                                             )}
                                         </TableCell>
-                                        <TableCell className="px-5 py-4 text-start text-gray-900 dark:text-white">
+                                        <TableCell className="px-5 py-4 text-start text-theme-sm">
                                             <TooltipText maxWidth="max-w-[200px]">{schedule.note || "—"}</TooltipText>
                                         </TableCell>
-                                        <TableCell className="px-5 py-4 text-start text-gray-900 dark:text-white">
+                                        <TableCell className="px-5 py-4 text-start text-theme-sm">
                                             {schedule?.createdAt
                                                 ? format(new Date(schedule.createdAt), "HH:mm dd/MM/yyyy")
                                                 : "—"}
                                         </TableCell>
-                                        <TableCell className="px-5 py-4 text-start text-gray-900 dark:text-white">
+                                        <TableCell className="px-5 py-4 text-start text-theme-sm">
                                             {schedule?.updatedAt
                                                 ? format(new Date(schedule.updatedAt), "HH:mm dd/MM/yyyy")
                                                 : "—"}
@@ -290,8 +280,7 @@ export default function ScheduleTable() {
                 </div>
             </div>
 
-            {/* Modal Form */}
-            <Modal size="lg" isOpen={isModalOpen} onClose={handleCloseModal}>
+            <Modal size="xl" isOpen={isModalOpen} onClose={handleCloseModal}>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
                         {isCreateMode ? "Thêm lịch hẹn mới" : "Chỉnh sửa lịch hẹn"}
@@ -398,12 +387,12 @@ export default function ScheduleTable() {
 
                     <div className="flex justify-end gap-3 pt-4">
                         <Button
-                            type="button"
-                            variant="outline"
-                            onClick={handleCloseModal}
-                            className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700"
+                            type="submit"
+                            loading={isCreating || isUpdating}
+                            disabled={isCreating || isUpdating}
+                            className="px-4 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 rounded"
                         >
-                            Hủy bỏ
+                            {isCreateMode ? "Tạo lịch hẹn" : "Cập nhật"}
                         </Button>
                         {!isCreateMode && (
                             <ConfirmDeleteButton
@@ -414,14 +403,6 @@ export default function ScheduleTable() {
                                 className="bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white"
                             />
                         )}
-                        <Button
-                            type="submit"
-                            loading={isCreating || isUpdating}
-                            disabled={isCreating || isUpdating}
-                            className="px-4 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 rounded"
-                        >
-                            {isCreateMode ? "Tạo lịch hẹn" : "Cập nhật"}
-                        </Button>
                     </div>
                 </form>
             </Modal>

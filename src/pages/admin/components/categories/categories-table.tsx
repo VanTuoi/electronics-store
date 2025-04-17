@@ -74,31 +74,47 @@ export default function CategoriesTable() {
     };
 
     return (
-        <>
-            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
-                <div className="flex justify-between items-center p-4">
-                    <h2 className="text-xl font-semibold">Danh mục tủ điện</h2>
-                    <button
-                        className="px-4 py-2 text-sm text-white bg-green-500 rounded hover:bg-green-600"
-                        onClick={openCreateModal}
-                    >
-                        Thêm danh mục
-                    </button>
+        <div className="space-y-4">
+            <div className="rounded-xl border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 w-full">
+                <div className="flex flex-col gap-4">
+                    <div className="flex justify-between items-center">
+                        <h2 className="text-xl font-semibold">Danh mục tủ điện</h2>
+                        <Button
+                            className="h-[42px] bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 text-white"
+                            onClick={openCreateModal}
+                        >
+                            Thêm danh mục
+                        </Button>
+                    </div>
                 </div>
+            </div>
+            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
                 <div className="max-w-full overflow-x-auto">
                     <Table>
-                        <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
-                            <TableRow>
-                                <TableCell isHeader className="px-5 py-3 font-medium text-start text-theme-xs">
+                        <TableHeader className="border-b border-gray-200 dark:border-gray-700">
+                            <TableRow className="bg-gray-50 dark:bg-gray-700">
+                                <TableCell
+                                    isHeader
+                                    className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white"
+                                >
                                     Tên danh mục
                                 </TableCell>
-                                <TableCell isHeader className="px-5 py-3 font-medium text-start text-theme-xs">
+                                <TableCell
+                                    isHeader
+                                    className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white"
+                                >
                                     Mô tả danh mục
                                 </TableCell>
-                                <TableCell isHeader className="px-5 py-3 font-medium text-start text-theme-xs">
+                                <TableCell
+                                    isHeader
+                                    className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white"
+                                >
                                     Ngày tạo
                                 </TableCell>
-                                <TableCell isHeader className="px-5 py-3 font-medium text-start text-theme-xs">
+                                <TableCell
+                                    isHeader
+                                    className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white"
+                                >
                                     Ngày cập nhật
                                 </TableCell>
                             </TableRow>
@@ -111,18 +127,18 @@ export default function CategoriesTable() {
                                     onClick={() => handleRowClick(category)}
                                     className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800"
                                 >
-                                    <TableCell className="px-5 py-4 text-start">
+                                    <TableCell className="px-5 py-4 text-start text-theme-sm">
                                         <TooltipText maxWidth="max-w-xs">{category.name || "—"}</TooltipText>
                                     </TableCell>
-                                    <TableCell className="px-5 py-4 text-start">
+                                    <TableCell className="px-5 py-4 text-start text-theme-sm">
                                         <TooltipText maxWidth="max-w-xs">{category.description || "—"}</TooltipText>
                                     </TableCell>
-                                    <TableCell className="px-5 py-4 text-start">
+                                    <TableCell className="px-5 py-4 text-start text-theme-sm">
                                         {category?.createdAt
                                             ? format(new Date(category.createdAt), "HH:mm dd/MM/yyyy")
                                             : "—"}
                                     </TableCell>
-                                    <TableCell className="px-5 py-4 text-start">
+                                    <TableCell className="px-5 py-4 text-start text-theme-sm">
                                         {category?.updatedAt
                                             ? format(new Date(category.updatedAt), "HH:mm dd/MM/yyyy")
                                             : "—"}
@@ -198,6 +214,6 @@ export default function CategoriesTable() {
                     </div>
                 </div>
             </Modal>
-        </>
+        </div>
     );
 }

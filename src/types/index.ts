@@ -38,6 +38,7 @@ export type Product = {
     priceText?: string;
     discountPrice?: number;
     discountPercent?: number;
+    quantity?: number;
     images?: ProductImage[];
     specs?: ProductSpec[];
 
@@ -107,7 +108,7 @@ export const ProductSchema = z.object({
     ),
 
     specs: z.array(ProductSpecSchema).optional(),
-
+    quantity: z.number().min(0, "Số lượng sản phẩm không được nhỏ hơn 0").optional(),
     images: z.array(ProductImageInputSchema).optional(),
 
     material: z.string().optional(),
