@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { ScheduleFormData, scheduleSchema } from "~/utils/validation-schemas/schedule-schema";
+import { useCreateSchedules } from "~/hooks/schedules/use-schedule";
+import { ScheduleFormData, scheduleSchema } from "~/types";
 
 const ScheduleForm = () => {
     const {
@@ -13,26 +13,27 @@ const ScheduleForm = () => {
         resolver: zodResolver(scheduleSchema)
     });
 
+    const { createSchedules, loading } = useCreateSchedules(reset);
+
     const onSubmit = (data: ScheduleFormData) => {
-        toast.success("Đặt lịch hẹn thành công cho " + data.fullname);
-        reset();
+        createSchedules({ ...data, status: "pending" });
     };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="request-form bg-primary py-5">
             <h2>Đặt lịch hẹn tư vấn hỗ trợ</h2>
             <div className="form-group">
-                <label htmlFor="fullname" className="label">
+                <label htmlFor="name" className="label">
                     Họ và tên
                 </label>
                 <input
-                    id="fullname"
+                    id="name"
                     type="text"
                     className="form-control"
                     placeholder="Nguyễn Trần Thủy Tiên"
-                    {...register("fullname")}
+                    {...register("name")}
                 />
-                {errors.fullname && <p className="text-warning text-small">{errors.fullname.message}</p>}
+                {errors.name && <p className="text-warning text-small">{errors.name.message}</p>}
             </div>
             <div className="form-group">
                 <label htmlFor="phone" className="label">
@@ -61,7 +62,7 @@ const ScheduleForm = () => {
                 {errors.note && <p className="text-warning text-small">{errors.note.message}</p>}
             </div>
             <div className="form-group mt-4">
-                <input type="submit" value="Đặt lịch hẹn" className="btn btn-secondary py-3 px-3" />
+                <input disabled={loading} type="submit" value="Đặt lịch hẹn" className="btn btn-secondary py-3 px-3" />
             </div>
         </form>
     );

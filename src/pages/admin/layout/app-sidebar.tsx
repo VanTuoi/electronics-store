@@ -47,7 +47,7 @@ const navItems: NavItem[] = [
         name: "Yêu cầu tư vấn hỗ trợ",
         icon: <ListIcon />,
         subItems: [
-            { name: "Yêu cầu cần xử lý", path: "basic-tables", pro: false },
+            { name: "Yêu cầu cần xử lý", path: "schedules", pro: false },
             { name: "Tất cả yêu cầu", path: "form-elements", pro: false }
         ]
     },
@@ -258,11 +258,11 @@ const AppSidebar: React.FC = () => {
                 <Link to="/admin">
                     {isExpanded || isHovered || isMobileOpen ? (
                         <div className="flex flex-row items-center justify-between">
-                            <p className="text-lg">Electronics Store</p>
-                            <img src="/logo.png" alt="Logo" width={40} height={40} />
+                            <p className="text-lg dark:text-white">Electronics Store</p>
+                            <img src="/logo.png" alt="Logo" width={40} height={40} className="dark:invert" />
                         </div>
                     ) : (
-                        <img src="/logo.png" alt="Logo" width={40} height={40} />
+                        <img src="/logo.png" alt="Logo" width={40} height={40} className="dark:invert" />
                     )}
                 </Link>
             </div>

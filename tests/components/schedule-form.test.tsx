@@ -1,9 +1,16 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import ScheduleForm from "~/components/pages/home/schedule-form";
 
+const queryClient = new QueryClient();
+
+const Wrapper = ({ children }: { children: React.ReactNode }) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+);
+
 describe("ScheduleForm", () => {
     test("renders form correctly", () => {
-        render(<ScheduleForm />);
+        render(<ScheduleForm />, { wrapper: Wrapper });
 
         expect(screen.getByText("Đặt lịch hẹn tư vấn hỗ trợ")).toBeInTheDocument();
         expect(screen.getByLabelText("Họ và tên")).toBeInTheDocument();
@@ -13,7 +20,7 @@ describe("ScheduleForm", () => {
     });
 
     test("shows validation errors when submitting an empty form", async () => {
-        render(<ScheduleForm />);
+        render(<ScheduleForm />, { wrapper: Wrapper });
 
         fireEvent.click(screen.getByRole("button", { name: "Đặt lịch hẹn" }));
 
