@@ -25,6 +25,7 @@ const FormElementsPage = lazy(() => import("./pages/admin/pages/forms/form-eleme
 const ProductsPage = lazy(() => import("./pages/admin/pages/products/index.tsx"));
 const BasicTablesPage = lazy(() => import("./pages/admin/pages/tables/basic-tables.tsx"));
 const CategoriesPage = lazy(() => import("./pages/admin/pages/categories/index.tsx"));
+const SchedulesPage = lazy(() => import("./pages/admin/pages/schedules/index.tsx"));
 const LineChartPage = lazy(() => import("./pages/admin/pages/charts/line-chart.tsx"));
 const BarChartPage = lazy(() => import("./pages/admin/pages/charts/bar-chart.tsx"));
 
@@ -70,6 +71,7 @@ const routers = createBrowserRouter([
                     { index: true, element: <AdminHomePage /> },
                     { path: "categories", element: <CategoriesPage /> },
                     { path: "products", element: <ProductsPage /> },
+                    { path: "schedules", element: <SchedulesPage /> },
                     { path: "form-elements", element: <FormElementsPage /> },
                     { path: "basic-tables", element: <BasicTablesPage /> },
                     { path: "line-chart", element: <LineChartPage /> },

@@ -6,19 +6,22 @@ interface ConfirmDeleteButtonProps {
     title?: string;
     name?: string;
     className?: string;
+    loading?: boolean;
 }
 
 const ConfirmDeleteButton: React.FC<ConfirmDeleteButtonProps> = ({
     onConfirm,
     title = "Bạn có chắc chắn muốn xóa?",
     className = "",
-    name = "Xóa"
+    name = "Xóa",
+    loading = false
 }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <>
             <DeleteButton
+                loading={loading}
                 onClick={() => setIsOpen(true)}
                 type="button"
                 className={`!bg-red-500 hover:!bg-red-600 ${className}`}

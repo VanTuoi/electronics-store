@@ -164,3 +164,30 @@ export type Option = {
     value: string;
     label: string;
 };
+
+export interface Schedule {
+    id: string;
+    name: string;
+    phone: string;
+    note?: string;
+    status?: "pending" | "confirmed" | "completed" | "cancelled";
+    adminNote?: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export const scheduleSchema = z.object({
+    id: z.string().optional(),
+    name: z.string().min(1, "Họ và tên là bắt buộc"),
+    phone: z
+        .string()
+        .min(1, "Số điện thoại là bắt buộc")
+        .regex(/^\d{10,11}$/, "Số điện thoại không hợp lệ"),
+    note: z.string().max(200, "Tối đa 200 ký tự").optional(),
+    status: z.enum(["pending", "confirmed", "completed", "cancelled"]).optional(),
+    adminNote: z.string().max(2000, "Tối đa 2000 ký tự").optional(),
+    createdAt: z.string().optional(),
+    updatedAt: z.string().optional()
+});
+
+export type ScheduleFormData = z.infer<typeof scheduleSchema>;
