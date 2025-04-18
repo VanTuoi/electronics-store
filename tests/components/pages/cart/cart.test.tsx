@@ -13,7 +13,10 @@ const mockProduct: Product = {
     priceText: "",
     images: [{ url: "test-image.jpg", isMain: true }],
     description: "Test description",
-    category: "Test category"
+    category: {
+        name: "Test category",
+        id: "1"
+    }
 };
 
 const mockCartItem = {

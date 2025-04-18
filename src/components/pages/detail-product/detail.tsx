@@ -1,13 +1,14 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Lightbox } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { LoadingBox } from "~/components/common";
 import { PHONE_NUMBER } from "~/constant";
-import { useProductById } from "~/hooks";
+import { useGetProductById } from "~/pages/admin/hooks/use-products";
 import { cartAtom } from "~/stores/cart";
 import { formatCurrency, getDisplayPrice, getMainImage } from "~/utils/price-utils";
+import ProductDescription from "./product-description";
 
 export const ProductDetails = () => {
     const [cart, setCart] = useAtom(cartAtom);
@@ -18,7 +19,7 @@ export const ProductDetails = () => {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const { data: product, isLoading, isError } = useProductById(id || "");
+    const { data: product, loading: isLoading, error: isError } = useGetProductById(id);
 
     useEffect(() => {
         if (product?.images) {
@@ -26,12 +27,19 @@ export const ProductDetails = () => {
         }
     }, [product]);
 
-    if (product === undefined || isLoading) {
+    if (isLoading) {
         return <LoadingBox height={"50vh"} />;
     }
 
-    if (isError) {
-        return <p>Lỗi khi tải sản phẩm</p>;
+    if (!product || isError) {
+        return (
+            <div className="container py-5 text-center mt-5 mb-5">
+                <p className="text-muted fs-3">Lỗi khi tải sản phẩm! Không thể hiển thị thông tin sản phẩm.</p>
+                <Link to="/products" className="btn btn-link btn-primary">
+                    Quay lại danh sách sản phẩm
+                </Link>
+            </div>
+        );
     }
 
     const goToCheckOut = () => {
@@ -146,7 +154,7 @@ export const ProductDetails = () => {
                                     role="tabpanel"
                                     aria-labelledby="description-tab"
                                 >
-                                    <p>{product.description}</p>
+                                    <ProductDescription product={product} />
                                 </div>
                                 <div
                                     className="tab-pane fade"
@@ -163,27 +171,41 @@ export const ProductDetails = () => {
                         <h2 className="mb-1 text-bold">{product.name}</h2>
                         <p className="mb-1 text-bold">
                             <strong>Mã: </strong>
-                            {product.id}
+                            {product?.code}
                         </p>
-                        <p className="fs-6 mb-2">
-                            <strong>Loại tủ: </strong>
-                            {product.category}
-                        </p>
-                        <p className="fs-6 mb-2">
-                            <strong>Điện áp vào: </strong>
-                            {product.inputVoltage}
-                        </p>
-                        <p className="fs-6 mb-2">
-                            <strong>Điện áp ra: </strong>
-                            {product.outputVoltage}
-                        </p>
-                        <p className="fs-6 mb-2">
-                            <strong>Ứng dụng: </strong>
-                            {product.usage}
-                        </p>
+
+                        {product?.category?.name && (
+                            <p className="fs-6 mb-2">
+                                <strong>Loại tủ: </strong>
+                                {product.category.name}
+                            </p>
+                        )}
+
+                        {product?.inputVoltage && (
+                            <p className="fs-6 mb-2">
+                                <strong>Điện áp vào: </strong>
+                                {product.inputVoltage}
+                            </p>
+                        )}
+
+                        {product?.outputVoltage && (
+                            <p className="fs-6 mb-2">
+                                <strong>Điện áp ra: </strong>
+                                {product.outputVoltage}
+                            </p>
+                        )}
+
+                        {product?.usage && (
+                            <p className="fs-6 mb-2">
+                                <strong>Ứng dụng: </strong>
+                                {product.usage}
+                            </p>
+                        )}
+
                         <div className="mb-2">
                             {isDiscounted ? (
                                 <div>
+                                    <strong>Giá bán: </strong>
                                     <span className="badge text-primary fs-3 me-2">{display}</span>
                                     <span className="badge text-decoration-line-through text-danger fs-5">
                                         {formatCurrency(original!)}
@@ -229,32 +251,48 @@ export const ProductDetails = () => {
                         <div className="mb-4">
                             <h5 className="fs-4">Thông số kỹ thuật:</h5>
                             <ul>
-                                <li>
-                                    <strong>Kích thước:</strong> H{product.dimensions?.height} × W
-                                    {product.dimensions?.width} × D{product.dimensions?.depth} mm
-                                </li>
-                                <li>
-                                    <strong>Vật liệu:</strong> {product.material}
-                                </li>
-                                <li>
-                                    <strong>Cấp bảo vệ:</strong> {product.protectionLevel}
-                                </li>
-                                <li>
-                                    <strong>Điện áp đầu vào:</strong> {product.inputVoltage}
-                                </li>
-                                <li>
-                                    <strong>Điện áp đầu ra:</strong> {product.outputVoltage}
-                                </li>
-                                <li>
-                                    <strong>Trọng lượng:</strong> {product.weightKg} kg
-                                </li>
-                                <li>
-                                    <strong>Xuất xứ:</strong> {product.origin}
-                                </li>
+                                {product?.dimensions?.height &&
+                                    product?.dimensions?.width &&
+                                    product?.dimensions?.depth && (
+                                        <li>
+                                            <strong>Kích thước:</strong> H{product.dimensions.height} × W
+                                            {product.dimensions.width} × D{product.dimensions.depth} mm
+                                        </li>
+                                    )}
+                                {product?.material && (
+                                    <li>
+                                        <strong>Vật liệu:</strong> {product.material}
+                                    </li>
+                                )}
+                                {product?.protectionLevel && (
+                                    <li>
+                                        <strong>Cấp bảo vệ:</strong> {product.protectionLevel}
+                                    </li>
+                                )}
+                                {product?.inputVoltage && (
+                                    <li>
+                                        <strong>Điện áp đầu vào:</strong> {product.inputVoltage}
+                                    </li>
+                                )}
+                                {product?.outputVoltage && (
+                                    <li>
+                                        <strong>Điện áp đầu ra:</strong> {product.outputVoltage}
+                                    </li>
+                                )}
+                                {product?.weightKg && (
+                                    <li>
+                                        <strong>Trọng lượng:</strong> {product.weightKg} kg
+                                    </li>
+                                )}
+                                {product?.origin && (
+                                    <li>
+                                        <strong>Xuất xứ:</strong> {product.origin}
+                                    </li>
+                                )}
                             </ul>
                         </div>
 
-                        {product.features?.length && product.features.length > 0 && (
+                        {product?.features?.length && product?.features?.length > 0 && (
                             <div className="mb-4">
                                 <h5 className="fs-4">Tính năng:</h5>
                                 <ul>

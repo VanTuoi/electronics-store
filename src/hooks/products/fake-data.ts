@@ -4,7 +4,10 @@ export const fakeProducts: Product[] = Array.from({ length: 23 }, (_, index) => 
     const id = `DLP1-3P60LS-${index + 1}`;
     const name = `Tủ điện phân phối chiếu sáng ngoài trời 3P 60A LS ${index + 1}`;
     const isEven = index % 2 === 0;
-    const category = !isEven ? "Tủ điều khiển" : "Tủ phân phối";
+    const category = {
+        name: !isEven ? "Tủ điều khiển" : "Tủ phân phối",
+        id: "67ffadb1df633387fbfce3b1"
+    };
     const baseImage = `/imgs/product_1.png`;
     const price = (index + 1) * 1_000_000;
 

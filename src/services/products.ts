@@ -6,6 +6,7 @@ export const productsApi = (type: "public" | "private" = "public") => {
     const api = getApi(type);
 
     return {
+        getProduct: (id: string) => api.get<ResponseData<Product | null>>(`/products/${id}`),
         getProducts: (params?: { search?: string; categoryId?: string }) =>
             api.get<ResponseData<Product[] | null>>("/products", { params }),
         createProduct: (product: Partial<ProductInput>) =>

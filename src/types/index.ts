@@ -29,7 +29,10 @@ export type Product = {
     id: string;
     name: string;
     code?: string;
-    category: string;
+    category: {
+        name: string;
+        id: string;
+    };
     description?: string;
     usage?: string;
     features?: string[];
