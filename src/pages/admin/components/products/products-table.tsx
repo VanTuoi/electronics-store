@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { useState } from "react";
 import { Option, Product } from "~/types";
-import { formatCurrency } from "~/utils/price-utils";
+import { formatCurrency, getMainImage } from "~/utils/price-utils";
 import { useGetCategories } from "../../hooks/use-categories";
 import { useDeleteProducts, useGetProducts } from "../../hooks/use-products";
 import Input from "../form/input/input-field";
@@ -23,6 +23,7 @@ export default function ProductsTable() {
     const { data: dataProducts } = useGetProducts(filters);
     const { data: categories } = useGetCategories();
     const { deleteProduct } = useDeleteProducts();
+    const [isFullScreen, setIsFullScreen] = useState(false);
     const [isCreateMode, setIsCreateMode] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
     const [editedProduct, setEditedProduct] = useState<Product | null>(null);
@@ -123,15 +124,15 @@ export default function ProductsTable() {
                             <TableRow className="bg-gray-50 dark:bg-gray-700">
                                 <TableCell
                                     isHeader
-                                    className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white"
+                                    className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white min-w-[120px]"
                                 >
-                                    Tên tủ điện
+                                    Ảnh tủ điện
                                 </TableCell>
                                 <TableCell
                                     isHeader
                                     className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white"
                                 >
-                                    Mô tả tủ điện
+                                    Tên tủ điện
                                 </TableCell>
                                 <TableCell
                                     isHeader
@@ -147,7 +148,7 @@ export default function ProductsTable() {
                                 </TableCell>
                                 <TableCell
                                     isHeader
-                                    className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white"
+                                    className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white min-w-[120px]"
                                 >
                                     Khuyến mãi
                                 </TableCell>
@@ -179,11 +180,15 @@ export default function ProductsTable() {
                                     onClick={() => handleRowClick(product)}
                                     className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800"
                                 >
-                                    <TableCell className="px-5 py-4 text-start text-theme-sm">
-                                        <TooltipText maxWidth="max-w-xs">{product.name || "—"}</TooltipText>
+                                    <TableCell className="px-5 py-4 text-center items-center text-theme-sm">
+                                        <img
+                                            src={getMainImage(product.images || [])}
+                                            alt={product.name}
+                                            className="w-12 h-12 rounded-md"
+                                        />
                                     </TableCell>
-                                    <TableCell className="px-5 py-4 text-start text-theme-sm">
-                                        <TooltipText maxWidth="max-w-xs">{product.description || "—"}</TooltipText>
+                                    <TableCell className="px-5 py-4 text-start text-theme-sm max-w-[200px]">
+                                        <TooltipText maxWidth="max-w-xs">{product.name || "—"}</TooltipText>
                                     </TableCell>
                                     <TableCell className="px-5 py-4 text-start min-w-[130px]">
                                         {typeof product.quantity === "number" ? (
@@ -202,7 +207,6 @@ export default function ProductsTable() {
                                             <TooltipText maxWidth="max-w-xs">Không xác định</TooltipText>
                                         )}
                                     </TableCell>
-
                                     <TableCell className="px-5 py-4 text-start text-theme-sm">
                                         <TooltipText maxWidth="max-w-xs">
                                             {formatCurrency(product.price || 0) || "—"}
@@ -229,7 +233,13 @@ export default function ProductsTable() {
                 </div>
             </div>
 
-            <Modal size="xl" isOpen={!!editedProduct || isCreateMode} onClose={handleCloseModal}>
+            <Modal
+                size={isFullScreen ? "full" : "xl"}
+                isOpen={!!editedProduct || isCreateMode}
+                isFullscreen={isFullScreen}
+                onClose={handleCloseModal}
+                setIsFullScreen={setIsFullScreen}
+            >
                 <div className="space-y-4">
                     <ProductForm
                         key={editedProduct?.id || "create"}

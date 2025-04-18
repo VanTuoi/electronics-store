@@ -9,6 +9,7 @@ import { z } from "zod";
 import { Category, Product, ProductImageInput, ProductInputSchema, ProductSchema } from "~/types";
 import { useGetCategories } from "../../hooks/use-categories";
 import { useCreateProducts, useUpdateProduct } from "../../hooks/use-products";
+import RichTextEditor from "../editor/editor";
 import DropzoneComponent from "../form/form-elements/drop-zone";
 import Input from "../form/input/input-field";
 import Select from "../form/select";
@@ -44,11 +45,12 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
             quantity: 0,
             features: [],
             specs: [],
+            priceText: "Giá liên hệ",
             dimensions: {
-                height: undefined,
-                width: undefined,
-                depth: undefined,
-                unit: "cm"
+                height: 100,
+                width: 100,
+                depth: 50,
+                unit: "mm"
             }
         }
     });
@@ -163,20 +165,21 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
             <h2 className="text-xl font-semibold">{formTitle}</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Input label="Tên sản phẩm" {...register("name")} error={errors.name?.message} />
-                <Input label="Mã sản phẩm" {...register("code")} error={errors.code?.message} />
+                <Input label="Tên sản phẩm *" {...register("name")} error={errors.name?.message} />
+                <Input label="Mã sản phẩm *" {...register("code")} error={errors.code?.message} />
                 <Input
                     label="Số lượng sản phẩm"
                     type="number"
+                    hint="Nhập 0 nếu hết hàng"
                     min={0}
                     {...register("quantity", { valueAsNumber: true })}
                     error={errors.quantity?.message}
                 />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Select
-                    label="Thuộc danh mục"
+                    label="Thuộc về danh mục *"
                     placeholder="Chọn danh mục"
                     options={
                         categories?.map(cat => ({
@@ -191,23 +194,23 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
                     }}
                 />
                 <Input label="Xuất xứ" {...register("origin")} error={errors.origin?.message} />
+                <Input label="Mục đích sử dụng" {...register("usage")} error={errors.usage?.message} row={4} />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Input label="Mô tả" {...register("description")} error={errors.description?.message} row={4} />
-                <Input label="Mục đích sử dụng" {...register("usage")} error={errors.usage?.message} row={4} />
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
+                <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-white">
+                    Mô tả sản phẩm
+                </label>
+                <p className="text-xs text-gray-500">Nội dung này sẽ được hiển thị trên trang sản phẩm</p>
+                <RichTextEditor value={watch("description") || ""} onChange={value => setValue("description", value)} />
             </div>
 
             <div className="space-y-2">
                 <div className="flex justify-between items-center">
                     <h3 className="text-sm font-medium text-gray-700 dark:text-white">Tính năng sản phẩm</h3>
-                    <button
-                        type="button"
-                        onClick={handleAddFeature}
-                        className="text-sm text-brand-500 hover:text-brand-600"
-                    >
+                    <Button type="button" onClick={handleAddFeature} size="sm">
                         + Thêm tính năng
-                    </button>
+                    </Button>
                 </div>
                 <div className="space-y-2">
                     {currentFeatures.map((_, index) => (
@@ -240,13 +243,9 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
             <div className="space-y-2">
                 <div className="flex justify-between items-center">
                     <h3 className="text-sm font-medium text-gray-700 dark:text-white">Thông số kỹ thuật</h3>
-                    <button
-                        type="button"
-                        onClick={handleAddSpec}
-                        className="text-sm text-brand-500 hover:text-brand-600"
-                    >
+                    <Button type="button" onClick={handleAddSpec} size="sm">
                         + Thêm thông số
-                    </button>
+                    </Button>
                 </div>
                 <div className="space-y-2">
                     {currentSpecs.map((_, index) => (
@@ -286,18 +285,20 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Input
                     label="Giá gốc"
+                    hint="Đơn vị tính là đồng (VNĐ)"
                     type="number"
                     {...register("price", { valueAsNumber: true })}
                     error={errors.price?.message}
                 />
                 <Input
-                    label="Giảm số tiền trực tiếp"
+                    label="Giá muốn bán"
+                    hint="Nhập vào 0 nếu không giảm giá"
                     type="number"
                     {...register("discountPrice", { valueAsNumber: true })}
                     error={errors.discountPrice?.message}
                 />
                 <Input
-                    label="Giảm theo phần trăm"
+                    label="Giảm theo phần trăm (%)"
                     type="number"
                     {...register("discountPercent", { valueAsNumber: true })}
                     error={errors.discountPercent?.message}
@@ -306,7 +307,9 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
 
             <div className="grid grid-cols-1 gap-4">
                 <Input
-                    label="Giảm giá khác (VD: Giá liên hệ)"
+                    placeholder="VD: Giá liên hệ"
+                    hint="Nếu không muốn niêm yết giá hãy nhập 'giá liên hệ'."
+                    label="Giảm giá khác"
                     {...register("priceText")}
                     error={errors.priceText?.message}
                 />
@@ -344,19 +347,19 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <Input
-                    label="Chiều dài"
+                    label="Chiều dài *"
                     type="number"
                     {...register("dimensions.height", { valueAsNumber: true })}
                     error={errors.dimensions?.height?.message}
                 />
                 <Input
-                    label="Chiều rộng"
+                    label="Chiều rộng *"
                     type="number"
                     {...register("dimensions.width", { valueAsNumber: true })}
                     error={errors.dimensions?.width?.message}
                 />
                 <Input
-                    label="Chiều cao"
+                    label="Chiều cao *"
                     type="number"
                     {...register("dimensions.depth", { valueAsNumber: true })}
                     error={errors.dimensions?.depth?.message}

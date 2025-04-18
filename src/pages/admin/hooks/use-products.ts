@@ -4,6 +4,31 @@ import { productsApi } from "~/services/products";
 import { Product, ProductInput } from "~/types";
 import { formDataToObject } from "~/utils/form-data-format";
 
+export const useGetProductById = (id?: string) => {
+    const {
+        data,
+        isFetching: loading,
+        error,
+        refetch
+    } = useQuery({
+        queryKey: ["product", id],
+        queryFn: async (): Promise<Product | null> => {
+            if (!id) return null;
+            const res = await productsApi("private").getProduct(id);
+            return res.data.data ?? null;
+        },
+        enabled: !!id,
+        staleTime: 1000
+    });
+
+    return {
+        data,
+        loading,
+        error: error as Error | null,
+        refetch
+    };
+};
+
 export const useGetProducts = (params?: { search?: string; categoryId?: string }) => {
     const {
         data,
