@@ -55,7 +55,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                         {product.name.length > 30 ? product.name.slice(0, 30) + "..." : product.name}
                     </h5>
                     {product.code && <p className="card-text text-muted mb-1">Mã: {product.code}</p>}
-                    <p className="card-text text-muted mb-1">Loại: {product.category}</p>
+                    <p className="card-text text-muted mb-1">Loại: {product?.category?.name}</p>
                     {product.inputVoltage && (
                         <p className="card-text text-muted mb-2">Điện áp vào: {product.inputVoltage}</p>
                     )}
