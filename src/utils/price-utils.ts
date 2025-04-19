@@ -25,20 +25,35 @@ export const getDisplayPrice = (product: Product): DisplayPriceResult => {
         return { display: product.priceText, rawDisplay: NaN };
     }
 
-    if (product.discountPrice && product.discountPrice < product.price!) {
+    const price = product.price || 0;
+    const discountPrice = product.discountPrice || 0;
+    const discountPercent = product.discountPercent ? Number(product.discountPercent) : 0;
+
+    if (discountPrice > 0 && discountPrice < price) {
         return {
-            display: formatCurrency(product.discountPrice),
-            rawDisplay: product.discountPrice,
+            display: formatCurrency(discountPrice),
+            rawDisplay: discountPrice,
             isDiscounted: true,
-            original: product.price,
-            discounted: product.discountPrice
+            original: price,
+            discounted: discountPrice
         };
     }
 
-    if (product.price) {
+    if (discountPercent > 0 && price > 0) {
+        const calculatedDiscountPrice = price - (price * discountPercent) / 100;
         return {
-            display: formatCurrency(product.price),
-            rawDisplay: product.price
+            display: formatCurrency(calculatedDiscountPrice),
+            rawDisplay: calculatedDiscountPrice,
+            isDiscounted: true,
+            original: price,
+            discounted: calculatedDiscountPrice
+        };
+    }
+
+    if (price > 0) {
+        return {
+            display: formatCurrency(price),
+            rawDisplay: price
         };
     }
 

@@ -1,15 +1,20 @@
 import { useAtom } from "jotai";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { useSyncProductById } from "~/hooks/products/use-sync-product-by-id";
 import { cartAtom } from "~/stores/cart";
 import { Product } from "~/types";
 import { formatCurrency, getDisplayPrice, getMainImage } from "~/utils/price-utils";
 
 export const Cart = () => {
     const [cart, setCart] = useAtom(cartAtom);
-
+    const syncProduct = useSyncProductById();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        cart.forEach(item => syncProduct(item.product.id));
+    }, []);
 
     const goToCheckOut = () =>
         navigate("/check-out", {
@@ -43,7 +48,7 @@ export const Cart = () => {
                 .reduce((total, item) => {
                     const { price = 0, discountPrice, discountPercent = 0 } = item.product;
 
-                    const finalPrice = discountPrice ?? price - (price * discountPercent) / 100;
+                    const finalPrice = discountPrice ? discountPrice : price - (price * Number(discountPercent)) / 100;
 
                     return total + finalPrice * item.quantity;
                 }, 0),
@@ -78,12 +83,18 @@ export const Cart = () => {
                                 .map(item => (
                                     <div key={item.product.id} className="card mb-3">
                                         <div className="row g-0">
-                                            <div className="col-md-3">
-                                                <img
-                                                    src={getMainImage(item?.product?.images ?? [])}
-                                                    className="img-fluid rounded-start mx-3"
-                                                    alt={item.product.name}
-                                                />
+                                            <div className="col-md-3 d-flex align-items-center justify-content-center">
+                                                <div
+                                                    className="border rounded overflow-hidden ratio ratio-4x3"
+                                                    style={{ width: "200px", maxWidth: "100%" }}
+                                                >
+                                                    <img
+                                                        src={getMainImage(item?.product?.images ?? [])}
+                                                        alt={item.product.name}
+                                                        className="w-100 h-100"
+                                                        style={{ objectFit: "cover", objectPosition: "center" }}
+                                                    />
+                                                </div>
                                             </div>
                                             <div className="col-md-9">
                                                 <div className="card-body">
@@ -101,10 +112,25 @@ export const Cart = () => {
                                                         </Link>
                                                     </div>
 
-                                                    <p className="card-text text-primary fw-bold mt-2 fs-5">
-                                                        {!handleGetDisplay(item.product).isDiscounted &&
-                                                            handleGetDisplay(item.product).display}
+                                                    <p className="card-text fw-bold mt-2 fs-5">
+                                                        {handleGetDisplay(item.product).isDiscounted ? (
+                                                            <>
+                                                                <span className="text-danger me-2">
+                                                                    {handleGetDisplay(item.product).display}
+                                                                </span>
+                                                                <span className="text-muted text-decoration-line-through">
+                                                                    {formatCurrency(
+                                                                        handleGetDisplay(item.product).original!
+                                                                    )}
+                                                                </span>
+                                                            </>
+                                                        ) : (
+                                                            <span className="text-primary">
+                                                                {handleGetDisplay(item.product).display}
+                                                            </span>
+                                                        )}
                                                     </p>
+
                                                     <div className="d-flex align-items-center gap-3">
                                                         <div className="input-group quantity-input">
                                                             <button
@@ -153,11 +179,17 @@ export const Cart = () => {
                                     <div key={item.product.id} className="card mb-3">
                                         <div className="row g-0">
                                             <div className="col-md-3">
-                                                <img
-                                                    src={getMainImage(item?.product?.images ?? [])}
-                                                    className="img-fluid rounded-start mx-3"
-                                                    alt={item.product.name}
-                                                />
+                                                <div
+                                                    className="border rounded overflow-hidden ratio ratio-4x3"
+                                                    style={{ width: "200px", maxWidth: "100%" }}
+                                                >
+                                                    <img
+                                                        src={getMainImage(item?.product?.images ?? [])}
+                                                        alt={item.product.name}
+                                                        className="w-100 h-100"
+                                                        style={{ objectFit: "cover", objectPosition: "center" }}
+                                                    />
+                                                </div>
                                             </div>
                                             <div className="col-md-9">
                                                 <div className="card-body">
