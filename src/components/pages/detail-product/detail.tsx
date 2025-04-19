@@ -5,7 +5,7 @@ import { Lightbox } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import { LoadingBox } from "~/components/common";
 import { PHONE_NUMBER } from "~/constant";
-import { useGetProductById } from "~/pages/admin/hooks/use-products";
+import { useGetProductById } from "~/hooks/products/use-products";
 import { cartAtom } from "~/stores/cart";
 import { formatCurrency, getDisplayPrice, getMainImage } from "~/utils/price-utils";
 import ProductDescription from "./product-description";

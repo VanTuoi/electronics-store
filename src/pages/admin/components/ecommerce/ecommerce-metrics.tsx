@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
+import { useGetOrders } from "~/hooks/orders/use-order";
 import { useGetSchedules } from "~/hooks/schedules/use-schedule";
+import { useGetProducts } from "../../../../hooks/products/use-products";
 import { useGetCategories } from "../../hooks/use-categories";
-import { useGetProducts } from "../../hooks/use-products";
 import { BoxIconLine, GroupIcon } from "../../icons";
 import Badge from "../ui/badge/badge";
 
@@ -10,9 +11,11 @@ export default function EcommerceMetrics() {
     const { data: dataSchedules } = useGetSchedules();
     const { data: dataCategories } = useGetCategories();
     const { data: dataProducts } = useGetProducts();
+    const { data: dataOrders } = useGetOrders();
 
     const pendingSchedules = dataSchedules?.filter(item => item.status === "pending");
-    const outOfStockProducts = dataProducts?.filter(item => item?.quantity && item.quantity <= 3);
+    const pendingOrders = dataOrders?.filter(item => item.status === "pending");
+    const outOfStockProducts = dataProducts?.filter(item => typeof item?.quantity === "number" && item.quantity <= 3);
 
     return (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
@@ -51,22 +54,37 @@ export default function EcommerceMetrics() {
                 </div>
             </div>
 
-            {/* <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
+            <div
+                className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6 cursor-pointer"
+                role="button"
+                tabIndex={0}
+                onClick={() => navigate(`orders?status=${pendingOrders && pendingOrders?.length > 0 ? "pending" : ""}`)}
+                onKeyDown={e => {
+                    if (e.key === "Enter" || e.key === " ")
+                        navigate(`orders?status=${pendingOrders && pendingOrders?.length > 0 ? "pending" : ""}`);
+                }}
+            >
                 <div className="flex items-center justify-center w-12 h-12 bg-gray-100 rounded-xl dark:bg-gray-800">
-                    <BoxIconLine className="text-gray-800 size-6 dark:text-white/90" />
+                    <GroupIcon className="text-gray-800 size-6 dark:text-white/90" />
                 </div>
+
                 <div className="flex items-end justify-between mt-5">
                     <div>
                         <span className="text-md text-gray-800 dark:text-gray-400">Đơn hàng</span>
-                        <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">52</h4>
+                        <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
+                            {dataOrders?.length ? dataOrders.length : 0}
+                        </h4>
                     </div>
-
-                    <Badge color="error">
-                        <ArrowDownIcon />
-                        9%
-                    </Badge>
+                    {pendingOrders && pendingOrders.length > 0 ? (
+                        <Badge color="warning">{pendingOrders.length} chờ xử lý</Badge>
+                    ) : pendingOrders && pendingOrders.length === 0 ? (
+                        <Badge color="success">Đã xử lý tất cả</Badge>
+                    ) : (
+                        <Badge color="warning">Chưa có đơn hàng</Badge>
+                    )}
                 </div>
-            </div> */}
+            </div>
+
             <div
                 className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6 cursor-pointer"
                 role="button"

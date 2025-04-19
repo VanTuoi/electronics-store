@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const deliverySchema = z.object({
-    fullName: z.string().min(1, "Họ tên là bắt buộc"),
+    name: z.string().min(1, "Họ tên là bắt buộc"),
     phone: z
         .string()
         .min(1, "Số điện thoại là bắt buộc")

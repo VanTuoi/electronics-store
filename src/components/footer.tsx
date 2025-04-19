@@ -84,6 +84,11 @@ const Footer = () => {
                                     </Link>
                                 </li>
                                 <li>
+                                    <Link to="/check" className="py-2 d-block">
+                                        Kiểm tra đơn hàng
+                                    </Link>
+                                </li>
+                                <li>
                                     <Link to="/payment" target="_blank" className="py-2 d-block">
                                         Phương Thức Thanh Toán
                                     </Link>

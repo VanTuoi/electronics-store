@@ -36,7 +36,6 @@ export type Product = {
     description?: string;
     usage?: string;
     features?: string[];
-
     price?: number;
     priceText?: string;
     discountPrice?: number;
@@ -195,3 +194,69 @@ export const scheduleSchema = z.object({
 });
 
 export type ScheduleFormData = z.infer<typeof scheduleSchema>;
+
+export interface Order {
+    id: string;
+    name: string;
+    phone: string;
+    address: string;
+    email?: string;
+    note?: string;
+    status: "pending" | "confirmed" | "completed" | "cancelled";
+    adminNote?: string;
+    products: {
+        id: string;
+        name?: string;
+        originalPrice?: number;
+        price: number;
+        quantity: number;
+    }[];
+    shippingFee: number;
+    createdAt?: Date;
+    updatedAt?: Date;
+}
+
+export type OrderFormData = {
+    id?: string;
+    name: string;
+    phone: string;
+    address: string;
+    email?: string;
+    note?: string;
+    status: "pending" | "confirmed" | "completed" | "cancelled";
+    adminNote?: string;
+    products: {
+        id: string;
+        name?: string;
+        price: number;
+        originalPrice?: number;
+        quantity: number;
+    }[];
+    shippingFee: number;
+    createdAt?: string;
+    updatedAt?: string;
+};
+
+export const orderSchema = z.object({
+    name: z.string().min(1, "Tên là bắt buộc"),
+    phone: z.string().min(1, "Số điện thoại là bắt buộc"),
+    address: z.string().min(1, "Địa chỉ là bắt buộc"),
+    email: z.string().email("Email không hợp lệ").optional().or(z.literal("")),
+    note: z.string().optional(),
+    status: z.enum(["pending", "confirmed", "completed", "cancelled"]),
+    adminNote: z.string().optional(),
+    products: z
+        .array(
+            z.object({
+                id: z.string().min(1, "ID sản phẩm là bắt buộc"),
+                name: z.string().optional(),
+                price: z.number().min(0, "Giá phải lớn hơn hoặc bằng 0"),
+                originalPrice: z.number().optional(),
+                quantity: z.number().min(1, "Số lượng phải lớn hơn 0")
+            })
+        )
+        .min(1, "Phải có ít nhất một sản phẩm"),
+    shippingFee: z.number().min(0, "Phí vận chuyển phải lớn hơn 0"),
+    createdAt: z.string().optional(),
+    updatedAt: z.string().optional()
+});

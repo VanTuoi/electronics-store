@@ -1,21 +1,31 @@
+import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SHIPPINGS } from "~/constant";
-import { useCheckout } from "~/hooks";
+import { useCreateOrders } from "~/hooks/orders/use-order";
+import { cartAtom } from "~/stores/cart";
 import { CartItem, Product } from "~/types";
 import { formatCurrency, getDisplayPrice } from "~/utils/price-utils";
 import { DeliveryFormData } from "~/utils/validation-schemas/delivery-schema";
 import { DeliveryForm } from "./delivery-form";
 
+interface CartItemFromForm {
+    id: string;
+    name: string;
+    price: number;
+    quantity: number;
+}
+
 export const Checkout = () => {
     const location = useLocation();
-    const { cart, totalPrice } = location.state || {};
-    const { mutate: checkout, isPending } = useCheckout();
+    const navigate = useNavigate();
+    const { cart: cartState, totalPrice } = location.state || {};
+    const { createOrders, loading: isPending, data: dataOrder } = useCreateOrders();
+    const [cart, setCart] = useAtom(cartAtom);
     const [cost, setCost] = useState<number>(0);
 
     const [defaultData, setDefaultData] = useState<DeliveryFormData>({
-        fullName: "",
+        name: "",
         phone: "",
         address: "",
         email: "",
@@ -41,12 +51,13 @@ export const Checkout = () => {
     }, []);
 
     useEffect(() => {
-        setCost(calculateShippingCost(cart.reduce((re: number, current: CartItem) => re + current.quantity, 0)));
-    }, [cart]);
+        setCost(
+            calculateShippingCost(cartState?.reduce((re: number, current: CartItem) => re + current.quantity, 0) ?? 0)
+        );
+    }, [cartState]);
 
     const handleGetDisplay = (product: Product) => {
         const { display, rawDisplay, original, isDiscounted } = getDisplayPrice(product);
-
         return { display, rawDisplay, original, isDiscounted };
     };
 
@@ -61,31 +72,60 @@ export const Checkout = () => {
         return SHIPPINGS["10+"];
     };
 
+    const removeFromCart = (productId: string) => {
+        const updatedCart = cart.filter((item: CartItem) => item.product.id !== productId);
+        setCart(updatedCart);
+    };
+
     const handleSubmit = (data: DeliveryFormData) => {
         if (isPending) return;
 
-        checkout(
-            { cart, totalPrice },
-            {
-                onSuccess: () => {
-                    toast.success("Đặt hàng thành công");
-                    if (data.saveInfo) {
-                        localStorage.setItem("checkout-info", JSON.stringify(data));
-                    } else {
-                        localStorage.removeItem("checkout-info");
-                    }
-                },
-                onError: () => {
-                    toast.error("Đặt hàng không thành công");
+        const orderData = {
+            name: data.name,
+            phone: data.phone,
+            address: data.address,
+            email: data.email,
+            note: data.note,
+            status: "pending" as const,
+            products: cartState.map((item: CartItem) => ({
+                id: item.product.id,
+                name: item.product.name,
+                price: getDisplayPrice(item.product).rawDisplay,
+                quantity: item.quantity
+            })),
+            totalPrice: totalPrice + cost,
+            shippingFee: cost
+        };
+
+        createOrders(orderData, {
+            onSuccess: () => {
+                orderData?.products?.forEach((element: CartItemFromForm) => {
+                    removeFromCart(element.id);
+                });
+
+                navigate("/check-out", { replace: true, state: null });
+
+                navigate(`/check?id=${dataOrder?.[0].id}`);
+
+                if (data.saveInfo) {
+                    localStorage.setItem("checkout-info", JSON.stringify(data));
+                } else {
+                    localStorage.removeItem("checkout-info");
                 }
             }
-        );
+        });
     };
 
-    if (!cart || cart.length === 0) {
+    if (!cartState || cartState.length === 0) {
         return (
-            <div className="container bg-white py-5">
-                <div className="text-center">Giỏ hàng trống</div>
+            <div className="text-center py-5">
+                <h3 className="py-5">Giỏ hàng trống !</h3>
+                <Link to="/cart" className="btn btn-primary py-2">
+                    Quay lại giỏ hàng
+                </Link>
+                <p className="py-3">
+                    Nếu đã thực hiện mua hàng, vui lòng kiểm tra đơn hàng <Link to="/check">tại đây</Link>
+                </p>
             </div>
         );
     }
@@ -96,7 +136,7 @@ export const Checkout = () => {
                 <div className="col-md-12">
                     <p className="mb-4 fs-3 fs-bold text-dark">Đơn hàng gồm</p>
                     <div className="mb-5">
-                        {cart.map((item: CartItem, index: number) => (
+                        {cartState.map((item: CartItem, index: number) => (
                             <div key={item.product.id} className="border-bottom py-3 row align-items-center">
                                 <div className="col-md-8">
                                     <p className="fs-6 mb-0">
@@ -129,7 +169,7 @@ export const Checkout = () => {
                                 </div>
                             </div>
                         ))}
-                        <div className="row mt-1">
+                        <div className="row mt-1 py-3">
                             <div className="col-md-8">Chi phí vận chuyển </div>
                             <div className="col-md-4 text-end">
                                 <span className="fw-bold text-primary fs-5">{formatCurrency(cost)}</span>

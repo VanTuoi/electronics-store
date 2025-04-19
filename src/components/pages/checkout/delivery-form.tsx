@@ -28,22 +28,22 @@ export const DeliveryForm = ({ defaultValue, isPending, onSubmit }: DeliveryForm
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="row g-3">
             <div className="col-md-6">
-                <label htmlFor="fullName" className="form-label fw-bold">
-                    Họ và tên
+                <label htmlFor="name" className="form-label fw-bold">
+                    Họ và tên *
                 </label>
                 <input
                     disabled={isPending}
                     type="text"
-                    className={`form-control ${errors.fullName ? "is-invalid" : ""}`}
-                    id="fullName"
-                    {...register("fullName")}
+                    className={`form-control ${errors.name ? "is-invalid" : ""}`}
+                    id="name"
+                    {...register("name")}
                 />
-                {errors.fullName && <div className="invalid-feedback">{errors.fullName.message}</div>}
+                {errors.name && <div className="invalid-feedback">{errors.name.message}</div>}
             </div>
 
             <div className="col-md-6">
                 <label htmlFor="phone" className="form-label fw-bold">
-                    Số điện thoại
+                    Số điện thoại *
                 </label>
                 <input
                     disabled={isPending}
@@ -57,7 +57,7 @@ export const DeliveryForm = ({ defaultValue, isPending, onSubmit }: DeliveryForm
 
             <div className="col-12">
                 <label htmlFor="address" className="form-label fw-bold">
-                    Địa chỉ
+                    Địa chỉ *
                 </label>
                 <input
                     disabled={isPending}
@@ -71,7 +71,7 @@ export const DeliveryForm = ({ defaultValue, isPending, onSubmit }: DeliveryForm
 
             <div className="col-md-6">
                 <label htmlFor="email" className="form-label fw-bold">
-                    Email (nếu có)
+                    Email
                 </label>
                 <input
                     disabled={isPending}

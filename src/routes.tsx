@@ -10,6 +10,7 @@ const CartPage = lazy(() => import("./pages/cart.tsx"));
 const AboutPage = lazy(() => import("./pages/about.tsx"));
 const DetailPage = lazy(() => import("./pages/detail.tsx"));
 const CheckoutPage = lazy(() => import("./pages/checkout.tsx"));
+const CheckOrderPage = lazy(() => import("./pages/check-order.tsx"));
 const ProductPage = lazy(() => import("./pages/product.tsx"));
 const MinLayout = lazy(() => import("./layouts/min-layout.tsx"));
 
@@ -26,6 +27,7 @@ const ProductsPage = lazy(() => import("./pages/admin/pages/products/index.tsx")
 const BasicTablesPage = lazy(() => import("./pages/admin/pages/tables/basic-tables.tsx"));
 const CategoriesPage = lazy(() => import("./pages/admin/pages/categories/index.tsx"));
 const SchedulesPage = lazy(() => import("./pages/admin/pages/schedules/index.tsx"));
+const OrdersPage = lazy(() => import("./pages/admin/pages/orders/index.tsx"));
 const LineChartPage = lazy(() => import("./pages/admin/pages/charts/line-chart.tsx"));
 const BarChartPage = lazy(() => import("./pages/admin/pages/charts/bar-chart.tsx"));
 
@@ -61,7 +63,8 @@ const routers = createBrowserRouter([
                     { path: "cart", element: <CartPage /> },
                     { path: "products", element: <ProductPage /> },
                     { path: "product/:id", element: <DetailPage /> },
-                    { path: "check-out", element: <CheckoutPage /> }
+                    { path: "check-out", element: <CheckoutPage /> },
+                    { path: "check", element: <CheckOrderPage /> }
                 ]
             },
             {
@@ -74,6 +77,7 @@ const routers = createBrowserRouter([
                     { path: "schedules", element: <SchedulesPage /> },
                     { path: "form-elements", element: <FormElementsPage /> },
                     { path: "basic-tables", element: <BasicTablesPage /> },
+                    { path: "orders", element: <OrdersPage /> },
                     { path: "line-chart", element: <LineChartPage /> },
                     { path: "bar-chart", element: <BarChartPage /> }
                 ]
