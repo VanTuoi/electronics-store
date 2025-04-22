@@ -38,6 +38,7 @@ export const Cart = () => {
 
     const removeFromCart = (productId: string) => {
         const updatedCart = cart.filter(item => item.product.id !== productId);
+        toast.success("Đã xoá sản phẩm khỏi giỏ hàng");
         setCart(updatedCart);
     };
 
@@ -65,7 +66,7 @@ export const Cart = () => {
         return (
             <div className="text-center py-5">
                 <h3 className="py-5">Giỏ hàng trống</h3>
-                <Link to="/" className="btn btn-primary py-2">
+                <Link to="/products" className="btn btn-primary py-2">
                     Tiếp tục mua sắm
                 </Link>
             </div>

@@ -1,5 +1,6 @@
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Lightbox } from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
@@ -12,14 +13,15 @@ import ProductDescription from "./product-description";
 
 export const ProductDetails = () => {
     const [cart, setCart] = useAtom(cartAtom);
+    const navigate = useNavigate();
     const [mainImage, setMainImage] = useState("");
     const [quantity, setQuantity] = useState(1);
     const [lightboxOpen, setLightboxOpen] = useState(false);
 
-    const navigate = useNavigate();
-    const { id } = useParams();
+    const { id: urlParam } = useParams<{ id: string }>();
+    const productId = urlParam?.split("-").pop();
 
-    const { data: product, loading: isLoading, error: isError } = useGetProductById(id);
+    const { data: product, loading: isLoading, error: isError } = useGetProductById(productId);
 
     useEffect(() => {
         if (product?.images) {
@@ -61,6 +63,7 @@ export const ProductDetails = () => {
 
     const handleAdd = () => {
         if (!product) return;
+        toast.success("Đã thêm sản phẩm vào giỏ hàng");
         setCart([
             ...cart,
             {
@@ -70,8 +73,9 @@ export const ProductDetails = () => {
         ]);
     };
 
-    const handleDelete = (productId: string) => {
-        setCart(cart.filter(item => item.product.id !== productId));
+    const handleDelete = (id: string) => {
+        toast.success("Đã xoá sản phẩm khỏi giỏ hàng");
+        setCart(cart.filter(item => item.product.id !== id));
     };
 
     const { display, isDiscounted, original } = getDisplayPrice(product);
@@ -80,7 +84,7 @@ export const ProductDetails = () => {
         <div className="container">
             <div className="container mt-5">
                 <div className="row">
-                    <div className="col-md-6 mb-4">
+                    <div className="col-md-7 mb-4">
                         <button className="p-0 border-0 bg-transparent w-100" onClick={() => setLightboxOpen(true)}>
                             <img
                                 src={mainImage}
@@ -167,8 +171,8 @@ export const ProductDetails = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-6 text-dark">
-                        <h2 className="mb-1 text-bold">{product.name}</h2>
+                    <div className="col-md-5 text-dark">
+                        <h4 className="mb-1 text-bold">{product.name}</h4>
                         <p className="mb-1 text-bold">
                             <strong>Mã: </strong>
                             {product?.code}
@@ -206,13 +210,13 @@ export const ProductDetails = () => {
                             {isDiscounted ? (
                                 <div>
                                     <strong>Giá bán: </strong>
-                                    <span className="badge text-primary fs-3 me-2">{display}</span>
+                                    <span className="badge text-primary fs-4 me-2">{display}</span>
                                     <span className="badge text-decoration-line-through text-danger fs-5">
                                         {formatCurrency(original!)}
                                     </span>
                                 </div>
                             ) : (
-                                <span className="badge text-primary fs-3 me-2">{display}</span>
+                                <span className="badge text-primary fs-4 me-2">{display}</span>
                             )}
                         </div>
                         <div className="mb-4">

@@ -1,6 +1,7 @@
 import React from "react";
 import { Product } from "~/types";
 import { ProductCard } from "./product-card";
+
 type ProductGridProps = {
     products: Product[];
     maxRows?: number;
@@ -10,8 +11,8 @@ type ProductGridProps = {
 const chunkArray = <T,>(arr: T[], size: number): T[][] =>
     Array.from({ length: Math.ceil(arr.length / size) }, (_, i) => arr.slice(i * size, i * size + size));
 
-export const ProductGrid: React.FC<ProductGridProps> = ({ products, maxRows = 3, itemsPerRow = 3 }) => {
-    const limited = products.slice(0, maxRows * itemsPerRow);
+export const ProductGrid: React.FC<ProductGridProps> = ({ products, maxRows = Infinity, itemsPerRow = 3 }) => {
+    const limited = maxRows === Infinity ? products : products.slice(0, maxRows * itemsPerRow);
     const rows = chunkArray(limited, itemsPerRow);
 
     return (

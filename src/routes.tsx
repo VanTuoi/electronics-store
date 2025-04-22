@@ -23,7 +23,7 @@ const PrivacyPage = lazy(() => import("./pages/privacy.tsx"));
 const AdminLayout = lazy(() => import("./pages/admin/index.tsx"));
 const AdminHomePage = lazy(() => import("./pages/admin/pages/dashboard/home.tsx"));
 const FormElementsPage = lazy(() => import("./pages/admin/pages/forms/form-elements.tsx"));
-const ProductsPage = lazy(() => import("./pages/admin/pages/products/index.tsx"));
+const ProductsPage = lazy(() => import("./pages/admin/pages/products/products.tsx"));
 const BasicTablesPage = lazy(() => import("./pages/admin/pages/tables/basic-tables.tsx"));
 const CategoriesPage = lazy(() => import("./pages/admin/pages/categories/index.tsx"));
 const SchedulesPage = lazy(() => import("./pages/admin/pages/schedules/index.tsx"));

@@ -3,13 +3,13 @@ import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { LoadingBox } from "~/components/common";
-import { useTopProduct } from "~/hooks";
+import { useGetRandomProducts } from "~/hooks/products/use-products";
 import { ProductCard } from "../products/product-card";
 
 export const TopProducts = () => {
-    const { data: products, isLoading } = useTopProduct();
+    const { data: products, loading: isLoading } = useGetRandomProducts();
 
-    if (!products) return null;
+    if (!products || products.length === 0) return null;
 
     return isLoading ? (
         <LoadingBox height={"500px"} />
