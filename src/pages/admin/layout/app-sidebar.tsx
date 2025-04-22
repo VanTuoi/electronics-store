@@ -36,7 +36,7 @@ const navItems: NavItem[] = [
     {
         name: "Tủ điện",
         icon: <BoxCubeIcon />,
-        subItems: [{ name: "Tủ điện", path: "products", pro: false }]
+        subItems: [{ name: "Tủ điện đang kinh doanh", path: "products", pro: false }]
     },
     {
         name: "Khuyến mãi",

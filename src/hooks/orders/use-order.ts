@@ -62,6 +62,7 @@ export const useCreateOrders = (onClose?: () => void) => {
     const {
         mutate: createOrders,
         isPending,
+        data: mutationData,
         error
     } = useMutation({
         mutationFn: async (scheduleData: Omit<Order, "id" | "createdAt" | "updatedAt">): Promise<Order | null> => {
@@ -79,10 +80,8 @@ export const useCreateOrders = (onClose?: () => void) => {
         }
     });
 
-    const data = queryClient.getQueryData<Order[]>(["orders"]);
-
     return {
-        data,
+        data: mutationData,
         createOrders,
         loading: isPending,
         error: error as Error | null

@@ -1,4 +1,5 @@
 import { useAtom } from "jotai";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { PHONE_NUMBER } from "~/constant";
 import { cartAtom } from "~/stores/cart";
@@ -14,7 +15,9 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     const [cart, setCart] = useAtom(cartAtom);
     const { display, isDiscounted, original } = getDisplayPrice(product);
 
-    const goToDetail = () => navigate(`/product/${product.id}`);
+    const productSlug = decodeURI(product.name.toLowerCase().replace(/\s+/g, "-"));
+
+    const goToDetail = () => navigate(`/product/${productSlug}-${product.id}`);
 
     const goToCheckOut = () => {
         if (product.priceText !== "") {
@@ -30,10 +33,12 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     };
 
     const handleAdd = () => {
+        toast.success("Đã thêm sản phẩm vào giỏ hàng");
         setCart([...cart, { product, quantity: 1 }]);
     };
 
     const handleDelete = (productId: string) => {
+        toast.success("Đã xoá sản phẩm khỏi giỏ hàng");
         setCart(cart.filter(item => item.product.id !== productId));
     };
 
@@ -48,7 +53,16 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             tabIndex={0}
             style={{ cursor: "pointer" }}
         >
-            <img src={getMainImage(product?.images ?? [])} alt={product.name} className="card-img-top" />
+            <img
+                src={getMainImage(product?.images ?? [])}
+                alt={product.name}
+                className="card-img-top p-2 rounded-4"
+                style={{
+                    objectFit: "cover",
+                    height: "200px",
+                    width: "100%"
+                }}
+            />
             <div className="card-body d-flex flex-column justify-content-between">
                 <div className="product-title">
                     <h5 className="card-title fw-bold fs-6 text-truncate-hover" title={product.name}>

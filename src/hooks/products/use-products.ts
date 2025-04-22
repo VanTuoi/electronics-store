@@ -29,7 +29,82 @@ export const useGetProductById = (id?: string) => {
     };
 };
 
-export const useGetProducts = (params?: { search?: string; categoryId?: string }) => {
+export const useGetProducts = (params?: {
+    search?: string;
+    categoryId?: string[];
+    minPrice?: number;
+    maxPrice?: number;
+    sortBy?: string;
+    page?: number;
+    limit?: number;
+}) => {
+    const {
+        data,
+        isFetching: loading,
+        error,
+        refetch
+    } = useQuery({
+        queryKey: ["products", params],
+        queryFn: async () => {
+            const res = await productsApi("private").getProducts({
+                ...params,
+                categoryId: params?.categoryId?.join(","),
+                page: params?.page || 1,
+                limit: params?.limit || 9
+            });
+
+            return {
+                products: res.data.data || [],
+                meta: res.data.meta || {
+                    total: 0,
+                    page: 1,
+                    pages: 1,
+                    limit: params?.limit || 9
+                }
+            };
+        },
+        staleTime: 1000
+    });
+
+    return {
+        data: data?.products || [],
+        meta: data?.meta,
+        loading,
+        error: error as Error | null,
+        refetch
+    };
+};
+
+export const useGetRandomProducts = (params?: { limit?: number }) => {
+    const {
+        data,
+        isFetching: loading,
+        error,
+        refetch
+    } = useQuery({
+        queryKey: ["products-random", params],
+        queryFn: async () => {
+            const res = await productsApi("private").getRandomProducts({
+                ...params,
+                limit: params?.limit || 5
+            });
+
+            return {
+                products: res.data.data || []
+            };
+        },
+        staleTime: 1000
+    });
+
+    return {
+        data: data?.products || [],
+        loading,
+        error: error as Error | null,
+        refetch
+    };
+};
+
+export const useGetProductsForAdmin = (params?: { search?: string; categoryId?: string; showHidden?: string }) => {
     const {
         data,
         isFetching: loading,
@@ -38,7 +113,7 @@ export const useGetProducts = (params?: { search?: string; categoryId?: string }
     } = useQuery({
         queryKey: ["products", params],
         queryFn: async (): Promise<Product[] | null> => {
-            const res = await productsApi("private").getProducts(params);
+            const res = await productsApi("private").getProductsForAdmin(params);
             return res.data.data;
         },
         staleTime: 1000
@@ -102,6 +177,7 @@ export const useCreateProducts = (onClose: () => void) => {
         error: error as Error | null
     };
 };
+
 export const useUpdateProduct = (onClose?: () => void) => {
     const queryClient = useQueryClient();
 

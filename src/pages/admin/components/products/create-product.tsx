@@ -13,6 +13,7 @@ import RichTextEditor from "../editor/editor";
 import DropzoneComponent from "../form/form-elements/drop-zone";
 import Input from "../form/input/input-field";
 import Select from "../form/select";
+import Switch from "../form/switch/switch";
 import Button from "../ui/button/button";
 import ConfirmDeleteButton from "../ui/button/delete-button";
 
@@ -175,6 +176,17 @@ export const ProductForm = ({ defaultValues, formTitle, onCancel, isCreateMode, 
                     {...register("quantity", { valueAsNumber: true })}
                     error={errors.quantity?.message}
                 />
+            </div>
+            <div className="flex flex-col items-left gap-2">
+                <Switch
+                    label="Ẩn sản phẩm"
+                    checked={watch("isHidden")}
+                    onChange={checked => setValue("isHidden", checked)}
+                    color="blue"
+                />
+                <p className="mt-1.5 text-xs text-gray-500">
+                    Khi ẩn, sản phẩm sẽ không hiển thị trên trang tìm kiếm của người dùng
+                </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

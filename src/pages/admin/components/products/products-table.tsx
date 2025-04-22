@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { useState } from "react";
 import { Option, Product } from "~/types";
 import { formatCurrency, getMainImage } from "~/utils/price-utils";
-import { useDeleteProducts, useGetProducts } from "../../../../hooks/products/use-products";
+import { useDeleteProducts, useGetProductsForAdmin } from "../../../../hooks/products/use-products";
 import { useGetCategories } from "../../hooks/use-categories";
 import Input from "../form/input/input-field";
 import Select from "../form/select";
@@ -12,15 +12,22 @@ import { Table, TableBody, TableCell, TableHeader, TableRow } from "../ui/table"
 import { TooltipText } from "../ui/tooltip-text/tooltip-text";
 import { ProductForm } from "./create-product";
 
+const visibilityOptions = [
+    { value: "false", label: "Đang hiển thị" },
+    { value: "true", label: "Đã ẩn" },
+    { value: "all", label: "Tất cả" }
+];
+
 export default function ProductsTable() {
     const [filters, setFilters] = useState({
+        showHidden: "all",
         categoryId: "",
         search: "",
         quantityFrom: "",
         quantityTo: ""
     });
 
-    const { data: dataProducts } = useGetProducts(filters);
+    const { data: dataProducts } = useGetProductsForAdmin(filters);
     const { data: categories } = useGetCategories();
     const { deleteProduct } = useDeleteProducts();
     const [isFullScreen, setIsFullScreen] = useState(false);
@@ -78,12 +85,14 @@ export default function ProductsTable() {
                         </Button>
                     </div>
                     <div className="flex flex-col sm:flex-row justify-start items-end gap-2">
-                        <div className="flex-1 max-w-[250px]">
-                            <Input
-                                label="Tên sản phẩm"
-                                value={filters.search}
-                                onChange={e => handleFilterChange({ search: e.target.value })}
-                            ></Input>
+                        <div className="flex items-end gap-2 w-full sm:w-auto">
+                            <div className="flex max-w-[250px] sm:max-w-full">
+                                <Input
+                                    label="Tên sản phẩm"
+                                    value={filters.search}
+                                    onChange={e => handleFilterChange({ search: e.target.value })}
+                                ></Input>
+                            </div>
                         </div>
                         <div className="flex items-end gap-2 w-full sm:w-auto">
                             <div className="min-w-[200px]">
@@ -96,7 +105,18 @@ export default function ProductsTable() {
                                 />
                             </div>
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 w-full sm:w-auto">
+                            <div className="min-w-[100px]">
+                                <Select
+                                    options={visibilityOptions}
+                                    placeholder="Trạng thái hiển thị"
+                                    onValueChange={showHidden => handleFilterChange({ showHidden })}
+                                    value={filters.showHidden}
+                                    label="Trạng thái"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex gap-2 w-full sm:w-auto">
                             <div className="w-[100px]">
                                 <Input
                                     label="Số lượng từ"
@@ -156,13 +176,7 @@ export default function ProductsTable() {
                                     isHeader
                                     className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white"
                                 >
-                                    Điện áp vào
-                                </TableCell>
-                                <TableCell
-                                    isHeader
-                                    className="px-5 py-3 text-sm text-start text-gray-900 dark:text-white"
-                                >
-                                    Điện áp ra
+                                    Trạng thái hiển thị
                                 </TableCell>
                                 <TableCell
                                     isHeader
@@ -216,10 +230,15 @@ export default function ProductsTable() {
                                         {product.priceText}
                                     </TableCell>
                                     <TableCell className="px-5 py-4 text-start text-theme-sm">
-                                        {product.inputVoltage}
-                                    </TableCell>
-                                    <TableCell className="px-5 py-4 text-start text-theme-sm">
-                                        {product.outputVoltage}
+                                        <span
+                                            className={`px-2 py-1 rounded-full text-xs ${
+                                                !product.isHidden
+                                                    ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                                                    : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
+                                            }`}
+                                        >
+                                            {!product.isHidden ? "Hiển thị" : "Đã ẩn"}
+                                        </span>
                                     </TableCell>
                                     <TableCell className="px-5 py-4 text-start text-theme-sm">
                                         {product?.updatedAt

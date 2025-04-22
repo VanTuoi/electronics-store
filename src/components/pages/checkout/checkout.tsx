@@ -56,6 +56,17 @@ export const Checkout = () => {
         );
     }, [cartState]);
 
+    useEffect(() => {
+        if (dataOrder?.id) {
+            const timer = setTimeout(() => {
+                navigate(`/check?id=${dataOrder.id}`, { replace: true, state: null });
+            }, 500);
+
+            return () => clearTimeout(timer);
+        }
+        return undefined;
+    }, [dataOrder, navigate]);
+
     const handleGetDisplay = (product: Product) => {
         const { display, rawDisplay, original, isDiscounted } = getDisplayPrice(product);
         return { display, rawDisplay, original, isDiscounted };
@@ -102,10 +113,6 @@ export const Checkout = () => {
                 orderData?.products?.forEach((element: CartItemFromForm) => {
                     removeFromCart(element.id);
                 });
-
-                navigate("/check-out", { replace: true, state: null });
-
-                navigate(`/check?id=${dataOrder?.[0].id}`);
 
                 if (data.saveInfo) {
                     localStorage.setItem("checkout-info", JSON.stringify(data));

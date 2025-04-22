@@ -7,10 +7,18 @@ export interface ApiError {
     code?: string;
 }
 
+export interface PaginationMeta {
+    total: number;
+    page: number;
+    pages: number;
+    limit: number;
+}
+
 export interface ResponseData<T> {
     success: boolean;
     message: string;
     data: T | null;
+    meta?: PaginationMeta;
     statusCode: number;
     errors?: ApiError[];
 }
@@ -28,6 +36,7 @@ export type ProductSpec = {
 export type Product = {
     id: string;
     name: string;
+    isHidden?: boolean;
     code?: string;
     category: {
         name: string;
@@ -89,6 +98,7 @@ export const ProductImageInputSchema = z.object({
 export const ProductSchema = z.object({
     id: z.string().optional(),
     name: z.string().min(1, "Tên sản phẩm không được để trống").max(100, "Tên sản phẩm không được vượt quá 100 ký tự"),
+    isHidden: z.boolean().optional(),
     code: z
         .string()
         .min(1, "Mã sản phẩm không được để trống")
