@@ -1,6 +1,13 @@
 version: "3"
 services:
-    frontend:
-        build: .
-        ports:
-            - "3000:80"
+  frontend:
+    build:
+      context: .
+      args:
+        VITE_TURNSTILE_SITE_KEY: ${VITE_TURNSTILE_SITE_KEY}
+        VITE_BACKEND_URL: ${VITE_BACKEND_URL}
+        VITE_TINYMCE_API_KEY: ${VITE_TINYMCE_API_KEY}
+    ports:
+      - "3000:80"
+    env_file:
+      - .env
