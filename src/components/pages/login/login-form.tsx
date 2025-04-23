@@ -49,6 +49,7 @@ const LoginForm = () => {
                             className={`form-control ${errors.email ? "is-invalid" : ""}`}
                             id="email"
                             {...register("email")}
+                            autoComplete="username"
                         />
                         {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
                     </div>
@@ -61,6 +62,7 @@ const LoginForm = () => {
                             className={`form-control ${errors.password ? "is-invalid" : ""}`}
                             id="password"
                             {...register("password")}
+                            autoComplete="current-password"
                         />
                         {errors.password && <div className="invalid-feedback">{errors.password.message}</div>}
                         <div className="form-check mt-2">
