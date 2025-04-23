@@ -2,9 +2,9 @@ import { useAtom } from "jotai";
 import { memo, useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { useEnvironmentStyles } from "~/hooks/use-environment-styles";
 import AppLayout from "~/layouts/admin/app-layout";
 import { userAtom } from "~/stores/auth";
-import "~/styles/index.css";
 
 const AdminHomePage = memo(() => {
     const navigate = useNavigate();
@@ -12,31 +12,14 @@ const AdminHomePage = memo(() => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+    useEnvironmentStyles(true);
+
     useEffect(() => {
         if (user?.user?.role !== "admin") {
             setErrorMessage("Bạn không có quyền truy cập chức năng này !!!");
         }
         setIsLoading(false);
     }, [user]);
-
-    useEffect(() => {
-        let removedStyle: HTMLStyleElement | null = null;
-
-        const styles = document.querySelectorAll("style[data-vite-dev-id]");
-        styles.forEach(style => {
-            const devId = style.getAttribute("data-vite-dev-id");
-            if (devId?.includes("style.scss")) {
-                removedStyle = style.cloneNode(true) as HTMLStyleElement;
-                style.remove();
-            }
-        });
-
-        return () => {
-            if (removedStyle) {
-                document.head.appendChild(removedStyle);
-            }
-        };
-    }, []);
 
     const handleLoginRedirect = () => {
         navigate("/auth/login");
