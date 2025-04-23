@@ -20,16 +20,12 @@ const PaymentPage = lazy(() => import("./pages/payment.tsx"));
 const TermsPage = lazy(() => import("./pages/terms.tsx"));
 const PrivacyPage = lazy(() => import("./pages/privacy.tsx"));
 
-const AdminLayout = lazy(() => import("./pages/admin/index.tsx"));
-const AdminHomePage = lazy(() => import("./pages/admin/pages/dashboard/home.tsx"));
-const FormElementsPage = lazy(() => import("./pages/admin/pages/forms/form-elements.tsx"));
-const ProductsPage = lazy(() => import("./pages/admin/pages/products/products.tsx"));
-const BasicTablesPage = lazy(() => import("./pages/admin/pages/tables/basic-tables.tsx"));
-const CategoriesPage = lazy(() => import("./pages/admin/pages/categories/index.tsx"));
-const SchedulesPage = lazy(() => import("./pages/admin/pages/schedules/index.tsx"));
-const OrdersPage = lazy(() => import("./pages/admin/pages/orders/index.tsx"));
-const LineChartPage = lazy(() => import("./pages/admin/pages/charts/line-chart.tsx"));
-const BarChartPage = lazy(() => import("./pages/admin/pages/charts/bar-chart.tsx"));
+const AdminLayout = lazy(() => import("./pages/admin/admin.tsx"));
+const AdminHomePage = lazy(() => import("./pages/admin/dashboard.tsx"));
+const ProductsPage = lazy(() => import("./pages/admin/products.tsx"));
+const CategoriesPage = lazy(() => import("./pages/admin/categories.tsx"));
+const SchedulesPage = lazy(() => import("./pages/admin/schedules.tsx"));
+const OrdersPage = lazy(() => import("./pages/admin/orders.tsx"));
 
 const NotFoundPage = lazy(() => import("./pages/not-found.tsx"));
 const HelloPage = lazy(() => import("./pages/hello.tsx"));
@@ -75,11 +71,7 @@ const routers = createBrowserRouter([
                     { path: "categories", element: <CategoriesPage /> },
                     { path: "products", element: <ProductsPage /> },
                     { path: "schedules", element: <SchedulesPage /> },
-                    { path: "form-elements", element: <FormElementsPage /> },
-                    { path: "basic-tables", element: <BasicTablesPage /> },
-                    { path: "orders", element: <OrdersPage /> },
-                    { path: "line-chart", element: <LineChartPage /> },
-                    { path: "bar-chart", element: <BarChartPage /> }
+                    { path: "orders", element: <OrdersPage /> }
                 ]
             },
             {

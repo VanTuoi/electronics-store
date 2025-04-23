@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import ScheduleForm from "~/components/pages/home/schedule-form";
+import { ScheduleForm } from "~/components/pages/home/schedule-form";
 
 const queryClient = new QueryClient();
 

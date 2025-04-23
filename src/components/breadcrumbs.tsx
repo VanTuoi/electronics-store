@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 interface IntroduceProps {
@@ -6,7 +6,7 @@ interface IntroduceProps {
     title: string;
 }
 
-export const Breadcrumbs = ({ breadcrumbs, title }: IntroduceProps) => {
+export const Breadcrumbs = memo(({ breadcrumbs, title }: IntroduceProps) => {
     useEffect(() => {
         window.scrollTo({
             top: 385,
@@ -44,4 +44,4 @@ export const Breadcrumbs = ({ breadcrumbs, title }: IntroduceProps) => {
             </div>
         </section>
     );
-};
+});

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useGetOrderById } from "~/hooks/orders/use-order";
 import { formatCurrency } from "~/utils/price-utils";
 
-export const CheckOrder = () => {
+export const CheckOrder = memo(() => {
     const [searchParams] = useSearchParams();
     const idFromUrl = searchParams.get("id");
     const [orderId, setOrderId] = useState(idFromUrl || "");
@@ -210,4 +210,4 @@ export const CheckOrder = () => {
             </div>
         </div>
     );
-};
+});

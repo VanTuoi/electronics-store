@@ -52,7 +52,11 @@ export default defineConfig({
                     return defaultName;
                 },
                 chunkFileNames: "assets/js/[name]-[hash].js",
-                entryFileNames: "assets/js/[name]-[hash].js"
+                entryFileNames: "assets/js/[name]-[hash].js",
+                manualChunks: {
+                    bootstrap: ["bootstrap"],
+                    admin: ["~/styles/admin.css"]
+                }
             }
         }
     }

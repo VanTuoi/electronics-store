@@ -1,4 +1,6 @@
-export const About = () => (
+import { memo } from "react";
+
+export const About = memo(() => (
     <section className="ftco-section ftco-about bg-light">
         <div className="container">
             <div className="row no-gutters">
@@ -31,4 +33,4 @@ export const About = () => (
             </div>
         </div>
     </section>
-);
+));

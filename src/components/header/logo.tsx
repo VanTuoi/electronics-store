@@ -1,10 +1,11 @@
+import { memo } from "react";
 import { Link } from "react-router-dom";
 
-export const Logo = () => (
+export const Logo = memo(() => (
     <>
         <img className="logo-img" src="/logo.svg" alt="logo" />
         <Link className="navbar-brand" to="/">
             Electronics<span> Store</span>
         </Link>
     </>
-);
+));

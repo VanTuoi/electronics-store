@@ -1,4 +1,6 @@
-export const Introduce = () => (
+import { memo } from "react";
+
+export const Introduce = memo(() => (
     <div
         className="hero-wrap hero-wrap-3 ftco-degree-bg"
         style={{ backgroundImage: "url('imgs/bg/bg.jpg')" }}
@@ -19,4 +21,4 @@ export const Introduce = () => (
             </div>
         </div>
     </div>
-);
+));

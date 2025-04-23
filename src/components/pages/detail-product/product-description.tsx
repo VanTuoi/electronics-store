@@ -1,4 +1,5 @@
 import DOMPurify from "dompurify";
+import { memo } from "react";
 import { Product } from "~/types";
 import "./product-description.css";
 
@@ -6,7 +7,7 @@ interface ProductDescriptionProps {
     product: Product;
 }
 
-const ProductDescription = ({ product }: ProductDescriptionProps) => {
+const ProductDescription = memo(({ product }: ProductDescriptionProps) => {
     const createMarkup = (html: string) => ({
         __html: DOMPurify.sanitize(html, {
             ALLOWED_TAGS: [
@@ -42,6 +43,6 @@ const ProductDescription = ({ product }: ProductDescriptionProps) => {
             />
         </div>
     );
-};
+});
 
 export default ProductDescription;

@@ -1,7 +1,8 @@
+import { memo } from "react";
 import { Breadcrumbs } from "~/components/breadcrumbs";
 import { Checkout } from "~/components/pages";
 
-const CheckoutPage = () => (
+const CheckoutPage = memo(() => (
     <>
         <Breadcrumbs
             breadcrumbs={[
@@ -12,6 +13,6 @@ const CheckoutPage = () => (
         />
         <Checkout />
     </>
-);
+));
 
 export default CheckoutPage;

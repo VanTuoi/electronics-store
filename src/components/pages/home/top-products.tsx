@@ -1,3 +1,4 @@
+import { memo } from "react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -6,7 +7,7 @@ import { LoadingBox } from "~/components/common";
 import { useGetRandomProducts } from "~/hooks/products/use-products";
 import { ProductCard } from "../products/product-card";
 
-export const TopProducts = () => {
+export const TopProducts = memo(() => {
     const { data: products, loading: isLoading } = useGetRandomProducts();
 
     if (!products || products.length === 0) return null;
@@ -49,4 +50,4 @@ export const TopProducts = () => {
             </div>
         </section>
     );
-};
+});

@@ -1,12 +1,11 @@
 import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SHIPPINGS } from "~/constant";
 import { useCreateOrders } from "~/hooks/orders/use-order";
 import { cartAtom } from "~/stores/cart";
-import { CartItem, Product } from "~/types";
+import { CartItem, DeliveryFormData, Product } from "~/types";
 import { formatCurrency, getDisplayPrice } from "~/utils/price-utils";
-import { DeliveryFormData } from "~/utils/validation-schemas/delivery-schema";
 import { DeliveryForm } from "./delivery-form";
 
 interface CartItemFromForm {
@@ -16,7 +15,7 @@ interface CartItemFromForm {
     quantity: number;
 }
 
-export const Checkout = () => {
+export const Checkout = memo(() => {
     const location = useLocation();
     const navigate = useNavigate();
     const { cart: cartState, totalPrice } = location.state || {};
@@ -201,4 +200,4 @@ export const Checkout = () => {
             </div>
         </div>
     );
-};
+});

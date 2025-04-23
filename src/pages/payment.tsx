@@ -1,4 +1,6 @@
-const Payment = () => (
+import { memo } from "react";
+
+const Payment = memo(() => (
     <div className="container py-5">
         <div className="p-4">
             <h1 className="text-primary mb-4">Phương Thức Thanh Toán</h1>
@@ -61,6 +63,6 @@ const Payment = () => (
             </div>
         </div>
     </div>
-);
+));
 
 export default Payment;
