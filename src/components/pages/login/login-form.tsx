@@ -1,12 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Turnstile from "react-turnstile";
 import { useLogin } from "~/hooks/auth/use-login";
-import { loginSchema, type LoginFormData } from "~/utils/validation-schemas/form-login-schema";
+import { loginSchema, type LoginFormData } from "~/types";
 
-const LoginForm = () => {
+export const LoginForm = memo(() => {
     const navigate = useNavigate();
     const { login, loading, errorMessage } = useLogin(() => navigate("/admin"));
     const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
@@ -101,6 +101,4 @@ const LoginForm = () => {
             </div>
         </div>
     );
-};
-
-export default LoginForm;
+});

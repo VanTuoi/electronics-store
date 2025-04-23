@@ -1,4 +1,6 @@
-export const Services = () => (
+import { memo } from "react";
+
+export const Services = memo(() => (
     <section className="ftco-section bg-light">
         <div className="container">
             <div className="row justify-content-center mb-5">
@@ -36,4 +38,4 @@ export const Services = () => (
             </div>
         </div>
     </section>
-);
+));

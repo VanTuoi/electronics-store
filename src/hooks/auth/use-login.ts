@@ -2,8 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useSetAtom } from "jotai";
 import toast from "react-hot-toast";
-import { userAtom } from "~/pages/admin/stores/auth";
 import { authApi } from "~/services/auth";
+import { userAtom } from "~/stores/auth";
 import { LoginData } from "~/types";
 
 interface LoginCredentials {

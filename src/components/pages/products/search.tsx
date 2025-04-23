@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import { LoadingBox } from "~/components/common";
+import { useGetCategories } from "~/hooks/categories/use-categories";
 import { useGetProducts } from "~/hooks/products/use-products";
-import { useGetCategories } from "~/pages/admin/hooks/use-categories";
 import { ProductPagination } from "./pagination";
 import { ProductGrid } from "./product-grid";
 
@@ -21,7 +21,7 @@ const SORT_OPTIONS = [
     { label: "Cũ nhất", value: "oldest" }
 ];
 
-export const Search = () => {
+export const Search = memo(() => {
     const [inputValue, setInputValue] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -235,4 +235,4 @@ export const Search = () => {
             </div>
         </section>
     );
-};
+});

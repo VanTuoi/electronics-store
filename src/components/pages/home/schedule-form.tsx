@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { memo } from "react";
 import { useForm } from "react-hook-form";
 import { useCreateSchedules } from "~/hooks/schedules/use-schedule";
 import { ScheduleFormData, scheduleSchema } from "~/types";
 
-const ScheduleForm = () => {
+export const ScheduleForm = memo(() => {
     const {
         register,
         handleSubmit,
@@ -66,6 +67,4 @@ const ScheduleForm = () => {
             </div>
         </form>
     );
-};
-
-export default ScheduleForm;
+});

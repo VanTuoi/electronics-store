@@ -1,7 +1,8 @@
+import { memo } from "react";
 import { Link } from "react-router-dom";
-import { CONTACT_INFO, SOCIAL_LINKS, STORE_NAME } from "../constant";
+import { CONTACT_INFO, SOCIAL_LINKS, STORE_NAME } from "~/constant";
 
-const Footer = () => {
+const Footer = memo(() => {
     const handleEmailClick = () => {
         window.open(`mailto:${CONTACT_INFO.email}`);
     };
@@ -145,6 +146,6 @@ const Footer = () => {
             </div>
         </footer>
     );
-};
+});
 
 export default Footer;

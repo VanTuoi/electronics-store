@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import { PHONE_NUMBER } from "~/constant";
 
-export const CallIcon: React.FC = () => {
+export const CallIcon: React.FC = memo(() => {
     const handleClick = () => window.open(`tel:${PHONE_NUMBER}`);
 
     return (
@@ -18,4 +18,4 @@ export const CallIcon: React.FC = () => {
             <i className="bi bi-telephone-fill"></i>
         </div>
     );
-};
+});

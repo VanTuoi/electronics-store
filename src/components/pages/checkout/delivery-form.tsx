@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { DeliveryFormData, deliverySchema } from "~/utils/validation-schemas/delivery-schema";
+import { DeliveryFormData, deliverySchema } from "~/types";
 
 interface DeliveryFormProps {
     isPending: boolean;
@@ -10,7 +10,7 @@ interface DeliveryFormProps {
     onSubmit: (data: DeliveryFormData) => void;
 }
 
-export const DeliveryForm = ({ defaultValue, isPending, onSubmit }: DeliveryFormProps) => {
+export const DeliveryForm = memo(({ defaultValue, isPending, onSubmit }: DeliveryFormProps) => {
     const {
         register,
         reset,
@@ -136,4 +136,4 @@ export const DeliveryForm = ({ defaultValue, isPending, onSubmit }: DeliveryForm
             </div>
         </form>
     );
-};
+});

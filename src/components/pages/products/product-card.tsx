@@ -1,4 +1,5 @@
 import { useAtom } from "jotai";
+import { memo } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { PHONE_NUMBER } from "~/constant";
@@ -10,7 +11,7 @@ interface ProductCardProps {
     product: Product;
 }
 
-export const ProductCard = ({ product }: ProductCardProps) => {
+export const ProductCard = memo(({ product }: ProductCardProps) => {
     const navigate = useNavigate();
     const [cart, setCart] = useAtom(cartAtom);
     const { display, isDiscounted, original } = getDisplayPrice(product);
@@ -122,4 +123,4 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             </div>
         </div>
     );
-};
+});

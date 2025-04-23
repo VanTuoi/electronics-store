@@ -1,4 +1,6 @@
-const Terms = () => (
+import { memo } from "react";
+
+const Terms = memo(() => (
     <div className="container py-5">
         <div className="bg-light p-4 rounded-3 shadow-sm">
             <h1 className="text-primary mb-4">Điều Khoản và Điều Kiện</h1>
@@ -50,6 +52,6 @@ const Terms = () => (
             </section>
         </div>
     </div>
-);
+));
 
 export default Terms;

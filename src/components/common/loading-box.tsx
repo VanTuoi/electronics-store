@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 type LoadingBoxProps = {
     width?: string | number;
@@ -6,7 +6,7 @@ type LoadingBoxProps = {
     className?: string;
 };
 
-export const LoadingBox: React.FC<LoadingBoxProps> = ({ width = "100%", height = "200px", className }) => {
+export const LoadingBox: React.FC<LoadingBoxProps> = memo(({ width = "100%", height = "200px", className }) => {
     const style: React.CSSProperties = {
         width,
         height
@@ -20,4 +20,4 @@ export const LoadingBox: React.FC<LoadingBoxProps> = ({ width = "100%", height =
             <div className="spinner-border text-secondary" role="status" />
         </div>
     );
-};
+});

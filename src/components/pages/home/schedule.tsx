@@ -1,6 +1,7 @@
-import ScheduleForm from "./schedule-form";
+import { memo } from "react";
+import { ScheduleForm } from "./schedule-form";
 
-export const Schedule = () => (
+export const Schedule = memo(() => (
     <section className="ftco-section ftco-no-pt bg-light">
         <div className="container">
             <div className="row no-gutters">
@@ -59,6 +60,4 @@ export const Schedule = () => (
             </div>
         </div>
     </section>
-);
-
-export default Schedule;
+));

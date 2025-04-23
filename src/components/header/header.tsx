@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { CallIcon } from "./call";
 import { CartIcon } from "./cart";
 import { Logo } from "./logo";
 
-const Header = () => {
+const Header = memo(() => {
     const location = useLocation();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -55,6 +55,6 @@ const Header = () => {
             </div>
         </nav>
     );
-};
+});
 
 export default Header;

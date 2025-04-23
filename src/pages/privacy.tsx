@@ -1,4 +1,6 @@
-const Privacy = () => (
+import { memo } from "react";
+
+const Privacy = memo(() => (
     <div className="container py-5">
         <div className="p-4 rounded-3">
             <h1 className="text-primary mb-4">Chính Sách Bảo Mật</h1>
@@ -42,6 +44,6 @@ const Privacy = () => (
             </section>
         </div>
     </div>
-);
+));
 
 export default Privacy;

@@ -4,9 +4,8 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import "swiper/swiper-bundle.css";
-import { AppWrapper } from "~/pages/admin/components/common/page-meta";
-
-import { ThemeProvider } from "./pages/admin/provider/theme-provider";
+import { AppWrapper } from "~/components/admin/common/page-meta";
+import { ThemeProvider } from "./providers/theme-provider";
 import routers from "./routes";
 
 const queryClient = new QueryClient();

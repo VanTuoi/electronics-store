@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Product } from "~/types";
 import { ProductCard } from "./product-card";
 
@@ -11,7 +11,7 @@ type ProductGridProps = {
 const chunkArray = <T,>(arr: T[], size: number): T[][] =>
     Array.from({ length: Math.ceil(arr.length / size) }, (_, i) => arr.slice(i * size, i * size + size));
 
-export const ProductGrid: React.FC<ProductGridProps> = ({ products, maxRows = Infinity, itemsPerRow = 3 }) => {
+export const ProductGrid: React.FC<ProductGridProps> = memo(({ products, maxRows = Infinity, itemsPerRow = 3 }) => {
     const limited = maxRows === Infinity ? products : products.slice(0, maxRows * itemsPerRow);
     const rows = chunkArray(limited, itemsPerRow);
 
@@ -28,4 +28,4 @@ export const ProductGrid: React.FC<ProductGridProps> = ({ products, maxRows = In
             ))}
         </div>
     );
-};
+});

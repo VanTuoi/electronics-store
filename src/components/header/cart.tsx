@@ -1,9 +1,9 @@
 import { useAtom } from "jotai";
-import React from "react";
+import React, { memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { cartAtom } from "~/stores/cart";
 
-export const CartIcon: React.FC = () => {
+export const CartIcon: React.FC = memo(() => {
     const [cart] = useAtom(cartAtom);
 
     const numberItems = cart.reduce((acc, item) => acc + item.quantity, 0);
@@ -24,4 +24,4 @@ export const CartIcon: React.FC = () => {
             {numberItems > 0 && <span className="cart-badge">{numberItems > 99 ? "99+" : numberItems}</span>}
         </div>
     );
-};
+});

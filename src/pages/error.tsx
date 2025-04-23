@@ -1,5 +1,6 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 
 interface ErrorPageProps {
@@ -7,7 +8,7 @@ interface ErrorPageProps {
     resetError?: () => void;
 }
 
-const ErrorPage = ({ error, resetError }: ErrorPageProps) => (
+const ErrorPage = memo(({ error, resetError }: ErrorPageProps) => (
     <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
         <div className="text-center">
             <h1 className="display-1 fw-bold text-danger">500</h1>
@@ -27,6 +28,6 @@ const ErrorPage = ({ error, resetError }: ErrorPageProps) => (
             </div>
         </div>
     </div>
-);
+));
 
 export default ErrorPage;

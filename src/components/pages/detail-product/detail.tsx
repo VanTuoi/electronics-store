@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Lightbox } from "yet-another-react-lightbox";
@@ -11,7 +11,7 @@ import { cartAtom } from "~/stores/cart";
 import { formatCurrency, getDisplayPrice, getMainImage } from "~/utils/price-utils";
 import ProductDescription from "./product-description";
 
-export const ProductDetails = () => {
+export const ProductDetails = memo(() => {
     const [cart, setCart] = useAtom(cartAtom);
     const navigate = useNavigate();
     const [mainImage, setMainImage] = useState("");
@@ -311,4 +311,4 @@ export const ProductDetails = () => {
             </div>
         </div>
     );
-};
+});

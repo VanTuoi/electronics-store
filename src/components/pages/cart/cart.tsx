@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { useCallback, useEffect } from "react";
+import { memo, useCallback, useEffect } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { useSyncProductById } from "~/hooks/products/use-sync-product-by-id";
@@ -7,7 +7,7 @@ import { cartAtom } from "~/stores/cart";
 import { Product } from "~/types";
 import { formatCurrency, getDisplayPrice, getMainImage } from "~/utils/price-utils";
 
-export const Cart = () => {
+export const Cart = memo(() => {
     const [cart, setCart] = useAtom(cartAtom);
     const syncProduct = useSyncProductById();
     const navigate = useNavigate();
@@ -320,4 +320,4 @@ export const Cart = () => {
             </div>
         </div>
     );
-};
+});
