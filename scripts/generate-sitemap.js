@@ -105,9 +105,14 @@ const staticRoutes = [
 
 async function getDynamicRoutes() {
     try {
-        const products = await fetch(`${process.env.VITE_BACKEND_URL}/products`).then(res => res.json());
+        const products = await fetch(`${process.env.VITE_BACKEND_URL}/products`)
+            .then(res => res.json())
+            .catch(err => {
+                console.error("Error fetching products:", err);
+                return [];
+            });
 
-        return products.data.map(product => ({
+        return products?.data?.map(product => ({
             url: `/product/${product.id}-${product.name}`,
             lastmod: product.updatedAt || new Date().toISOString(),
             changefreq: "weekly",
