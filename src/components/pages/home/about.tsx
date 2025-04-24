@@ -14,8 +14,8 @@ export const About = memo(() => (
 
                 <div className="col-md-6 wrap-about">
                     <div className="heading-section heading-section-white pl-md-5">
-                        <span className="subheading">Thông tin về chúng tôi</span>
-                        <h3 className="mb-4">Chào mừng đến với Electronics Store</h3>
+                        <span className="subheading py-1">Thông tin về chúng tôi</span>
+                        <h4 className="mb-4">Chào mừng đến với Electronics Store</h4>
 
                         <p>
                             Electronics Store là dự án xuất phát từ ý tưởng của bản thân chúng tôi, những sinh viên xuất

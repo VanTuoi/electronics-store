@@ -14,14 +14,16 @@ export const CartIcon: React.FC = memo(() => {
 
     return (
         <div
-            className="cart-icon-wrapper position-relative"
+            className="cart-component"
             role="button"
             tabIndex={0}
             onClick={goToCart}
             onKeyDown={e => e.key === "Enter" && goToCart()}
         >
-            <i role="img" aria-label="cart" className="bi bi-cart-fill fs-5"></i>
-            {numberItems > 0 && <span className="cart-badge">{numberItems > 99 ? "99+" : numberItems}</span>}
+            <div className="cart-icon-wrapper position-relative">
+                <i role="img" aria-label="cart" className="bi bi-cart-fill fs-5"></i>
+                {numberItems > 0 && <span className="cart-badge">{numberItems > 99 ? "99+" : numberItems}</span>}
+            </div>
         </div>
     );
 });

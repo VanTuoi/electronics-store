@@ -6,7 +6,7 @@ export const Services = memo(() => (
             <div className="row justify-content-center mb-5">
                 <div className="col-md-7 text-center heading-section ">
                     <span className="subheading">Dịch vụ</span>
-                    <h2 className="mb-3">Dịch vụ của chúng tôi</h2>
+                    <h3 className="mb-3">Dịch vụ của chúng tôi</h3>
                 </div>
             </div>
             <div className="row">
