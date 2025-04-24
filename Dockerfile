@@ -2,8 +2,8 @@ FROM node:20.14.0-alpine AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 
 ARG VITE_TURNSTILE_SITE_KEY
 ARG VITE_BACKEND_URL
@@ -17,9 +17,12 @@ COPY . .
 
 RUN npm run build
 
+RUN node scripts/generate-sitemap.js
+
 FROM nginx:stable-alpine
 
 COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/public/sitemap.xml /usr/share/nginx/html
 
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d/

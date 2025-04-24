@@ -5,10 +5,19 @@ import react from "@vitejs/plugin-react";
 import path from "node:path";
 import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
+import { generateSitemap } from "./scripts/generate-sitemap";
 
 export default defineConfig({
     plugins: [
         react(),
+        {
+            name: "generate-sitemap",
+            async closeBundle() {
+                if (process.env.NODE_ENV === "production") {
+                    await generateSitemap();
+                }
+            }
+        },
         tailwindcss(),
         svgr({
             svgrOptions: {
