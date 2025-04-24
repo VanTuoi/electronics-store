@@ -17,15 +17,15 @@ const Footer = memo(() => {
                 <div className="row mb-5 text-light">
                     <div className="col-md-3 col-sm-6">
                         <div className="ftco-footer-widget mb-4">
-                            <h2 className="ftco-heading-2">
+                            <p className="ftco-heading-2 fs-4">
                                 <Link to="/" className="logo">
                                     {STORE_NAME.split(" ")[0]}
                                     <span>{STORE_NAME.split(" ")[1]}</span>
                                 </Link>
-                            </h2>
-                            <p>
+                            </p>
+                            <p className="fs-6">
                                 Chúng tôi cung cấp và thiết kế tủ điện theo yêu cầu, đảm bảo an toàn, tối ưu và phù hợp
-                                với mọi nhu cầu công nghiệp, dân dụng, và tự động hóa.
+                                với mọi nhu cầu công nghiệp, dân dụng, và học tập.
                             </p>
                             <ul className="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                                 <li className="ftco-animate">
@@ -49,25 +49,25 @@ const Footer = memo(() => {
 
                     <div className="col-md-3 col-sm-6">
                         <div className="ftco-footer-widget mb-4 ml-md-5">
-                            <h2 className="ftco-heading-2">Thông Tin</h2>
+                            <p className="ftco-heading-2">Thông Tin</p>
                             <ul className="list-unstyled">
                                 <li>
-                                    <Link to="/about" className="py-2 d-block">
+                                    <Link to="/about" className="py-2 d-block text-light">
                                         Về Chúng Tôi
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/products" className="py-2 d-block">
+                                    <Link to="/products" className="py-2 d-block text-light">
                                         Sản Phẩm
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/terms" target="_blank" className="py-2 d-block">
+                                    <Link to="/terms" target="_blank" className="py-2 d-block text-light">
                                         Điều Khoản và Điều Kiện
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/privacy" target="_blank" className="py-2 d-block">
+                                    <Link to="/privacy" target="_blank" className="py-2 d-block text-light">
                                         Chính Sách Bảo Mật
                                     </Link>
                                 </li>
@@ -77,25 +77,25 @@ const Footer = memo(() => {
 
                     <div className="col-md-3 col-sm-6">
                         <div className="ftco-footer-widget mb-4">
-                            <h2 className="ftco-heading-2">Hỗ Trợ Khách Hàng</h2>
+                            <p className="ftco-heading-2">Hỗ Trợ Khách Hàng</p>
                             <ul className="list-unstyled">
                                 <li>
-                                    <Link to="/faq" target="_blank" className="py-2 d-block">
+                                    <Link to="/faq" target="_blank" className="py-2 d-block text-light">
                                         FAQ
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/check" className="py-2 d-block">
+                                    <Link to="/check" className="py-2 d-block text-light">
                                         Kiểm tra đơn hàng
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/payment" target="_blank" className="py-2 d-block">
+                                    <Link to="/payment" target="_blank" className="py-2 d-block text-light">
                                         Phương Thức Thanh Toán
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/auth/login" target="_blank" className="py-2 d-block">
+                                    <Link to="/auth/login" target="_blank" className="py-2 d-block text-light">
                                         Quản trị
                                     </Link>
                                 </li>
@@ -105,14 +105,14 @@ const Footer = memo(() => {
 
                     <div className="col-md-3 col-sm-6">
                         <div className="ftco-footer-widget mb-4">
-                            <h2 className="ftco-heading-2">Thông Tin Liên Hệ</h2>
+                            <p className="ftco-heading-2">Thông Tin Liên Hệ</p>
                             <div className="block-23 mb-3">
                                 <ul className="list-unstyled">
-                                    <li>
+                                    <li className="py-2">
                                         <i className="bi bi-geo-alt mr-3"></i>
                                         <span className="text-light">{CONTACT_INFO.address}</span>
                                     </li>
-                                    <li>
+                                    <li className="py-2">
                                         <i className="bi bi-telephone mr-2"></i>
                                         <button
                                             name="số điện thoại"
@@ -122,7 +122,7 @@ const Footer = memo(() => {
                                             {CONTACT_INFO.phone}
                                         </button>
                                     </li>
-                                    <li>
+                                    <li className="py-2">
                                         <i className="bi bi-envelope mr-2"></i>
                                         <button
                                             name="email"

@@ -13,10 +13,10 @@ const Header = memo(() => {
     }, [location.pathname]);
 
     return (
-        <nav className="container navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light gap-2">
+        <nav className="container navbar navbar-expand-md navbar-dark ftco_navbar bg-dark ftco-navbar-light gap-2">
             <div className="container-nav">
                 <Logo />
-                <div>
+                <div className="collapse-component">
                     <button
                         className="navbar-toggler"
                         type="button"

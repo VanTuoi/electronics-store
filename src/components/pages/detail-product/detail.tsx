@@ -84,8 +84,11 @@ export const ProductDetails = memo(() => {
         <div className="container">
             <div className="container mt-5">
                 <div className="row">
-                    <div className="col-md-7 mb-4">
-                        <button className="p-0 border-0 bg-transparent w-100" onClick={() => setLightboxOpen(true)}>
+                    <div className="col-md-7 order-2 order-md-1 mb-4">
+                        <button
+                            className="p-0 border-0 bg-transparent w-100 d-none d-md-flex"
+                            onClick={() => setLightboxOpen(true)}
+                        >
                             <img
                                 src={mainImage}
                                 alt="Product"
@@ -93,7 +96,7 @@ export const ProductDetails = memo(() => {
                                 id="mainImage"
                             />
                         </button>
-                        <div className="d-flex justify-content-flex-start gap-2 mt-2">
+                        <div className="d-flex justify-content-flex-start gap-2 mt-2 d-none d-md-flex">
                             {product?.images?.map((img, index) => {
                                 const src = img.url;
                                 const isActive = mainImage === src;
@@ -114,12 +117,6 @@ export const ProductDetails = memo(() => {
                                 );
                             })}
                         </div>
-                        <Lightbox
-                            open={lightboxOpen}
-                            close={() => setLightboxOpen(false)}
-                            slides={product?.images?.map(i => ({ src: i.url }))}
-                            index={product?.images?.findIndex(img => img.url === mainImage)}
-                        />
                         <div className="mt-5 text-dark">
                             <ul className="nav nav-tabs" role="tablist">
                                 <li className="nav-item" role="presentation">
@@ -171,7 +168,39 @@ export const ProductDetails = memo(() => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-5 text-dark">
+                    <div className="col-md-5 order-1 order-md-2 text-dark">
+                        <button
+                            className="p-0 border-0 bg-transparent w-100 d-md-none"
+                            onClick={() => setLightboxOpen(true)}
+                        >
+                            <img
+                                src={mainImage}
+                                alt="Product"
+                                className="img-fluid rounded mb-3 product-image"
+                                id="mainImage"
+                            />
+                        </button>
+                        <div className="d-flex justify-content-flex-start gap-2 mt-2 d-md-none">
+                            {product?.images?.map((img, index) => {
+                                const src = img.url;
+                                const isActive = mainImage === src;
+                                return (
+                                    <button
+                                        key={`thumb-${index}`}
+                                        className="p-0 border-0 bg-transparent"
+                                        onClick={() => handleThumbnailClick(src)}
+                                        style={{ width: "22%" }}
+                                    >
+                                        <img
+                                            src={src}
+                                            alt={`Thumb ${index + 1}`}
+                                            className={`thumbnail rounded ${isActive ? "active" : ""}`}
+                                            style={{ width: "100%" }}
+                                        />
+                                    </button>
+                                );
+                            })}
+                        </div>
                         <h4 className="mb-1 text-bold">{product.name}</h4>
                         <p className="mb-1 text-bold">
                             <strong>Mã: </strong>
@@ -309,6 +338,12 @@ export const ProductDetails = memo(() => {
                     </div>
                 </div>
             </div>
+            <Lightbox
+                open={lightboxOpen}
+                close={() => setLightboxOpen(false)}
+                slides={product?.images?.map(i => ({ src: i.url }))}
+                index={product?.images?.findIndex(img => img.url === mainImage)}
+            />
         </div>
     );
 });

@@ -22,7 +22,7 @@ export const ScheduleForm = memo(() => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="request-form bg-primary py-5">
-            <h2>Đặt lịch hẹn tư vấn hỗ trợ</h2>
+            <h3 className="title">Đặt lịch hẹn tư vấn hỗ trợ</h3>
             <div className="form-group">
                 <label htmlFor="name" className="label">
                     Họ và tên

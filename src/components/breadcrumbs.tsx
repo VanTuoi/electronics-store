@@ -8,8 +8,12 @@ interface IntroduceProps {
 
 export const Breadcrumbs = memo(({ breadcrumbs, title }: IntroduceProps) => {
     useEffect(() => {
+        // Kiểm tra nếu là mobile (width <= 768px) thì scroll lên đầu trang
+        // Nếu không phải mobile thì scroll tới vị trí 385 như ban đầu
+        const scrollPosition = window.innerWidth <= 768 ? 0 : 385;
+
         window.scrollTo({
-            top: 385,
+            top: scrollPosition,
             behavior: "smooth"
         });
     }, []);
