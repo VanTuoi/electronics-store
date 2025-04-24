@@ -126,6 +126,19 @@ async function getDynamicRoutes() {
 
 export async function generateSitemap() {
     try {
+        const outputPath = path.join(__dirname, "../dist/sitemap.xml");
+        try {
+            await fs.access(outputPath);
+            await fs.unlink(outputPath);
+            console.log("❌ Old sitemap deleted.");
+        } catch (err) {
+            if (err.code !== "ENOENT") {
+                console.error("❌ Error deleting old sitemap:", err);
+            } else {
+                console.log("✅ No old sitemap found to delete.");
+            }
+        }
+
         const dynamicRoutes = await getDynamicRoutes();
         const allRoutes = [...staticRoutes, ...dynamicRoutes];
 
@@ -143,7 +156,6 @@ export async function generateSitemap() {
         smStream.end();
 
         const sitemap = await streamToPromise(Readable.from(smStream));
-        const outputPath = path.join(__dirname, "../dist/sitemap.xml");
 
         await fs.mkdir(path.dirname(outputPath), { recursive: true });
         await fs.writeFile(outputPath, sitemap.toString());

@@ -2,6 +2,9 @@ FROM node:20.14.0-alpine AS builder
 
 WORKDIR /app
 
+ARG CACHEBUST=1
+ENV CACHEBUST=$CACHEBUST
+
 COPY package.json package-lock.json ./
 RUN npm ci
 
@@ -19,12 +22,12 @@ COPY . .
 
 RUN npm run build
 
-RUN node scripts/generate-sitemap.js
+RUN echo "Bust cache $CACHEBUST" && node scripts/generate-sitemap.js
 
 FROM nginx:stable-alpine
 
 COPY --from=builder /app/dist /usr/share/nginx/html
-COPY --from=builder /app/public/sitemap.xml /usr/share/nginx/html
+COPY --from=builder /app/dist/sitemap.xml /usr/share/nginx/html
 
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d/

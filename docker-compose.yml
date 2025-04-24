@@ -8,6 +8,7 @@ services:
                 VITE_BACKEND_URL: ${VITE_BACKEND_URL}
                 VITE_APP_URL: ${VITE_APP_URL}
                 VITE_TINYMCE_API_KEY: ${VITE_TINYMCE_API_KEY}
+                CACHEBUST: ${CACHEBUST}
         ports:
             - "3000:80"
         env_file:
