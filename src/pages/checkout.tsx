@@ -1,10 +1,9 @@
-import { memo } from "react";
 import { Helmet } from "react-helmet";
 
 import { Breadcrumbs } from "~/components/common";
 import { Checkout } from "~/components/pages";
 
-const CheckoutPage = memo(() => (
+const CheckoutPage = () => (
   <>
     <Helmet>
       <title>Thanh toán | Electronics Store</title>
@@ -20,6 +19,6 @@ const CheckoutPage = memo(() => (
     />
     <Checkout />
   </>
-));
+);
 
 export default CheckoutPage;

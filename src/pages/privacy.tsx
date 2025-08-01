@@ -1,7 +1,6 @@
-import { memo } from "react";
 import { Helmet } from "react-helmet";
 
-const Privacy = memo(() => (
+const Privacy = () => (
   <div className="container py-5">
     <Helmet>
       <title>Chính Sách Bảo Mật | Electronics Store</title>
@@ -49,6 +48,6 @@ const Privacy = memo(() => (
       </section>
     </div>
   </div>
-));
+);
 
 export default Privacy;

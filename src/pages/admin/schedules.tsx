@@ -1,8 +1,6 @@
-import { memo } from "react";
-
 import { PageBreadcrumb, PageMeta, ScheduleTable } from "~/components/admin";
 
-const Schedules = memo(() => (
+const Schedules = () => (
   <>
     <PageMeta title="Yêu cầu tư vấn hỗ trợ" description="Quản lý lịch tư vấn hỗ trợ trong hệ thống." />
     <PageBreadcrumb pageTitle="Yêu cầu tư vấn hỗ trợ" />
@@ -10,6 +8,6 @@ const Schedules = memo(() => (
       <ScheduleTable />
     </div>
   </>
-));
+);
 
 export default Schedules;

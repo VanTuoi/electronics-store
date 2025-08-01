@@ -96,7 +96,7 @@ export const LoginForm = memo(() => {
         </form>
         <div className="text-center mt-3">
           <small>
-            Quên mật khẩu? <Link to="/forgot-password">Lấy lại mật khẩu</Link>
+            Quên mật khẩu? <Link to="#">Lấy lại mật khẩu</Link>
           </small>
         </div>
       </div>

@@ -21,7 +21,7 @@ export const Breadcrumbs = memo(({ breadcrumbs, title }: IntroduceProps) => {
   return (
     <section
       className="hero-wrap hero-wrap-2"
-      style={{ backgroundImage: "url('/imgs/bg/bg.jpg')" }}
+      style={{ backgroundImage: "url('/imgs/bg/bg.webp')" }}
       data-stellar-background-ratio="0.7"
     >
       <div className="overlay"></div>

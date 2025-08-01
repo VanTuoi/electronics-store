@@ -1,8 +1,6 @@
-import { memo } from "react";
-
 import { CategoriesTable, PageBreadcrumb, PageMeta } from "~/components/admin";
 
-const Categories = memo(() => (
+const Categories = () => (
   <>
     <PageMeta title="Danh mục tủ điện" description="Quản lý danh mục các loại tủ điện trong hệ thống" />
     <PageBreadcrumb pageTitle="Danh mục tủ điện" />
@@ -10,6 +8,6 @@ const Categories = memo(() => (
       <CategoriesTable />
     </div>
   </>
-));
+);
 
 export default Categories;

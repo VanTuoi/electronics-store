@@ -1,11 +1,10 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { memo } from "react";
 import { Helmet } from "react-helmet";
 import { Link, useNavigate } from "react-router-dom";
 
-const NotFound = memo(() => {
+const NotFound = () => {
   const navigate = useNavigate();
   const canGoBack = window.history.length > 1;
 
@@ -38,6 +37,6 @@ const NotFound = memo(() => {
       </div>
     </div>
   );
-});
+};
 
 export default NotFound;

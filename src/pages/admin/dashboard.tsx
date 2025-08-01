@@ -1,8 +1,6 @@
-import { memo } from "react";
-
 import { EcommerceMetrics, MonthlySalesChart, MonthlyTarget, PageMeta, StatisticsChart } from "~/components/admin";
 
-const Home = memo(() => (
+const Home = () => (
   <>
     <PageMeta title="Electronic Store" description="Trang quản trị chính của cửa hàng" />
 
@@ -21,6 +19,6 @@ const Home = memo(() => (
       </div>
     </div>
   </>
-));
+);
 
 export default Home;

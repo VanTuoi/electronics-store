@@ -1,10 +1,9 @@
-import { memo } from "react";
 import { Helmet } from "react-helmet";
 
 import { Breadcrumbs } from "~/components/common";
 import { Cart } from "~/components/pages";
 
-const CartPage = memo(() => (
+const CartPage = () => (
   <>
     <Helmet>
       <title>Giỏ hàng | Electronics Store</title>
@@ -14,6 +13,6 @@ const CartPage = memo(() => (
     <Breadcrumbs breadcrumbs={[["Giỏ hàng", "/cart"]]} title="Giỏ hàng của bạn" />
     <Cart />
   </>
-));
+);
 
 export default CartPage;

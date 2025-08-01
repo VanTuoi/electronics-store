@@ -1,10 +1,9 @@
-import { memo } from "react";
 import { Helmet } from "react-helmet";
 
 import { Breadcrumbs } from "~/components/common";
 import { ProductDetails } from "~/components/pages";
 
-const Detail = memo(() => (
+const Detail = () => (
   <>
     <Helmet>
       <title>Chi tiết sản phẩm | Electronics Store</title>
@@ -13,6 +12,6 @@ const Detail = memo(() => (
     <Breadcrumbs breadcrumbs={[["Tủ điện", "/products"]]} title="Chi tiết sản phẩm" />
     <ProductDetails />
   </>
-));
+);
 
 export default Detail;

@@ -1,7 +1,6 @@
-import { memo } from "react";
 import { Helmet } from "react-helmet";
 
-const Terms = memo(() => (
+const Terms = () => (
   <div className="container py-5">
     <Helmet>
       <title>Điều Khoản và Điều Kiện | Electronics Store</title>
@@ -57,6 +56,6 @@ const Terms = memo(() => (
       </section>
     </div>
   </div>
-));
+);
 
 export default Terms;
