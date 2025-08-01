@@ -1,7 +1,6 @@
-import { memo } from "react";
 import { Helmet } from "react-helmet";
 
-const FAQ = memo(() => (
+const FAQ = () => (
   <div className="container py-5">
     <Helmet>
       <title>FAQ | Electronics Store</title>
@@ -104,6 +103,6 @@ const FAQ = memo(() => (
       </div>
     </div>
   </div>
-));
+);
 
 export default FAQ;

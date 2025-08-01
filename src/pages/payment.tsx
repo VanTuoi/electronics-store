@@ -1,7 +1,6 @@
-import { memo } from "react";
 import { Helmet } from "react-helmet";
 
-const Payment = memo(() => (
+const Payment = () => (
   <div className="container py-5">
     <Helmet>
       <title>Phương thức thanh toán | Electronics Store</title>
@@ -68,6 +67,6 @@ const Payment = memo(() => (
       </div>
     </div>
   </div>
-));
+);
 
 export default Payment;

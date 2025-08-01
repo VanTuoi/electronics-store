@@ -1,10 +1,10 @@
-import { memo, useEffect } from "react";
+import { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { useLocation } from "react-router-dom";
 
 import { About, Introduce, Schedule, Services, TopProducts } from "~/components/pages";
 
-const Home = memo(() => {
+const Home = () => {
   const location = useLocation();
 
   useEffect(() => {
@@ -33,6 +33,6 @@ const Home = memo(() => {
       <Services />
     </>
   );
-});
+};
 
 export default Home;

@@ -1,7 +1,6 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-import { memo } from "react";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 
@@ -10,7 +9,7 @@ interface ErrorPageProps {
   resetError?: () => void;
 }
 
-const ErrorPage = memo(({ error, resetError }: ErrorPageProps) => (
+const ErrorPage = ({ error, resetError }: ErrorPageProps) => (
   <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
     <Helmet>
       <title>Lỗi hệ thống | Electronics Store</title>
@@ -33,6 +32,6 @@ const ErrorPage = memo(({ error, resetError }: ErrorPageProps) => (
       </div>
     </div>
   </div>
-));
+);
 
 export default ErrorPage;

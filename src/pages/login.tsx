@@ -1,9 +1,8 @@
-import { memo } from "react";
 import { Helmet } from "react-helmet";
 
 import { LoginForm } from "~/components/pages";
 
-const Login = memo(() => (
+const Login = () => (
   <div className="login-page">
     <Helmet>
       <title>Đăng nhập | Electronics Store</title>
@@ -17,6 +16,6 @@ const Login = memo(() => (
       <LoginForm />
     </div>
   </div>
-));
+);
 
 export default Login;
