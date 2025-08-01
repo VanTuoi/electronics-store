@@ -1,7 +1,12 @@
 import { memo } from "react";
+import { Helmet } from "react-helmet";
 
 const Payment = memo(() => (
   <div className="container py-5">
+    <Helmet>
+      <title>Phương thức thanh toán | Electronics Store</title>
+      <meta name="description" content="Phương thức thanh toán" />
+    </Helmet>
     <div className="p-4">
       <h1 className="text-primary mb-4">Phương Thức Thanh Toán</h1>
 

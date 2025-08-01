@@ -1,7 +1,12 @@
 import { memo } from "react";
+import { Helmet } from "react-helmet";
 
 const Terms = memo(() => (
   <div className="container py-5">
+    <Helmet>
+      <title>Điều Khoản và Điều Kiện | Electronics Store</title>
+      <meta name="description" content="Điều Khoản và Điều Kiện" />
+    </Helmet>
     <div className="bg-light p-4 rounded-3 shadow-sm">
       <h1 className="text-primary mb-4">Điều Khoản và Điều Kiện</h1>
 

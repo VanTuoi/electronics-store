@@ -1,7 +1,12 @@
 import { memo } from "react";
+import { Helmet } from "react-helmet";
 
 const Privacy = memo(() => (
   <div className="container py-5">
+    <Helmet>
+      <title>Chính Sách Bảo Mật | Electronics Store</title>
+      <meta name="description" content="Chính Sách Bảo Mật." />
+    </Helmet>
     <div className="p-4 rounded-3">
       <h1 className="text-primary mb-4">Chính Sách Bảo Mật</h1>
 

@@ -42,7 +42,7 @@ export const Header = memo(() => {
                 </Link>
               </li>
               <li className={`nav-item ${location.pathname === "/about" ? "active" : ""}`}>
-                <Link to="/" className="nav-link">
+                <Link to="/#about" className="nav-link">
                   Giới thiệu
                 </Link>
               </li>

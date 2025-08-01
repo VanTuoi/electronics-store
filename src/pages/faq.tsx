@@ -1,7 +1,15 @@
 import { memo } from "react";
+import { Helmet } from "react-helmet";
 
 const FAQ = memo(() => (
   <div className="container py-5">
+    <Helmet>
+      <title>FAQ | Electronics Store</title>
+      <meta
+        name="description"
+        content="Giải đáp các câu hỏi thường gặp về việc mua hàng, giao hàng và bảo hành tại Electronics Store."
+      />
+    </Helmet>
     <div className="bg-light p-4 rounded-3 shadow-sm">
       <h1 className="text-primary mb-4">Câu Hỏi Thường Gặp (FAQ)</h1>
 

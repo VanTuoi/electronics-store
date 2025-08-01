@@ -1,11 +1,11 @@
 import { memo } from "react";
 
 export const About = memo(() => (
-  <section className="ftco-section ftco-about bg-light">
+  <section className="ftco-section ftco-about bg-light" id="about">
     <div className="container">
       <div className="row no-gutters">
         <div className="col-md-6 p-md-5 d-flex justify-content-center align-items-center">
-          <img src="imgs/bg/bg2.png" alt="Background" className="img-fluid w-100 h-100 object-fit-cover rounded-2" />
+          <img src="imgs/about.webp" alt="Background" className="img-fluid w-100 h-100 object-fit-cover rounded-2" />
         </div>
 
         <div className="col-md-6 wrap-about">

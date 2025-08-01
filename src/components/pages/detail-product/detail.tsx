@@ -2,6 +2,7 @@ import "yet-another-react-lightbox/styles.css";
 
 import { useAtom } from "jotai";
 import { memo, useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import toast from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Lightbox } from "yet-another-react-lightbox";
@@ -85,6 +86,13 @@ export const ProductDetails = memo(() => {
 
   return (
     <div className="container">
+      {product && (
+        <Helmet>
+          <title>{product.name} | Electronics Store</title>
+          <meta name="description" content={`Thông tin chi tiết sản phẩm ${product.name}.`} />
+        </Helmet>
+      )}
+
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-7 order-2 order-md-1 mb-4">
