@@ -5,12 +5,16 @@ export const useEnvironmentStyles = (isAdmin: boolean) => {
     if (typeof document === "undefined") return;
 
     const bootstrapLinks = Array.from(document.querySelectorAll<HTMLLinkElement>('link[href*="bootstrap"]'));
+    bootstrapLinks.forEach(link => link.remove());
+
+    const styleLinks = Array.from(document.querySelectorAll<HTMLLinkElement>('link[href*="/style-"]'));
+    styleLinks.forEach(link => link.remove());
 
     if (isAdmin) {
-      bootstrapLinks.forEach(link => link.remove());
       import("~/styles/admin.css");
     } else {
-      if (!bootstrapLinks.length) {
+      const hasBootstrap = document.querySelector('link[href*="bootstrap"]');
+      if (!hasBootstrap) {
         const link = document.createElement("link");
         link.rel = "stylesheet";
         link.href = "/bootstrap.min.css";

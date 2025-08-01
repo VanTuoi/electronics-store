@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +7,7 @@ import { useEnvironmentStyles } from "~/hooks";
 import { AppLayout } from "~/layouts";
 import { userAtom } from "~/stores";
 
-const AdminHomePage = memo(() => {
+const AdminHomePage = () => {
   const navigate = useNavigate();
   const [user] = useAtom(userAtom);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -46,6 +46,6 @@ const AdminHomePage = memo(() => {
       <Toaster />
     </>
   );
-});
+};
 
 export default AdminHomePage;
