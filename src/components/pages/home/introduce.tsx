@@ -3,7 +3,7 @@ import { memo } from "react";
 export const Introduce = memo(() => (
   <div
     className="hero-wrap hero-wrap-3 ftco-degree-bg"
-    style={{ backgroundImage: "url('imgs/bg/bg.jpg')" }}
+    style={{ backgroundImage: "url('imgs/bg/bg.webp')" }}
     data-stellar-background-ratio="0.5"
   >
     <div className="overlay"></div>

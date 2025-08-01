@@ -2,6 +2,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { memo } from "react";
+import { Helmet } from "react-helmet";
 import { Link, useNavigate } from "react-router-dom";
 
 const NotFound = memo(() => {
@@ -10,6 +11,12 @@ const NotFound = memo(() => {
 
   return (
     <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center bg-light">
+      <Helmet>
+        <title>404 - Không tìm thấy trang | Electronics Store</title>
+        <meta name="description" content="Trang bạn đang tìm kiếm không tồn tại hoặc đã bị xoá." />
+        <meta name="robots" content="noindex" />
+      </Helmet>
+
       <div className="text-center">
         <h1 className="display-1 fw-bold text-danger">404</h1>
         <div className="mt-4">

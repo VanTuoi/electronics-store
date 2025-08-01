@@ -53,7 +53,7 @@ export const Footer = memo(() => {
               <p className="ftco-heading-2">Thông Tin</p>
               <ul className="list-unstyled">
                 <li>
-                  <Link to="/about" className="py-2 d-block text-light">
+                  <Link to="/#about" className="py-2 d-block text-light">
                     Về Chúng Tôi
                   </Link>
                 </li>
