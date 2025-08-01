@@ -1,36 +1,35 @@
 import { Product, ProductInput, ResponseData } from "~/types";
-
 import { getApi } from "~/utils/api-selector";
 
 export const productsApi = (type: "public" | "private" = "public") => {
-    const api = getApi(type);
+  const api = getApi(type);
 
-    return {
-        getProduct: (id: string) => api.get<ResponseData<Product | null>>(`/products/${id}`),
+  return {
+    getProduct: (id: string) => api.get<ResponseData<Product | null>>(`/products/${id}`),
 
-        getProducts: (params?: { search?: string; categoryId?: string; page?: number; limit?: number }) =>
-            api.get<ResponseData<Product[]>>("/products", { params }),
+    getProducts: (params?: { search?: string; categoryId?: string; page?: number; limit?: number }) =>
+      api.get<ResponseData<Product[]>>("/products", { params }),
 
-        getRandomProducts: (params?: { limit?: number }) =>
-            api.get<ResponseData<Product[]>>("/products/random", { params }),
+    getRandomProducts: (params?: { limit?: number }) =>
+      api.get<ResponseData<Product[]>>("/products/random", { params }),
 
-        getProductsForAdmin: (params?: { search?: string; categoryId?: string; showHidden?: string }) =>
-            api.get<ResponseData<Product[] | null>>("/products/admin", { params }),
+    getProductsForAdmin: (params?: { search?: string; categoryId?: string; showHidden?: string }) =>
+      api.get<ResponseData<Product[] | null>>("/products/admin", { params }),
 
-        createProduct: (product: Partial<ProductInput>) =>
-            api.post<ResponseData<Product | null>>("/products", product, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            }),
+    createProduct: (product: Partial<ProductInput>) =>
+      api.post<ResponseData<Product | null>>("/products", product, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      }),
 
-        updateProduct: (data: { id: string } & Partial<ProductInput>) =>
-            api.put<ResponseData<Product | null>>(`/products/${data.id}`, data, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            }),
+    updateProduct: (data: { id: string } & Partial<ProductInput>) =>
+      api.put<ResponseData<Product | null>>(`/products/${data.id}`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      }),
 
-        deleteProduct: (id: string) => api.delete<ResponseData<null>>(`/products/${id}`)
-    };
+    deleteProduct: (id: string) => api.delete<ResponseData<null>>(`/products/${id}`)
+  };
 };

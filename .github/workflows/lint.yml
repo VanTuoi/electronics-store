@@ -1,48 +1,48 @@
 name: Lint & Test
 
 on:
-    push:
-        branches:
-            - prod
-            - dev
+  push:
+    branches:
+      - prod
+      - dev
 jobs:
-    lint-commit-msg:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - name: Setup Node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-            - name: Install deps
-              run: npm install
-            - name: Lint commit message
-              run: npx commitlint --last --verbose
+  lint-commit-msg:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install deps
+        run: npm install
+      - name: Lint commit message
+        run: npx commitlint --last --verbose
 
-    lint-code:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - name: Setup Node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-            - name: Install deps
-              run: npm install
-            - name: Lint code
-              run: npm run lint
+  lint-code:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install deps
+        run: npm install
+      - name: Lint code
+        run: npm run lint
 
-    test-code:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v4
-            - name: Setup Node
-              uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-            - name: Install deps
-              run: npm install
-            - name: Run tests
-              run: npm run test
-              env:
-                  CI: true
+  test-code:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install deps
+        run: npm install
+      - name: Run tests
+        run: npm run test
+        env:
+          CI: true

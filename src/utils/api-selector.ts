@@ -5,5 +5,5 @@ import { privateApi, publicApi } from "~/services/http";
  * @returns
  */
 export function getApi(type: "public" | "private" = "public") {
-    return type === "public" ? publicApi : privateApi;
+  return type === "public" ? publicApi : privateApi;
 }
