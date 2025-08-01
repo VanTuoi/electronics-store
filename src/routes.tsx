@@ -7,7 +7,6 @@ const Layout = lazy(() => import("./layouts/layout.tsx"));
 const ErrorPage = lazy(() => import("./pages/error.tsx"));
 const HomePage = lazy(() => import("./pages/home.tsx"));
 const CartPage = lazy(() => import("./pages/cart.tsx"));
-const AboutPage = lazy(() => import("./pages/about.tsx"));
 const DetailPage = lazy(() => import("./pages/detail.tsx"));
 const CheckoutPage = lazy(() => import("./pages/checkout.tsx"));
 const CheckOrderPage = lazy(() => import("./pages/check-order.tsx"));
@@ -55,7 +54,6 @@ const routers = createBrowserRouter([
         element: <Layout />,
         children: [
           { index: true, element: <HomePage /> },
-          { path: "about", element: <AboutPage /> },
           { path: "cart", element: <CartPage /> },
           { path: "products", element: <ProductPage /> },
           { path: "product/:id", element: <DetailPage /> },
