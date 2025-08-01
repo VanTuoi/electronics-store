@@ -1,0 +1,22 @@
+import React, { memo } from "react";
+
+import { PHONE_NUMBER } from "~/constant";
+
+export const CallIcon: React.FC = memo(() => {
+  const handleClick = () => window.open(`tel:${PHONE_NUMBER}`);
+
+  return (
+    <div
+      className="call-icon-wrapper position-relative"
+      onClick={handleClick}
+      onKeyDown={e => {
+        if (e.key === "Enter" || e.key === " ") handleClick();
+      }}
+      tabIndex={0}
+      role="button"
+    >
+      <p>Liên hệ</p>
+      <i className="bi bi-telephone-fill"></i>
+    </div>
+  );
+});

@@ -31,56 +31,56 @@ const NotFoundPage = lazy(() => import("./pages/not-found.tsx"));
 const HelloPage = lazy(() => import("./pages/hello.tsx"));
 
 const routers = createBrowserRouter([
-    {
-        path: "/",
-        element: <App />,
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "",
+        element: <MinLayout />,
         children: [
-            {
-                path: "",
-                element: <MinLayout />,
-                children: [
-                    {
-                        path: "auth",
-                        children: [{ path: "login", element: <LoginPage /> }]
-                    },
-                    { path: "privacy", element: <PrivacyPage /> },
-                    { path: "terms", element: <TermsPage /> },
-                    { path: "faq", element: <FAQPage /> },
-                    { path: "payment", element: <PaymentPage /> },
-                    { path: "hello", element: <HelloPage /> }
-                ]
-            },
-            {
-                path: "",
-                element: <Layout />,
-                children: [
-                    { index: true, element: <HomePage /> },
-                    { path: "about", element: <AboutPage /> },
-                    { path: "cart", element: <CartPage /> },
-                    { path: "products", element: <ProductPage /> },
-                    { path: "product/:id", element: <DetailPage /> },
-                    { path: "check-out", element: <CheckoutPage /> },
-                    { path: "check", element: <CheckOrderPage /> }
-                ]
-            },
-            {
-                path: "admin",
-                element: <AdminLayout />,
-                children: [
-                    { index: true, element: <AdminHomePage /> },
-                    { path: "categories", element: <CategoriesPage /> },
-                    { path: "products", element: <ProductsPage /> },
-                    { path: "schedules", element: <SchedulesPage /> },
-                    { path: "orders", element: <OrdersPage /> }
-                ]
-            },
-            {
-                path: "*",
-                element: <NotFoundPage />
-            }
-        ],
-        errorElement: <ErrorPage />
-    }
+          {
+            path: "auth",
+            children: [{ path: "login", element: <LoginPage /> }]
+          },
+          { path: "privacy", element: <PrivacyPage /> },
+          { path: "terms", element: <TermsPage /> },
+          { path: "faq", element: <FAQPage /> },
+          { path: "payment", element: <PaymentPage /> },
+          { path: "hello", element: <HelloPage /> }
+        ]
+      },
+      {
+        path: "",
+        element: <Layout />,
+        children: [
+          { index: true, element: <HomePage /> },
+          { path: "about", element: <AboutPage /> },
+          { path: "cart", element: <CartPage /> },
+          { path: "products", element: <ProductPage /> },
+          { path: "product/:id", element: <DetailPage /> },
+          { path: "check-out", element: <CheckoutPage /> },
+          { path: "check", element: <CheckOrderPage /> }
+        ]
+      },
+      {
+        path: "admin",
+        element: <AdminLayout />,
+        children: [
+          { index: true, element: <AdminHomePage /> },
+          { path: "categories", element: <CategoriesPage /> },
+          { path: "products", element: <ProductsPage /> },
+          { path: "schedules", element: <SchedulesPage /> },
+          { path: "orders", element: <OrdersPage /> }
+        ]
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />
+      }
+    ],
+    errorElement: <ErrorPage />
+  }
 ]);
 
 export default routers;
