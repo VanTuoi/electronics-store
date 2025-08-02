@@ -5,12 +5,10 @@ import {
   BoxCubeIcon,
   CategoryIcon,
   ChevronDownIcon,
-  DollarLineIcon,
   HorizontaLDots,
   ListIcon,
   OverviewIcon,
-  PieChartIcon,
-  UserCircleIcon
+  PieChartIcon
 } from "~/components/common/icons";
 import { useSidebar } from "~/hooks";
 
@@ -37,11 +35,11 @@ const navItems: NavItem[] = [
     icon: <BoxCubeIcon />,
     subItems: [{ name: "Tủ điện đang kinh doanh", path: "products", pro: false }]
   },
-  {
-    name: "Khuyến mãi",
-    icon: <DollarLineIcon />,
-    subItems: [{ name: "Khuyến mãi", path: "", pro: false }]
-  },
+  // {
+  //   name: "Khuyến mãi",
+  //   icon: <DollarLineIcon />,
+  //   subItems: [{ name: "Khuyến mãi", path: "", pro: false }]
+  // },
   {
     name: "Yêu cầu tư vấn hỗ trợ",
     icon: <ListIcon />,
@@ -51,12 +49,12 @@ const navItems: NavItem[] = [
     name: "Đơn hàng",
     icon: <ListIcon />,
     subItems: [{ name: "Đơn hàng", path: "orders", pro: false }]
-  },
-  {
-    name: "Danh sách khách hàng",
-    icon: <UserCircleIcon />,
-    subItems: [{ name: "Danh sách khách hàng", path: "", pro: false }]
   }
+  // {
+  //   name: "Danh sách khách hàng",
+  //   icon: <UserCircleIcon />,
+  //   subItems: [{ name: "Danh sách khách hàng", path: "", pro: false }]
+  // }
 ];
 
 const othersItems: NavItem[] = [
