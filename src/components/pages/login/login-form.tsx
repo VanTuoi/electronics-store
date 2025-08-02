@@ -17,7 +17,11 @@ export const LoginForm = memo(() => {
     handleSubmit,
     formState: { errors }
   } = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema)
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "admin@electronics.com",
+      password: "admin123456"
+    }
   });
 
   const onSubmit = (data: LoginFormData) => {
