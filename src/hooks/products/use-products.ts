@@ -1,9 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { productsApi } from "~/services/products";
+import { productsApi } from "~/services";
 import { Product, ProductInput } from "~/types";
-import { formDataToObject } from "~/utils/form-data-format";
+import { formDataToObject } from "~/utils";
 
 export const useGetProductById = (id?: string) => {
   const {
@@ -15,7 +15,7 @@ export const useGetProductById = (id?: string) => {
     queryKey: ["product", id],
     queryFn: async (): Promise<Product | null> => {
       if (!id) return null;
-      const res = await productsApi("private").getProduct(id);
+      const res = await productsApi("public").getProduct(id);
       return res.data.data ?? null;
     },
     enabled: !!id,
@@ -47,7 +47,7 @@ export const useGetProducts = (params?: {
   } = useQuery({
     queryKey: ["products", params],
     queryFn: async () => {
-      const res = await productsApi("private").getProducts({
+      const res = await productsApi("public").getProducts({
         ...params,
         categoryId: params?.categoryId?.join(","),
         page: params?.page || 1,
@@ -85,7 +85,7 @@ export const useGetRandomProducts = (params?: { limit?: number }) => {
   } = useQuery({
     queryKey: ["products-random", params],
     queryFn: async () => {
-      const res = await productsApi("private").getRandomProducts({
+      const res = await productsApi("public").getRandomProducts({
         ...params,
         limit: params?.limit || 5
       });

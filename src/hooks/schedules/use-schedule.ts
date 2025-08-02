@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { schedulesApi } from "~/services/schelude";
+import { schedulesApi } from "~/services";
 import { Schedule } from "~/types";
 
 export const useGetSchedules = (params?: { search?: string; categoryId?: string; status?: string }) => {
@@ -41,7 +41,7 @@ export const useCreateSchedules = (onClose?: () => void) => {
     error
   } = useMutation({
     mutationFn: async (scheduleData: Omit<Schedule, "id" | "createdAt" | "updatedAt">): Promise<Schedule | null> => {
-      const res = await schedulesApi("private").createSchedule(scheduleData);
+      const res = await schedulesApi("public").createSchedule(scheduleData);
       return res.data.data;
     },
     onSuccess: newSchedule => {

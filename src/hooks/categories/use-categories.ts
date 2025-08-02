@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { categoriesApi } from "~/services/categories";
+import { categoriesApi } from "~/services";
 import { Category } from "~/types";
 
 export const useGetCategories = () => {
@@ -12,7 +12,7 @@ export const useGetCategories = () => {
   } = useQuery<Category[]>({
     queryKey: ["categories"],
     queryFn: async (): Promise<Category[]> => {
-      const res = await categoriesApi("private").getCategories();
+      const res = await categoriesApi("public").getCategories();
       return res.data.data ?? [];
     },
     staleTime: 5 * 60 * 1000

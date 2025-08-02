@@ -1,8 +1,8 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { useCallback } from "react";
 
-import { productsApi } from "~/services/products";
-import { cartAtom } from "~/stores/cart";
+import { productsApi } from "~/services";
+import { cartAtom } from "~/stores";
 import { CartItem, Product } from "~/types";
 
 export const useSyncProductById = () => {
@@ -12,7 +12,7 @@ export const useSyncProductById = () => {
   const syncProduct = useCallback(
     async (productId: string) => {
       try {
-        const res = await productsApi("private").getProduct(productId);
+        const res = await productsApi("public").getProduct(productId);
         const updatedProduct: Product | null = res.data?.data ?? null;
 
         if (!updatedProduct) return;
