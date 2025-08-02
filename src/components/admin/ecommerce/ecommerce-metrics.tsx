@@ -106,7 +106,7 @@ export const EcommerceMetrics = memo(() => {
             </h4>
           </div>
           {outOfStockProducts && outOfStockProducts.length > 0 ? (
-            <Badge color="error">{outOfStockProducts.length} sắp hoặc hết hết hàng</Badge>
+            <Badge color="error">{outOfStockProducts.length} sắp hoặc hết hàng</Badge>
           ) : (
             <Badge color="warning">Không có dữ liệu</Badge>
           )}
