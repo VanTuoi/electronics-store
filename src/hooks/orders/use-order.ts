@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
-import { ordersApi } from "~/services/order";
+import { ordersApi } from "~/services";
 import { Order } from "~/types";
 
 export const useGetOrderById = (id?: string) => {
@@ -14,7 +14,7 @@ export const useGetOrderById = (id?: string) => {
     queryKey: ["order", id],
     queryFn: async (): Promise<Order | null> => {
       if (!id) return null;
-      const res = await ordersApi("private").getOrder(id);
+      const res = await ordersApi("public").getOrder(id);
       return res.data.data ?? null;
     },
     enabled: !!id,
@@ -67,7 +67,7 @@ export const useCreateOrders = (onClose?: () => void) => {
     error
   } = useMutation({
     mutationFn: async (scheduleData: Omit<Order, "id" | "createdAt" | "updatedAt">): Promise<Order | null> => {
-      const res = await ordersApi("private").createOrder(scheduleData);
+      const res = await ordersApi("public").createOrder(scheduleData);
       return res.data.data;
     },
     onSuccess: newOrder => {

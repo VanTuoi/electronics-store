@@ -10,7 +10,7 @@ const CartPage = lazy(() => import("./pages/cart.tsx"));
 const DetailPage = lazy(() => import("./pages/detail.tsx"));
 const CheckoutPage = lazy(() => import("./pages/checkout.tsx"));
 const CheckOrderPage = lazy(() => import("./pages/check-order.tsx"));
-const ProductPage = lazy(() => import("./pages/product.tsx"));
+const ProductPage = lazy(() => import("./pages/products.tsx"));
 const MinLayout = lazy(() => import("./layouts/min-layout.tsx"));
 
 const LoginPage = lazy(() => import("./pages/login.tsx"));
