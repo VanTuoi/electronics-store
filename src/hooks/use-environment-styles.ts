@@ -3,23 +3,34 @@ import { useEffect } from "react";
 export const useEnvironmentStyles = (isAdmin: boolean) => {
   useEffect(() => {
     if (typeof document === "undefined") return;
+    const removedNodes: (HTMLLinkElement | HTMLStyleElement)[] = [];
 
-    const bootstrapLinks = Array.from(document.querySelectorAll<HTMLLinkElement>('link[href*="bootstrap"]'));
-    bootstrapLinks.forEach(link => link.remove());
+    const removeElements = (matchFn: (el: Element) => boolean) => {
+      const elements = Array.from(document.head.children).filter(matchFn);
+      elements.forEach(el => {
+        removedNodes.push(el.cloneNode(true) as HTMLLinkElement | HTMLStyleElement);
+        el.remove();
+      });
+    };
 
-    const styleLinks = Array.from(document.querySelectorAll<HTMLLinkElement>('link[href*="/style-"]'));
-    styleLinks.forEach(link => link.remove());
+    removeElements(
+      el =>
+        (el.tagName === "LINK" &&
+          !!(el as HTMLLinkElement).href &&
+          (el as HTMLLinkElement).href.includes("bootstrap")) ||
+        (el.tagName === "LINK" && !!(el as HTMLLinkElement).href && (el as HTMLLinkElement).href.includes("/style-")) ||
+        (el.tagName === "STYLE" && !!el.textContent && el.textContent.includes("bootstrap"))
+    );
 
     if (isAdmin) {
       import("~/styles/admin.css");
-    } else {
-      const hasBootstrap = document.querySelector('link[href*="bootstrap"]');
-      if (!hasBootstrap) {
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = "/bootstrap.min.css";
-        document.head.appendChild(link);
-      }
     }
+
+    // eslint-disable-next-line consistent-return
+    return () => {
+      removedNodes.forEach(el => {
+        document.head.appendChild(el);
+      });
+    };
   }, [isAdmin]);
 };
