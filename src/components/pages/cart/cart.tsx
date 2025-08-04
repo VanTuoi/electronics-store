@@ -112,19 +112,18 @@ export const Cart = memo(() => {
                             </Link>
                           </div>
 
-                          <p className="card-text fw-bold mt-2 fs-5">
+                          <p className="card-text mt-2">
                             {handleGetDisplay(item.product).isDiscounted ? (
                               <>
-                                <span className="text-danger me-2">{handleGetDisplay(item.product).display}</span>
-                                <span className="text-muted text-decoration-line-through">
+                                <span className="text-black me-2">{handleGetDisplay(item.product).display}</span>
+                                <span className="text-black text-decoration-line-through">
                                   {formatCurrency(handleGetDisplay(item.product).original!)}
                                 </span>
                               </>
                             ) : (
-                              <span className="text-primary">{handleGetDisplay(item.product).display}</span>
+                              <span className="text-black fs-6">{handleGetDisplay(item.product).display}</span>
                             )}
                           </p>
-
                           <div className="d-flex align-items-center gap-3">
                             <div className="input-group quantity-input">
                               <button
@@ -133,14 +132,16 @@ export const Cart = memo(() => {
                                 name="minus"
                                 className="btn btn-outline-secondary btn-sm px-2 quantity-input-button"
                                 type="button"
+                                aria-label="Giảm số lượng"
                               >
-                                <i className="bi bi-dash"></i>
+                                <i className="bi bi-dash" aria-hidden="true"></i>
                               </button>
                               <input
                                 readOnly
                                 type="number"
                                 className="form-control text-center quantity-input-input"
                                 value={item.quantity}
+                                aria-label={`Số lượng hiện tại là ${item.quantity}`}
                               />
                               <button
                                 disabled
@@ -148,11 +149,16 @@ export const Cart = memo(() => {
                                 name="plus"
                                 className="btn btn-outline-secondary btn-sm px-2 quantity-input-button"
                                 type="button"
+                                aria-label="Tăng số lượng"
                               >
-                                <i className="bi bi-plus"></i>
+                                <i className="bi bi-plus" aria-hidden="true"></i>
                               </button>
                             </div>
-                            <button className="btn btn-danger py-2" onClick={() => removeFromCart(item.product.id)}>
+                            <button
+                              className="btn btn-danger py-2"
+                              onClick={() => removeFromCart(item.product.id)}
+                              aria-label={`Xóa sản phẩm ${item.product.name} khỏi giỏ hàng`}
+                            >
                               Xóa
                             </button>
                           </div>
@@ -203,16 +209,16 @@ export const Cart = memo(() => {
                               className="d-flex align-items-center text-truncate overflow-hidden"
                               style={{ whiteSpace: "nowrap" }}
                             >
-                              <span className="fw-bold text-primary fs-5 me-2">
+                              <span className="fw-bold text-danger fs-5 me-2">
                                 {handleGetDisplay(item.product).display}
                               </span>
-                              <span className="fw-bold text-decoration-line-through text-danger fs-6">
+                              <span className="fw-bold text-decoration-line-through text-black fs-6">
                                 {formatCurrency(handleGetDisplay(item.product).original!)}
                               </span>
                             </div>
                           ) : (
                             <span
-                              className="fw-bold text-primary fs-5 text-truncate overflow-hidden"
+                              className="fw-bold text-black fs-5 text-truncate overflow-hidden"
                               style={{ whiteSpace: "nowrap" }}
                             >
                               {handleGetDisplay(item.product).display}

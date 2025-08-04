@@ -20,9 +20,10 @@ export const CartIcon: React.FC = memo(() => {
       tabIndex={0}
       onClick={goToCart}
       onKeyDown={e => e.key === "Enter" && goToCart()}
+      aria-label={`Open cart. ${numberItems} item${numberItems !== 1 ? "s" : ""} in cart.`}
     >
       <div className="cart-icon-wrapper position-relative">
-        <i role="img" aria-label="cart" className="bi bi-cart-fill fs-5"></i>
+        <i role="img" aria-label="Shopping cart icon" className="bi bi-cart-fill fs-5"></i>
         {numberItems > 0 && <span className="cart-badge">{numberItems > 99 ? "99+" : numberItems}</span>}
       </div>
     </div>
