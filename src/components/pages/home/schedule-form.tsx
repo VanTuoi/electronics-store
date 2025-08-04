@@ -52,7 +52,13 @@ export const ScheduleForm = memo(() => {
         {errors.note && <p className="text-warning text-small">{errors.note.message}</p>}
       </div>
       <div className="form-group mt-4">
-        <input disabled={loading} type="submit" value="Đặt lịch hẹn" className="btn btn-secondary py-3 px-3" />
+        <input
+          disabled={loading}
+          type="submit"
+          value="Đặt lịch hẹn"
+          className="btn btn-secondary py-3 px-3"
+          aria-label="Book an appointment"
+        />
       </div>
     </form>
   );

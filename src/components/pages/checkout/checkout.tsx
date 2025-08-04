@@ -152,19 +152,19 @@ export const Checkout = memo(() => {
                 <div className="col-md-2 text-end">
                   {handleGetDisplay(item.product).isDiscounted ? (
                     <div className="d-flex flex-column flex-md-row justify-content-end align-items-end">
-                      <span className="fw-bold text-primary fs-5">{handleGetDisplay(item.product).display}</span>
-                      <span className="fw-bold text-decoration-line-through fs-6 ms-md-2">
+                      <span className="fw-bold text-danger fs-5">{handleGetDisplay(item.product).display}</span>
+                      <span className="text-decoration-line-through fs-6 ms-md-2">
                         {formatCurrency(handleGetDisplay(item.product).original!)}
                       </span>
                     </div>
                   ) : (
-                    <span className="fw-bold text-primary fs-5">{handleGetDisplay(item.product).display}</span>
+                    <span className="text-black fs-5">{handleGetDisplay(item.product).display}</span>
                   )}
                 </div>
 
                 <div className="col-md-2 text-end">
-                  <span className="fw-bold text-primary fs-5">
-                    <span className="fw-bold text-primary fs-5">
+                  <span className=" text-black fs-5">
+                    <span className=" text-black fs-5">
                       {formatCurrency(handleGetDisplay(item.product).rawDisplay * item.quantity)}
                     </span>
                   </span>
@@ -174,7 +174,7 @@ export const Checkout = memo(() => {
             <div className="row mt-1 py-3">
               <div className="col-md-8">Chi phí vận chuyển </div>
               <div className="col-md-4 text-end">
-                <span className="fw-bold text-primary fs-5">{formatCurrency(cost)}</span>
+                <span className=" text-black fs-5">{formatCurrency(cost)}</span>
               </div>
             </div>
             <div className="row mt-3">

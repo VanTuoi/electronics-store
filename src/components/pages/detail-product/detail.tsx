@@ -99,8 +99,15 @@ export const ProductDetails = memo(() => {
             <button
               className="p-0 border-0 bg-transparent w-100 d-none d-md-flex"
               onClick={() => setLightboxOpen(true)}
+              aria-label="Open image in fullscreen view"
             >
-              <img src={mainImage} alt="Product" className="img-fluid rounded mb-3 product-image" id="mainImage" />
+              <img
+                src={mainImage}
+                loading="eager"
+                alt="Product"
+                className="img-fluid rounded mb-3 product-image"
+                id="mainImage"
+              />
             </button>
             <div className="d-flex justify-content-flex-start gap-2 mt-2 d-none d-md-flex">
               {product?.images?.map((img, index) => {
@@ -194,7 +201,7 @@ export const ProductDetails = memo(() => {
                 );
               })}
             </div>
-            <h4 className="mb-1 text-bold">{product.name}</h4>
+            <h1 className="mb-1 text-bold h4">{product.name}</h1>
             <p className="mb-1 text-bold">
               <strong>Mã: </strong>
               {product?.code}
@@ -232,13 +239,13 @@ export const ProductDetails = memo(() => {
               {isDiscounted ? (
                 <div>
                   <strong>Giá bán: </strong>
-                  <span className="badge text-primary fs-4 me-2">{display}</span>
-                  <span className="badge text-decoration-line-through text-danger fs-5">
+                  <span className="badge text-danger fs-4 me-2">{display}</span>
+                  <span className="badge text-decoration-line-through text-black fs-5">
                     {formatCurrency(original!)}
                   </span>
                 </div>
               ) : (
-                <span className="badge text-primary fs-4 me-2">{display}</span>
+                <span className="badge text-danger fs-4 me-2">{display}</span>
               )}
             </div>
             <div className="mb-4">
@@ -248,20 +255,26 @@ export const ProductDetails = memo(() => {
               <input
                 type="number"
                 id="quantity"
+                name="quantity"
                 className="form-control mb-2"
                 value={quantity}
                 min={1}
                 onChange={e => setQuantity(Number(e.target.value))}
                 style={{ width: "80px" }}
+                aria-label="Quantity"
               />
             </div>
 
             <div className="mb-4 d-flex gap-2">
-              <button className="btn btn-primary flex-grow-1 py-3" onClick={goToCheckOut}>
-                <i className="bi bi-bag me-2"></i> Mua ngay
+              <button className="btn btn-primary flex-grow-1 py-3" onClick={goToCheckOut} aria-label="Buy now">
+                <i className="bi bi-bag me-2" aria-hidden="true"></i>
+                Mua ngay
               </button>
+
               <button
-                className={`btn py-3 px-3 ${cart.some(item => item.product.id === product.id) ? "btn-primary" : "btn-outline-primary"}`}
+                className={`btn py-3 px-3 ${
+                  cart.some(item => item.product.id === product.id) ? "btn-primary" : "btn-outline-primary"
+                }`}
                 onClick={() => {
                   if (cart.some(item => item.product.id === product.id)) {
                     handleDelete(product.id);
@@ -269,13 +282,14 @@ export const ProductDetails = memo(() => {
                     handleAdd();
                   }
                 }}
+                aria-label={cart.some(item => item.product.id === product.id) ? "Remove from cart" : "Add to cart"}
               >
-                <i className="bi bi-cart-plus"></i>
+                <i className="bi bi-cart-plus" aria-hidden="true"></i>
               </button>
             </div>
 
             <div className="mb-4">
-              <h5 className="fs-4">Thông số kỹ thuật:</h5>
+              <h2 className="fs-4">Thông số kỹ thuật:</h2>
               <ul>
                 {product?.dimensions?.height && product?.dimensions?.width && product?.dimensions?.depth && (
                   <li>
@@ -318,7 +332,7 @@ export const ProductDetails = memo(() => {
 
             {product?.features && product?.features?.length > 0 && (
               <div className="mb-4">
-                <h5 className="fs-4">Tính năng:</h5>
+                <h2 className="fs-4">Tính năng:</h2>
                 <ul>
                   {product.features.map((f, idx) => (
                     <li key={idx}>{f}</li>

@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { memo } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { PHONE_NUMBER } from "~/constant";
 import { cartAtom } from "~/stores";
@@ -18,8 +18,7 @@ export const ProductCard = memo(({ product }: ProductCardProps) => {
   const { display, isDiscounted, original } = getDisplayPrice(product);
 
   const productSlug = slugify(product.name);
-
-  const goToDetail = () => navigate(`/product/${productSlug}-${product.id}`);
+  const productLink = `/product/${productSlug}-${product.id}`;
 
   const goToCheckOut = () => {
     if (product.priceText !== "") {
@@ -47,29 +46,30 @@ export const ProductCard = memo(({ product }: ProductCardProps) => {
   return (
     <div
       className="card shadow-sm rounded border-1 mt-3 mt-md-4 product-card"
-      onClick={goToDetail}
-      onKeyDown={e => {
-        if (e.key === "Enter" || e.key === " ") goToDetail();
-      }}
-      role="button"
-      tabIndex={0}
-      style={{ cursor: "pointer" }}
+      role="region"
+      aria-label={`Product card: ${product.name}`}
     >
-      <img
-        src={getMainImage(product?.images ?? [])}
-        alt={product.name}
-        className="card-img-top p-2 rounded-4"
-        style={{
-          objectFit: "cover",
-          height: "200px",
-          width: "100%"
-        }}
-      />
+      <Link to={productLink} className="text-decoration-none text-dark">
+        <img
+          src={getMainImage(product?.images ?? [])}
+          alt={product.name}
+          className="card-img-top p-2 rounded-4"
+          style={{
+            objectFit: "cover",
+            height: "200px",
+            width: "100%"
+          }}
+        />
+      </Link>
+
       <div className="card-body d-flex flex-column justify-content-between">
         <div className="product-title">
-          <h5 className="card-title fw-bold fs-6 text-truncate-hover" title={product.name}>
-            {product.name.length > 30 ? product.name.slice(0, 30) + "..." : product.name}
-          </h5>
+          <Link to={productLink} className="text-decoration-none text-dark">
+            <h5 className="card-title fw-bold fs-6 text-truncate-hover" title={product.name}>
+              {product.name.length > 30 ? product.name.slice(0, 30) + "..." : product.name}
+            </h5>
+          </Link>
+
           {product.code && <p className="card-text text-muted mb-1">Mã: {product.code}</p>}
           <p className="card-text text-muted mb-1">Loại: {product?.category?.name}</p>
           {product.inputVoltage && <p className="card-text text-muted mb-2">Điện áp vào: {product.inputVoltage}</p>}
@@ -84,11 +84,11 @@ export const ProductCard = memo(({ product }: ProductCardProps) => {
         <div className="mt-auto product-title">
           {isDiscounted ? (
             <div>
-              <span className="badge text-primary fs-5 me-2">{display}</span>
-              <span className="text-decoration-line-through text-danger fs-6">{formatCurrency(original!)}</span>
+              <span className="badge text-danger fs-5 me-2">{display}</span>
+              <span className="text-decoration-line-through text-black fs-6">{formatCurrency(original!)}</span>
             </div>
           ) : (
-            <span className="badge text-primary fs-5">{display}</span>
+            <span className="badge text-danger fs-5">{display}</span>
           )}
         </div>
 
@@ -99,11 +99,15 @@ export const ProductCard = memo(({ product }: ProductCardProps) => {
               e.stopPropagation();
               goToCheckOut();
             }}
+            aria-label="Buy now"
           >
-            <i className="bi bi-bag me-2"></i> Mua ngay
+            <i className="bi bi-bag me-2" aria-hidden="true"></i> Mua ngay
           </button>
+
           <button
-            className={`btn ${cart.some(item => item.product.id === product.id) ? "btn-primary" : "btn-outline-primary"}`}
+            className={`btn ${
+              cart.some(item => item.product.id === product.id) ? "btn-primary" : "btn-outline-primary"
+            }`}
             onClick={e => {
               e.stopPropagation();
               if (cart.some(item => item.product.id === product.id)) {
@@ -112,8 +116,9 @@ export const ProductCard = memo(({ product }: ProductCardProps) => {
                 handleAdd();
               }
             }}
+            aria-label={cart.some(item => item.product.id === product.id) ? "Remove from cart" : "Add to cart"}
           >
-            <i className="bi bi-cart-plus"></i>
+            <i className="bi bi-cart-plus" aria-hidden="true"></i>
           </button>
         </div>
       </div>

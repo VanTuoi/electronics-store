@@ -36,7 +36,7 @@ export const Schedule = memo(() => {
                     <div className="col-md-4 d-flex align-self-stretch">
                       <div className="services w-100 text-center">
                         <div className="icon d-flex align-items-center justify-content-center">
-                          <i className="fa fa-address-card fa-3x text-primary" />
+                          <i className="bi bi-person-vcard-fill fs-1 text-primary" />
                         </div>
                         <div className="text w-100">
                           <h3 className="heading mb-2">Nhập thông tin liên hệ và mô tả yêu cầu</h3>
@@ -46,7 +46,7 @@ export const Schedule = memo(() => {
                     <div className="col-md-4 d-flex align-self-stretch">
                       <div className="services w-100 text-center">
                         <div className="icon d-flex align-items-center justify-content-center">
-                          <i className="fa fa-paper-plane fa-3x text-primary" />
+                          <i className="bi bi-send-fill fs-1 text-primary" />
                         </div>
                         <div className="text w-100">
                           <h3 className="heading mb-2">Gửi thông tin liên hệ</h3>
@@ -56,7 +56,7 @@ export const Schedule = memo(() => {
                     <div className="col-md-4 d-flex align-self-stretch">
                       <div className="services w-100 text-center">
                         <div className="icon d-flex align-items-center justify-content-center">
-                          <i className="fa fa-phone fa-3x text-primary" />
+                          <i className="bi bi-telephone-fill fs-1 text-primary" />
                         </div>
                         <div className="text w-100">
                           <h3 className="heading mb-2">Bên mình sẽ liên hệ lại sớm nhất</h3>

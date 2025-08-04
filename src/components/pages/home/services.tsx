@@ -13,7 +13,7 @@ export const Services = memo(() => (
         <div className="col-md-6">
           <div className="services services-2 w-100 text-center">
             <div className="icon d-flex align-items-center justify-content-center">
-              <i className="fa fa-archive fa-3x text-light" aria-hidden="true"></i>
+              <i className="bi bi-box-seam fs-1 text-light" aria-label="Product business icon"></i>
             </div>
             <div className="text w-100">
               <h3 className="heading mb-2">Kinh doanh sản phẩm tủ điện</h3>
@@ -24,7 +24,7 @@ export const Services = memo(() => (
         <div className="col-md-6">
           <div className="services services-2 w-100 text-center">
             <div className="icon d-flex align-items-center justify-content-center">
-              <i className="fa fa-cogs fa-3x text-light" aria-hidden="true"></i>
+              <i className="bi bi-tools fs-1 text-light" aria-label="Electrical cabinet design icon"></i>
             </div>
             <div className="text w-100">
               <h3 className="heading mb-2">Hỗ trợ thiết kế tủ điện</h3>
