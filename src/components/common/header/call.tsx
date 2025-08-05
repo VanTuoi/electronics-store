@@ -17,7 +17,7 @@ export const CallIcon: React.FC = memo(() => {
       aria-label={`Call phone number ${PHONE_NUMBER}`}
     >
       <p>Liên hệ</p>
-      <i className="bi bi-telephone-fill" role="img" aria-label="Phone icon"></i>
+      <i className="bi bi-telephone-fill d-none d-lg-inline ms-2" role="img" aria-label="Phone icon"></i>
     </div>
   );
 });
