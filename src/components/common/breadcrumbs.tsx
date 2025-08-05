@@ -8,8 +8,6 @@ interface IntroduceProps {
 
 export const Breadcrumbs = memo(({ breadcrumbs, title }: IntroduceProps) => {
   useEffect(() => {
-    // Kiểm tra nếu là mobile (width <= 768px) thì scroll lên đầu trang
-    // Nếu không phải mobile thì scroll tới vị trí 385 như ban đầu
     const scrollPosition = window.innerWidth <= 768 ? 0 : 385;
 
     window.scrollTo({
@@ -31,13 +29,13 @@ export const Breadcrumbs = memo(({ breadcrumbs, title }: IntroduceProps) => {
             <p className="breadcrumbs">
               <span className="mr-2">
                 <Link to="/">
-                  Trang chủ <i className="fa fa-chevron-right"></i>
+                  Trang chủ <i className="bi bi-chevron-right"></i>
                 </Link>
               </span>
               {breadcrumbs.map(([text, url], index) => (
                 <span key={index} className="mr-2">
                   <Link to={url}>
-                    {text} <i className="fa fa-chevron-right"></i>
+                    {text} <i className="bi bi-chevron-right"></i>
                   </Link>
                 </span>
               ))}

@@ -55,7 +55,7 @@ export const ProductCard = memo(({ product }: ProductCardProps) => {
           alt={product.name}
           className="card-img-top p-2 rounded-4"
           style={{
-            objectFit: "cover",
+            objectFit: "contain",
             height: "200px",
             width: "100%"
           }}

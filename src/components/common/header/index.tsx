@@ -26,7 +26,7 @@ export const Header = memo(() => {
             aria-label="Toggle navigation"
             onClick={() => setIsOpen(prev => !prev)}
           >
-            <i className="fa fa-bars" aria-hidden="true"></i>
+            <i className="bi bi-list fs-4"></i>
           </button>
 
           <div className={`collapse navbar-collapse ${isOpen ? "show" : ""}`} id="ftco-nav">

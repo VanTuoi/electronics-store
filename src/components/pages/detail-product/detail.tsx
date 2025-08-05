@@ -124,7 +124,7 @@ export const ProductDetails = memo(() => {
                       src={src}
                       alt={`Thumb ${index + 1}`}
                       className={`thumbnail rounded ${isActive ? "active" : ""}`}
-                      style={{ width: "100%" }}
+                      style={{ width: "100%", objectFit: "contain" }}
                     />
                   </button>
                 );
