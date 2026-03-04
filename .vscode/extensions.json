@@ -1,4 +1,4 @@
 {
-    "recommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint", "formulahendry.auto-rename-tag"],
-    "unwantedRecommendations": []
+  "recommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint", "formulahendry.auto-rename-tag"],
+  "unwantedRecommendations": []
 }
